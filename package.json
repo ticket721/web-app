@@ -1,0 +1,18 @@
+{
+  "name": "@horyus/t721-web-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "t721-web-app - Web App to use the ticket721 plateform",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mortimr/t721-web-app.git"
+  },
+  "author": "Iulian Rotaru",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mortimr/t721-web-app/issues"
+  },
+  "homepage": "https://github.com/mortimr/t721-web-app#readme"
+}
