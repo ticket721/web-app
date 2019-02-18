@@ -5,7 +5,13 @@
     "description": "t721-web-app - Web App to use the ticket721 plateform",
     "main": "index.js",
     "scripts": {
-        "next": "next"
+        "setup:links": "link-module-alias",
+        "postinstall": "npm run setup:links",
+        "next": "next",
+        "test:lint": "tslint --project ."
+    },
+    "_moduleAliases": {
+        "@components": "./components"
     },
     "repository": {
         "type": "git",
@@ -24,9 +30,14 @@
         "@types/react-dom": "^16.8.2",
         "@zeit/next-typescript": "^1.1.1",
         "husky": "^1.3.1",
+        "link-module-alias": "^1.1.6",
+        "linted": "^1.0.5",
         "next": "^8.0.1",
         "react": "^16.8.2",
-        "react-dom": "^16.8.2"
+        "react-dom": "^16.8.2",
+        "tslint": "^5.12.1",
+        "tslint-react": "^3.6.0",
+        "typescript": "^3.3.3"
     },
     "devDependencies": {
         "merge": ">=1.2.1",
