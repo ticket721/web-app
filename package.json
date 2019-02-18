@@ -4,7 +4,9 @@
     "version": "1.0.0",
     "description": "t721-web-app - Web App to use the ticket721 plateform",
     "main": "index.js",
-    "scripts": {},
+    "scripts": {
+        "next": "next"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ticket721/web-app.git"
@@ -17,7 +19,14 @@
     "homepage": "https://github.com/ticket721/web-app#readme",
     "dependencies": {
         "@htmlacademy/editorconfig-cli": "^1.0.0",
-        "husky": "^1.3.1"
+        "@types/next": "^8.0.1",
+        "@types/react": "^16.8.3",
+        "@types/react-dom": "^16.8.2",
+        "@zeit/next-typescript": "^1.1.1",
+        "husky": "^1.3.1",
+        "next": "^8.0.1",
+        "react": "^16.8.2",
+        "react-dom": "^16.8.2"
     },
     "devDependencies": {
         "merge": ">=1.2.1",
