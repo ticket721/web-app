@@ -1,23 +1,24 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main, NextScript } from 'next/document';
+import React                                from 'react';
 
-export default class t721Document extends Document {
+export default class T721Document extends Document {
 
-    static async getInitialProps(ctx) {
+    static async getInitialProps(ctx: any): Promise<any> {
         const initialProps = await Document.getInitialProps(ctx);
-        return { ...initialProps }
+        return {...initialProps};
     }
 
-    render() {
+    render(): React.ReactNode {
         return (
             <html>
             <Head>
                 <style>{`body { margin: 0 } /* custom! */`}</style>
             </Head>
-            <body className="custom_class">
-            <Main />
-            <NextScript />
+            <body className='custom_class'>
+            <Main/>
+            <NextScript/>
             </body>
             </html>
-        )
+        );
     }
 }
