@@ -8,10 +8,37 @@
         "setup:links": "link-module-alias",
         "postinstall": "npm run setup:links",
         "next": "next",
-        "test:lint": "tslint --project ."
+        "test:editorconfig": "editorconfig-cli",
+        "test:lint": "tslint --project .",
+        "test:jest": "jest",
+        "coverage:upload": "cat ./coverage/lcov.info | coveralls"
     },
     "_moduleAliases": {
         "@components": "./components"
+    },
+    "jest": {
+        "verbose": true,
+        "collectCoverage": true,
+        "moduleDirectories": [
+            "node_modules",
+            "components"
+        ],
+        "setupFiles": [
+            "<rootDir>/test-shim.js",
+            "<rootDir>/test-setup.js"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js"
+        ],
+        "transform": {
+            "^.+\\.(ts|tsx)$": "<rootDir>/test-preprocessor.js"
+        },
+        "testMatch": [
+            "**/__tests__/*.(ts|tsx|js)",
+            "**/*.test.(ts|tsx|js)"
+        ]
     },
     "repository": {
         "type": "git",
@@ -40,11 +67,21 @@
         "typescript": "^3.3.3"
     },
     "devDependencies": {
+        "@types/enzyme": "^3.1.18",
+        "@types/jest": "^24.0.6",
+        "coveralls": "^3.0.2",
+        "deep-extend": ">=0.5.1",
+        "enzyme": "^3.9.0",
+        "enzyme-adapter-react-16": "^1.9.1",
+        "jest": "^24.1.0",
         "merge": ">=1.2.1",
-        "deep-extend": ">=0.5.1"
+        "react-test-renderer": "^16.8.2"
     },
     "editorconfig-cli": [
-        "./package.json"
+        "./package.json",
+        "./pages/*.tsx",
+        "./components/*.tsx",
+        "*.js"
     ],
     "husky": {
         "hooks": {
