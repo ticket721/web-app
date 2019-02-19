@@ -10,7 +10,7 @@
         "next": "next",
         "test:editorconfig": "editorconfig-cli",
         "test:lint": "tslint --project .",
-        "test:jest": "jest",
+        "test:jest": "jest --no-cache",
         "coverage:upload": "cat ./coverage/lcov.info | coveralls"
     },
     "_moduleAliases": {
