@@ -1,0 +1,20 @@
+{
+    "lwunlock_title": "Unlock your wallet",
+    "lwunlock_password": "Password",
+    "lwunlock_password_placeholder": "Input Wallet Password",
+    "lwunlock_password_warning": "Please input the password to unlock your wallet !",
+    "lwunlock_ok_button": "Unlock",
+    "lwunlock_cancel_button": "Cancel",
+    "lwunlock_invalid_password": "Invalid Password !",
+
+    "lwattempts_from": "from",
+    "lwattempts_to": "to",
+    "lwattempts_nonce": "nonce",
+    "lwattempts_value": "value",
+    "lwattempts_gas_price": "gas price",
+    "lwattempts_gas_limit": "gas limit",
+    "lwattempts_data": "data",
+    "lwattempts_tx": "Transaction",
+    "lwattempts_ok_button": "Send Transaction",
+    "lwattempts_cancel_button": "Cancel Transaction"
+}

@@ -12,7 +12,7 @@ export default class T721Document extends Document {
         return (
             <html>
             <Head>
-                <style>{`body { margin: 0 } /* custom! */`}</style>
+                <style/>
             </Head>
             <body className='custom_class'>
             <Main/>

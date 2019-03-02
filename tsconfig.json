@@ -13,6 +13,7 @@
         "sourceMap": true,
         "skipLibCheck": true,
         "baseUrl": ".",
+        "resolveJsonModule": true,
         "lib": [
             "dom",
             "es2016"
