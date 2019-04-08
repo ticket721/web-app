@@ -1,11 +1,22 @@
 import * as React                                                                  from 'react';
-import { Gate }                                                                    from '@components/gate/Gate';
+import { IGateProps }                                                              from '@components/gate/Gate';
 import { AuthGateStatus, AuthGateStatuses }                                        from './AuthGateStatuses';
 import { AuthenticatedPath, AuthLoginPath, AuthNotRequiredPath, AuthRegisterPath } from './AuthGatePaths';
 import { WalletProviderType }                                                      from '@utils/redux/app_state';
-import { LoginView }                                                               from '@web_views/auth_view/LoginView';
-import { RegisterView }                                                            from '../../web_views/auth_view/RegisterView';
-import { FullPageLoader }                                                                  from '@web_components/loaders/FullPageLoader';
+import { FullPageLoader }                                                          from '@web_components/loaders/FullPageLoader';
+import { ILoginViewProps }                                                         from '@web_views/auth_view/LoginView';
+import { IRegisterViewProps }                                                      from '@web_views/auth_view/RegisterView';
+import dynamic                                                                     from 'next/dynamic';
+
+const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
+    loading: (): React.ReactElement => null
+});
+const LoginView = dynamic<ILoginViewProps>(async () => import('@web_views/auth_view/LoginView'), {
+    loading: (): React.ReactElement => null
+});
+const RegisterView = dynamic<IRegisterViewProps>(async () => import('@web_views/auth_view/RegisterView'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface IAuthGateProps {
     provider?: WalletProviderType;

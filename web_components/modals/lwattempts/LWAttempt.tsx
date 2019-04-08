@@ -3,7 +3,7 @@ import * as React                                                              f
 import { Modal, Pagination, Icon, Row, Col, List, Avatar, Typography, Button } from 'antd';
 import BigNumber                                                               from 'bignumber.js';
 import { Markdown }                                                            from 'grommet';
-import * as GeoPattern from 'geopattern';
+import * as GeoPattern                                                         from 'geopattern';
 
 export interface ILWAttemptProps {
     attempts?: TxAttempt[];
@@ -19,7 +19,7 @@ export interface ILWAttemptState {
 /**
  * Renders the modal for a transaction attempt. Summarizes the transaction and waits for user input.
  */
-export class LWAttempt extends React.Component<ILWAttemptProps, ILWAttemptState> {
+export default class LWAttempt extends React.Component<ILWAttemptProps, ILWAttemptState> {
 
     state: ILWAttemptState = {
         tx_idx: 0
@@ -68,15 +68,13 @@ export class LWAttempt extends React.Component<ILWAttemptProps, ILWAttemptState>
                 },
                 {
                     title: this.props.t('lwattempts_value'),
-                    data: <Typography.Text strong={true}>
-                        {json[4] === '0x' ? '0' : `${(new BigNumber(json[4])).div(new BigNumber('1000000000000000000')).toString()} Ξ`}
+                    data: <Typography.Text strong={true}>{json[4] === '0x' ? '0' : `${(new BigNumber(json[4])).div(new BigNumber('1000000000000000000')).toString()} Ξ`}
                     </Typography.Text>,
                     icon: 'dollar'
                 },
                 {
                     title: this.props.t('lwattempts_nonce'),
-                    data: <Typography.Text strong={true}>
-                        {json[0] === '0x' ? '0' : `${new BigNumber(json[0]).toString()}`}
+                    data: <Typography.Text strong={true}>{json[0] === '0x' ? '0' : `${new BigNumber(json[0]).toString()}`}
                     </Typography.Text>,
                     icon: 'pushpin'
                 },

@@ -1,9 +1,30 @@
-import React          from 'react';
-import AppGate from '@web_components/appgate/connectedAppGate';
-import ProviderGate from '@web_components/providergate/connectedProviderGate';
-import AuthGate from '@web_components/authgate/connectedAuthGate';
-import LocalWalletGate from '@web_components/localwalletgate/connectedLocalWalletGate';
-import VtxGate from '@web_components/vtxgate/connectedVtxGate';
+import React   from 'react';
+import dynamic from 'next/dynamic';
+
+const AppGate: React.ComponentType = dynamic<any>(async () => import('@web_components/appgate/connectedAppGate'), {
+    loading: (): React.ReactElement => null,
+    ssr: false
+});
+
+const AuthGate: React.ComponentType = dynamic<any>(async () => import('@web_components/authgate/connectedAuthGate'), {
+    loading: (): React.ReactElement => null,
+    ssr: false
+});
+
+const LocalWalletGate: React.ComponentType = dynamic<any>(async () => import('@web_components/localwalletgate/connectedLocalWalletGate'), {
+    loading: (): React.ReactElement => null,
+    ssr: false
+});
+
+const VtxGate: React.ComponentType = dynamic<any>(async () => import('@web_components/vtxgate/connectedVtxGate'), {
+    loading: (): React.ReactElement => null,
+    ssr: false
+});
+
+const ProviderGate: React.ComponentType = dynamic<any>(async () => import('@web_components/providergate/connectedProviderGate'), {
+    loading: (): React.ReactElement => null,
+    ssr: false
+});
 
 export default class extends React.Component {
 

@@ -1,8 +1,17 @@
-import * as React             from 'react';
-import { Grid, Box }          from 'grommet';
-import { FullDiv }            from '../../components/html/FullDiv';
-import InjectedProviderChoice from './InjectedProviderChoice';
-import T721ProviderChoice     from './T721ProviderChoice';
+import * as React                       from 'react';
+import { Grid, Box }                    from 'grommet';
+import { FullDiv }                      from '@components/html/FullDiv';
+import { IInjectedProviderChoiceProps } from './InjectedProviderChoice';
+import { IT721ProviderChoiceProps }     from './T721ProviderChoice';
+import dynamic                          from 'next-server/dynamic';
+
+const InjectedProviderChoice: React.ComponentType<IInjectedProviderChoiceProps> = dynamic<IInjectedProviderChoiceProps>(async () => import('./InjectedProviderChoice'), {
+    loading: (): React.ReactElement => null
+});
+
+const T721ProviderChoice: React.ComponentType<IT721ProviderChoiceProps> = dynamic<IInjectedProviderChoiceProps>(async () => import('./T721ProviderChoice'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface IProviderSelectionViewProps {
     t?: any;
@@ -15,7 +24,7 @@ export interface IProviderSelectionViewState {
 /**
  * Provider selection buttons
  */
-export class ProviderSelectionView extends React.Component<IProviderSelectionViewProps, IProviderSelectionViewState> {
+export default class ProviderSelectionView extends React.Component<IProviderSelectionViewProps, IProviderSelectionViewState> {
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%'}}>
             <Grid

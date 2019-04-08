@@ -2,17 +2,17 @@ import * as React                       from 'react';
 import { Card, Icon }                   from 'antd';
 import injected_provider_image          from '@static/images/wallet_provider_selection/injected_provider.png';
 import { I18N }                         from '@utils/misc/i18n';
-import { AppState, WalletProviderType } from '../../utils/redux/app_state';
+import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
-import { SetWalletProvider }            from '../../utils/redux/app/actions';
+import { SetWalletProvider }            from '@utils/redux/app/actions';
 import { connect }                      from 'react-redux';
 
-interface IInjectedProviderChoiceProps {
+export interface IInjectedProviderChoiceProps {
     t?: any;
     setWalletProvider?: () => void;
 }
 
-interface IInjectedProviderChoiceState {
+export interface IInjectedProviderChoiceState {
     available: boolean;
 }
 
@@ -70,7 +70,9 @@ class InjectedProviderChoice extends React.Component<IInjectedProviderChoiceProp
 
 const mapStateToProps = (state: AppState): IInjectedProviderChoiceProps => ({});
 const mapDispatchToProps = (dispatch: Dispatch): IInjectedProviderChoiceProps => ({
-    setWalletProvider: (): void => { dispatch(SetWalletProvider(WalletProviderType.InjectedProvider)); }
+    setWalletProvider: (): void => {
+        dispatch(SetWalletProvider(WalletProviderType.InjectedProvider));
+    }
 });
 
 export default I18N.withNamespaces(['provider_selection'])(connect(mapStateToProps, mapDispatchToProps)(InjectedProviderChoice));

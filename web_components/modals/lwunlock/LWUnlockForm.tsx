@@ -1,9 +1,8 @@
 import { Form, Input, Modal, Typography } from 'antd';
-import * as React             from 'react';
-import * as GeoPattern from 'geopattern';
+import * as React                         from 'react';
+import * as GeoPattern                    from 'geopattern';
 
 export const LWUnlockForm = Form.create({name: 'lwunlock_form'})(
-
     class extends React.Component<any, any> {
 
         constructor(props: any) {
@@ -60,8 +59,8 @@ export const LWUnlockForm = Form.create({name: 'lwunlock_form'})(
                         cancelText={this.props.t('lwunlock_cancel_button')}
                         onCancel={onCancel}
                         onOk={onCreate}
-                        okButtonProps={{ loading: this.state.loading }}
-                        cancelButtonProps={{ disabled: this.state.loading }}
+                        okButtonProps={{loading: this.state.loading}}
+                        cancelButtonProps={{disabled: this.state.loading}}
                     >
                         <Form layout='vertical'>
                             <Form.Item label={this.props.t('lwunlock_password')}>
@@ -79,5 +78,4 @@ export const LWUnlockForm = Form.create({name: 'lwunlock_form'})(
         }
 
     }
-
 );

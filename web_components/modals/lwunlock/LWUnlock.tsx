@@ -1,8 +1,8 @@
 import { LocalWallet, LocalWalletStatus } from '@utils/redux/app_state';
 import * as React                         from 'react';
 import { LWUnlockForm }                   from './LWUnlockForm';
-import { Wallet, fromV3 }                 from 'ethereumjs-wallet';
-import { LWManager }                      from '../../../utils/redux/LWManager';
+import { Wallet }                         from 'ethereumjs-wallet';
+import { LWManager }                      from '@utils/redux/LWManager';
 
 export interface ILWUnlockProps {
     lw?: LocalWallet;
@@ -18,7 +18,7 @@ export interface ILWUnlockState {
 /**
  * Renders the modal to unlock the local wallet with the wallet password.
  */
-export class LWUnlock extends React.Component<ILWUnlockProps, ILWUnlockState> {
+export default class LWUnlock extends React.Component<ILWUnlockProps, ILWUnlockState> {
 
     formRef: any;
 

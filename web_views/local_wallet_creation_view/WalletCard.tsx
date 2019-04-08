@@ -1,9 +1,9 @@
-import * as React           from 'react';
-import { Card }             from 'antd';
-import { I18N }             from '@utils/misc/i18n';
-import * as GeoPattern      from 'geopattern';
-import { FullDiv }          from '../../components/html/FullDiv';
-import { TemporaryWallet }  from './LocalWalletCreationView';
+import * as React          from 'react';
+import { Card }            from 'antd';
+import { I18N }            from '@utils/misc/i18n';
+import * as GeoPattern     from 'geopattern';
+import { FullDiv }         from '@components/html/FullDiv';
+import { TemporaryWallet } from './LocalWalletCreationView';
 
 export interface IWalletCardProps {
     t?: any;

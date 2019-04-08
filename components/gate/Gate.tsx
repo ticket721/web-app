@@ -13,7 +13,7 @@ export interface IGateState {
 /**
  * Used to render its children only when a specific value is `status` is met
  */
-export class Gate extends React.Component<IGateProps, IGateState> {
+export default class Gate extends React.Component<IGateProps, IGateState> {
 
     constructor(props: IGateProps) {
         super(props);

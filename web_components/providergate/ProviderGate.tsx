@@ -1,6 +1,6 @@
 import * as React               from 'react';
 import { WalletProviderType }   from '@utils/redux/app_state';
-import { Gate }                 from '@components/gate/Gate';
+import { IGateProps }           from '@components/gate/Gate';
 import {
     WalletProviderInjectedProviderPath,
     WalletProviderNonePath,
@@ -9,6 +9,11 @@ import {
 import { ProviderGateStatuses } from './ProviderGateStatuses';
 import ProviderSelectionView    from '@web_views/provider_selection_view';
 import { FullPageLoader }       from '../loaders/FullPageLoader';
+import dynamic                  from 'next/dynamic';
+
+const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface IProviderGateProps {
     provider_status?: WalletProviderType;

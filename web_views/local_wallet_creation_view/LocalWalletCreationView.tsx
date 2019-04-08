@@ -1,9 +1,17 @@
 import * as React           from 'react';
-import { FullDiv }          from '../../components/html/FullDiv';
+import { FullDiv }          from '@components/html/FullDiv';
 import { Box, Grid }        from 'grommet';
-import  WalletCard          from './WalletCard';
 import { Wallet, generate } from 'ethereumjs-wallet';
-import HorizontalLockForm   from './HorizontalLockForm';
+import dynamic              from 'next/dynamic';
+import { IWalletCardProps } from './WalletCard';
+
+const WalletCard: React.ComponentType<IWalletCardProps> = dynamic<IWalletCardProps>(async () => import('./WalletCard'), {
+    loading: (): React.ReactElement => null
+});
+
+const HorizontalLockForm: React.ComponentType<any> = dynamic<IWalletCardProps>(async () => import('./HorizontalLockForm'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface ILocalWalletCreationViewProps {
     t?: any;
@@ -21,7 +29,7 @@ export interface ILocalWalletCreationViewState {
 /**
  * Wallet creation form
  */
-export class LocalWalletCreationView extends React.Component<ILocalWalletCreationViewProps, ILocalWalletCreationViewState> {
+export default class LocalWalletCreationView extends React.Component<ILocalWalletCreationViewProps, ILocalWalletCreationViewState> {
 
     constructor(props: ILocalWalletCreationViewProps) {
         super(props);

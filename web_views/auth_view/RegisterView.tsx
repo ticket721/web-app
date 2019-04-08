@@ -1,8 +1,12 @@
-import * as React                   from 'react';
-import { FullDiv }                  from '../../components/html/FullDiv';
-import { Box, Grid }                from 'grommet';
-import { RegisterViewForm } from './RegisterViewForm';
+import * as React     from 'react';
+import { FullDiv }    from '@components/html/FullDiv';
+import { Box, Grid }  from 'grommet';
 import t721_auth_logo from '@static/images/auth/t721_auth_logo.png';
+import dynamic        from 'next/dynamic';
+
+const RegisterViewForm = dynamic<any>(async () => import('./RegisterViewForm'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface IRegisterViewProps {
     switch?: () => void;
@@ -15,7 +19,7 @@ export interface IRegisterViewState {
 /**
  * Register Form
  */
-export class RegisterView extends React.Component<IRegisterViewProps, IRegisterViewState> {
+export default class RegisterView extends React.Component<IRegisterViewProps, IRegisterViewState> {
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%'}}>
             <Grid

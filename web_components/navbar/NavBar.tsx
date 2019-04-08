@@ -1,12 +1,12 @@
 import * as React                                                        from 'react';
 import { Layout, Menu, Icon, Popover, Skeleton, Typography, Breadcrumb } from 'antd';
-import dynamic         from 'next-server/dynamic';
-import Logo from '@static/images/logos/logo_light.svg';
-import VideoCover from 'react-video-cover';
+import dynamic                                                           from 'next-server/dynamic';
+import Logo                                                              from '@static/images/logos/logo_light.svg';
+import VideoCover                                                        from 'react-video-cover';
 
 const DynamicBreadcrumb = dynamic<any>(async () => import('antd').then((antd: any): any => antd.Breadcrumb), {
         ssr: false,
-        loading: (): React.ReactElement => <Skeleton active={true} paragraph={{ rows: 0, width: 100}} />
+        loading: (): React.ReactElement => <Skeleton active={true} paragraph={{rows: 0, width: 100}}/>
     }
 );
 
@@ -19,7 +19,7 @@ import Link                   from 'next/link';
 import { WalletProviderType } from '../../utils/redux/app_state';
 
 const {
-    Content, Footer, Sider,
+    Content, Sider,
 }: any = Layout;
 
 export interface INavBarProps {
@@ -38,7 +38,7 @@ export interface INavBarState {
 /**
  * Rendersthe sidebar, or the login video if not logged in
  */
-export class NavBar extends React.Component<INavBarProps, INavBarState> {
+export default class NavBar extends React.Component<INavBarProps, INavBarState> {
 
     state: INavBarState = {
         dropDownOpen: false,
@@ -101,7 +101,7 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
         }
 
         if (this.props.provider === WalletProviderType.None) {
-            return <Layout className='ant-layout ant-layout-has-sider' style={{ height: '100%' }} id='app_navbar'>
+            return <Layout className='ant-layout ant-layout-has-sider' style={{height: '100%'}} id='app_navbar'>
                 <style>{`
                 #app_navbar .logo {
                     height: 32px;
@@ -153,16 +153,23 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
                             zIndex: 0
                         }}
                     >
-                        <VideoCover videoOptions={{src: 'http://localhost:1337/uploads/5bbc7b75c2e44f5a89ebe9e282be65a6.mp4', autoPlay: true, loop: true, muted: true}} />
+                        <VideoCover
+                            videoOptions={{
+                                src: 'http://localhost:1337/uploads/5bbc7b75c2e44f5a89ebe9e282be65a6.mp4',
+                                autoPlay: true,
+                                loop: true,
+                                muted: true
+                            }}
+                        />
                     </div>
 
                 </Sider>
                 <Layout>
-                    <Content style={{ margin: '0 16px', height: '100%' }}>
-                        <DynamicBreadcrumb style={{ margin: '16px 0' }}>
+                    <Content style={{margin: '0 16px', height: '100%'}}>
+                        <DynamicBreadcrumb style={{margin: '16px 0'}}>
                             {breadcrumb_items}
                         </DynamicBreadcrumb>
-                        <div style={{ padding: 24, background: '#fff', height: '90%', minHeight: '90%'}}>
+                        <div style={{padding: 24, background: '#fff', height: '90%', minHeight: '90%'}}>
                             {this.props.children}
                         </div>
                     </Content>
@@ -176,11 +183,12 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
         if (this.props.account) {
             const pattern = GeoPattern.generate(this.props.account.address).toDataUrl();
 
-            let popover_content = <Skeleton active={true} />;
+            let popover_content = <Skeleton active={true}/>;
 
             if (this.props.account.balance) {
                 popover_content = <div style={{textAlign: 'center'}}>
-                    <Typography.Text style={{fontSize: 48}} strong={true}>{this.props.account.balance.div('1000000000000000000').toFormat(3, 6)} <span style={{fontWeight: 100}}>Ξ</span></Typography.Text>
+                    <Typography.Text style={{fontSize: 48}} strong={true}>{this.props.account.balance.div('1000000000000000000').toFormat(3, 6)}
+                        <span style={{fontWeight: 100}}>Ξ</span></Typography.Text>
                 </div>;
             }
 
@@ -199,7 +207,8 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
                     <Popover placement='rightBottom' title={popover_title} content={popover_content}>
                         <div className='wallet' style={{backgroundImage: pattern}}>
                             <Icon type='wallet' style={{verticalAlign: 'middle', fontSize: 16, color: '#ffffff'}}/>
-                            {!this.state.collapseOpen ? <span style={{marginLeft: 20, color: '#ffffff'}}>{this.props.t('wallet')}</span> : null}
+                            {!this.state.collapseOpen ?
+                                <span style={{marginLeft: 20, color: '#ffffff'}}>{this.props.t('wallet')}</span> : null}
                         </div>
                     </Popover>
                 </div>
@@ -208,7 +217,7 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
         }
 
         return (
-            <Layout className='ant-layout ant-layout-has-sider' style={{ height: '100%' }} id='app_navbar'>
+            <Layout className='ant-layout ant-layout-has-sider' style={{height: '100%'}} id='app_navbar'>
                 <style>{`
                 #app_navbar .logo {
                     height: 32px;
@@ -250,7 +259,7 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
 
                     <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline' style={{position: 'relative'}}>
                         <Menu.Item key='1'>
-                            <Icon type='desktop' />
+                            <Icon type='desktop'/>
                             <span>{this.props.t('placeholder')}</span>
                         </Menu.Item>
                     </Menu>
@@ -258,16 +267,17 @@ export class NavBar extends React.Component<INavBarProps, INavBarState> {
                     <div className='logout' onClick={this.props.logout}>
                         <div>
                             <Icon type='logout' style={{verticalAlign: 'middle', fontSize: 16, color: '#ffffff'}}/>
-                            {!this.state.collapseOpen ? <span style={{marginLeft: 20, color: '#ffffff'}}>{this.props.t('logout')}</span> : null}
+                            {!this.state.collapseOpen ?
+                                <span style={{marginLeft: 20, color: '#ffffff'}}>{this.props.t('logout')}</span> : null}
                         </div>
                     </div>
                 </Sider>
                 <Layout>
-                    <Content style={{ margin: '0 16px', height: '100%' }}>
-                        <DynamicBreadcrumb style={{ margin: '16px 0' }}>
+                    <Content style={{margin: '0 16px', height: '100%'}}>
+                        <DynamicBreadcrumb style={{margin: '16px 0'}}>
                             {breadcrumb_items}
                         </DynamicBreadcrumb>
-                        <div style={{ padding: 24, background: '#fff', height: '90%', minHeight: '90%'}}>
+                        <div style={{padding: 24, background: '#fff', height: '90%', minHeight: '90%'}}>
                             {this.props.children}
                         </div>
                     </Content>
