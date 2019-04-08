@@ -1,15 +1,20 @@
-import * as React                                                                          from 'react';
-import { AppGateStatuses }                                                                 from './AppGateStatuses';
-import { AppStatus }                                                                       from '@utils/redux/app_state';
-import { Gate }                                                                            from '@components/gate/Gate';
+import * as React          from 'react';
+import { AppGateStatuses } from './AppGateStatuses';
+import { AppStatus }       from '@utils/redux/app_state';
+import { IGateProps }      from '@components/gate/Gate';
 import {
     AppCannotReachServerPath,
     AppInvalidRemoteConfigPath,
     AppLoadingPath,
     AppMissingStrapiUrlPath,
     AppReadyPath, AppRxDbCreateErrorPath
-} from './AppGatePaths';
-import { FullPageLoader }                                                                  from '@web_components/loaders/FullPageLoader';
+}                          from './AppGatePaths';
+import { FullPageLoader }  from '@web_components/loaders/FullPageLoader';
+import dynamic             from 'next-server/dynamic';
+
+const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface IAppGateProps {
     app_status?: AppStatus;

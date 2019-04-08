@@ -65,7 +65,8 @@ class HorizontalLockForm extends React.Component<IHorizontalLockFormProps, IHori
     }
 
     componentDidMount(): void {
-        this.props.form.validateFields((): void => {});
+        this.props.form.validateFields((): void => {
+        });
     }
 
     handleSubmit = (e: any): void => {
@@ -135,9 +136,9 @@ class HorizontalLockForm extends React.Component<IHorizontalLockFormProps, IHori
                     help={passwordError || ''}
                 >
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: this.props.t('password_please_input') }],
+                        rules: [{required: true, message: this.props.t('password_please_input')}],
                     })(
-                        <Input prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />} type='password' placeholder={this.props.t('password_placeholder')} />
+                        <Input prefix={<Icon type='lock' style={{color: 'rgba(0,0,0,.25)'}}/>} type='password' placeholder={this.props.t('password_placeholder')}/>
                     )}
                 </Form.Item>
                 <Form.Item
@@ -145,9 +146,9 @@ class HorizontalLockForm extends React.Component<IHorizontalLockFormProps, IHori
                     help={passwordVerifyError || ''}
                 >
                     {getFieldDecorator('password_verify', {
-                        rules: [{ required: true, message: this.props.t('password_verify_please_input') }],
+                        rules: [{required: true, message: this.props.t('password_verify_please_input')}],
                     })(
-                        <Input prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />} type='password' placeholder={this.props.t('password_verify_placeholder')} />
+                        <Input prefix={<Icon type='lock' style={{color: 'rgba(0,0,0,.25)'}}/>} type='password' placeholder={this.props.t('password_verify_placeholder')}/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -168,10 +169,12 @@ class HorizontalLockForm extends React.Component<IHorizontalLockFormProps, IHori
 
 const mapStateToProps = (state: AppState): IHorizontalLockFormProps => ({});
 const mapDispatchToProps = (dispatch: Dispatch): IHorizontalLockFormProps => ({
-    submit: (encrypted_wallet: string): void => {dispatch(SubmitEncryptedWallet(encrypted_wallet)); }
+    submit: (encrypted_wallet: string): void => {
+        dispatch(SubmitEncryptedWallet(encrypted_wallet));
+    }
 });
 
-export default Form.create({ name: 'lock' })(
+export default Form.create({name: 'lock'})(
     I18N.withNamespaces(['local_wallet_creation'])(
         connect(mapStateToProps, mapDispatchToProps)(
             HorizontalLockForm

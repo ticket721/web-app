@@ -1,4 +1,4 @@
-import { AppState }                               from '../../utils/redux/app_state';
+import { AppState }                               from '@utils/redux/app_state';
 import { ILocalWalletGateProps, LocalWalletGate } from './LocalWalletGate';
 import { connect }                                from 'react-redux';
 

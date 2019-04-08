@@ -1,11 +1,17 @@
 import { AppState, AppStatus, WalletProviderType } from '@utils/redux/app_state';
-import { INavBarProps, NavBar }                    from './NavBar';
+import { INavBarProps }                            from './NavBar';
 import { connect }                                 from 'react-redux';
 import { I18N }                                    from '@utils/misc/i18n';
 import { VtxStatus }                               from 'ethvtx/lib/state/vtxconfig';
 import { Dispatch }                                from 'redux';
-import { SetWalletProvider }                       from '../../utils/redux/app/actions';
+import { SetWalletProvider }                       from '@utils/redux/app/actions';
 import { getAccount }                              from 'ethvtx/lib/getters';
+import dynamic                                     from 'next/dynamic';
+import * as React                                  from 'react';
+
+const NavBar = dynamic<any>(async () => import('./NavBar'), {
+    loading: (): React.ReactElement => null
+});
 
 const mapStateToProps = (state: AppState): INavBarProps => ({
     disabled: !(state.app.status === AppStatus.Ready && state.app.provider !== WalletProviderType.None && state.vtxconfig.status === VtxStatus.Loaded),

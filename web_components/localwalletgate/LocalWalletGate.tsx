@@ -1,12 +1,17 @@
 import * as React                                             from 'react';
-import { Gate }                                               from '../../components/gate/Gate';
+import { IGateProps }                                         from '@components/gate/Gate';
 import { LocalWalletGateStatuses }                            from './LocalWalletGateStatuses';
 import { LWCreatedPath, LWNotCreatedPath, LWNotRequiredPath } from './LocalWalletGatePaths';
-import { LocalWallet, WalletProviderType }                    from '../../utils/redux/app_state';
+import { LocalWallet, WalletProviderType }                    from '@utils/redux/app_state';
 import LocalWalletCreationView                                from '@web_views/local_wallet_creation_view';
 import LWUnlock                                               from '../modals/lwunlock';
 import LWAttempts                                             from '../modals/lwattempts';
 import { FullPageLoader }                                     from '@web_components/loaders/FullPageLoader';
+import dynamic                                                from 'next/dynamic';
+
+const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
+    loading: (): React.ReactElement => null
+});
 
 export interface ILocalWalletGateProps {
     provider?: WalletProviderType;

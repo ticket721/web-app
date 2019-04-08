@@ -1,9 +1,9 @@
 import * as React                                          from 'react';
 import { Button, Checkbox, Form, Icon, Input, Typography } from 'antd';
-import { I18N }                                            from '../../utils/misc/i18n';
+import { I18N }                                            from '@utils/misc/i18n';
 import { Dispatch }                                        from 'redux';
-import { AppState, AuthStatus }                            from '../../utils/redux/app_state';
-import { Register }                                        from '../../utils/redux/app/actions';
+import { AppState, AuthStatus }                            from '@utils/redux/app_state';
+import { Register }                                        from '@utils/redux/app/actions';
 import { connect }                                         from 'react-redux';
 
 export interface IRegisterFormProps {
@@ -18,7 +18,7 @@ export interface IRegisterFormState {
 
 }
 
-export class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormState> {
+class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormState> {
     handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
         this.props.form.validateFields((err: Error, values: any) => {
@@ -33,14 +33,14 @@ export class RegisterForm extends React.Component<IRegisterFormProps, IRegisterF
     }
 
     render(): React.ReactNode {
-        const { getFieldDecorator }: any = this.props.form;
+        const {getFieldDecorator}: any = this.props.form;
 
         let warning = null;
 
         switch (this.props.status) {
             case AuthStatus.RegisterEmailAlreadyInUse:
                 warning = <Typography.Text type='danger'>{this.props.t('register_email_already_in_use')}</Typography.Text>;
-                break ;
+                break;
         }
 
         return <div style={{width: '62%'}}>
@@ -55,35 +55,31 @@ export class RegisterForm extends React.Component<IRegisterFormProps, IRegisterF
             <Form onSubmit={this.handleSubmit} className='register-form'>
                 <Form.Item>
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: `${this.props.t('please_input_username')}` }],
+                        rules: [{required: true, message: `${this.props.t('please_input_username')}`}],
                     })(
-
                         <Input
-                            prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            prefix={<Icon type='user' style={{color: 'rgba(0,0,0,.25)'}}/>}
                             placeholder={this.props.t('username')}
                         />
-
                     )}
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('email', {
-                        rules: [{ required: true, message: `${this.props.t('please_input_email')}` }],
+                        rules: [{required: true, message: `${this.props.t('please_input_email')}`}],
                     })(
-
                         <Input
-                            prefix={<Icon type='mail' style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            prefix={<Icon type='mail' style={{color: 'rgba(0,0,0,.25)'}}/>}
                             type='email'
                             placeholder={this.props.t('email')}
                         />
-
                     )}
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: `${this.props.t('please_input_password')}` }],
+                        rules: [{required: true, message: `${this.props.t('please_input_password')}`}],
                     })(
                         <Input
-                            prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            prefix={<Icon type='lock' style={{color: 'rgba(0,0,0,.25)'}}/>}
                             type='password'
                             placeholder={this.props.t('password')}
                         />
@@ -91,7 +87,7 @@ export class RegisterForm extends React.Component<IRegisterFormProps, IRegisterF
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('agreement', {
-                        rules: [{ required: true, message: `${this.props.t('please_agree')}` }],
+                        rules: [{required: true, message: `${this.props.t('please_agree')}`}],
                         valuePropName: 'checked',
                     })(
                         <Checkbox>{this.props.t('i_have_read_the')}<a href=''>{this.props.t('agreement')}</a></Checkbox>
@@ -118,7 +114,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IRegisterFormProps => ({
     }
 });
 
-export const RegisterViewForm: React.ComponentClass<any> = Form.create({ name: 'register' })(
+export default Form.create({name: 'register'})(
     I18N.withNamespaces(['auth'])(
         connect(mapStateToProps, mapDispatchToProps)(
             RegisterForm

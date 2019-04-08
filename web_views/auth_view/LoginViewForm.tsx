@@ -1,9 +1,9 @@
 import * as React                                           from 'react';
 import { Button, Checkbox, Form, Icon, Input, Typography, } from 'antd';
-import { I18N }                                             from '../../utils/misc/i18n';
-import { AppState, AuthStatus }                             from '../../utils/redux/app_state';
+import { I18N }                                             from '@utils/misc/i18n';
+import { AppState, AuthStatus }                             from '@utils/redux/app_state';
 import { Dispatch }                                         from 'redux';
-import { Auth }                                             from '../../utils/redux/app/actions';
+import { Auth }                                             from '@utils/redux/app/actions';
 import { connect }                                          from 'react-redux';
 
 export interface ILoginFormProps {
@@ -18,7 +18,7 @@ export interface ILoginFormState {
 
 }
 
-export class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
+class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
     handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
         this.props.form.validateFields((err: Error, values: any) => {
@@ -33,14 +33,14 @@ export class LoginForm extends React.Component<ILoginFormProps, ILoginFormState>
     }
 
     render(): React.ReactNode {
-        const { getFieldDecorator }: any = this.props.form;
+        const {getFieldDecorator}: any = this.props.form;
 
         let warning = null;
 
         switch (this.props.status) {
             case AuthStatus.AuthInvalidIdentifierOrPassword:
                 warning = <Typography.Text type='danger'>{this.props.t('login_invalid_identifier_or_password')}</Typography.Text>;
-            break ;
+                break;
         }
 
         return <div>
@@ -58,22 +58,20 @@ export class LoginForm extends React.Component<ILoginFormProps, ILoginFormState>
             <Form onSubmit={this.handleSubmit} className='login-form'>
                 <Form.Item>
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: `${this.props.t('please_input_username')}` }],
+                        rules: [{required: true, message: `${this.props.t('please_input_username')}`}],
                     })(
-
                         <Input
-                            prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            prefix={<Icon type='user' style={{color: 'rgba(0,0,0,.25)'}}/>}
                             placeholder={this.props.t('username')}
                         />
-
                     )}
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: `${this.props.t('please_input_password')}` }],
+                        rules: [{required: true, message: `${this.props.t('please_input_password')}`}],
                     })(
                         <Input
-                            prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            prefix={<Icon type='lock' style={{color: 'rgba(0,0,0,.25)'}}/>}
                             type='password'
                             placeholder={this.props.t('password')}
                         />
@@ -108,7 +106,7 @@ const mapDispatchToProps = (dispatch: Dispatch): ILoginFormProps => ({
     }
 });
 
-export const LoginViewForm: React.ComponentClass<any> = Form.create({ name: 'login' })(
+export default Form.create({name: 'login'})(
     I18N.withNamespaces(['auth'])(
         connect(mapStateToProps, mapDispatchToProps)(
             LoginForm

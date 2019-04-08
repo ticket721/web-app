@@ -1,6 +1,6 @@
 import * as React     from 'react';
 import * as enzyme    from 'enzyme';
-import { Gate }       from './Gate';
+import Gate           from './Gate';
 import { createPath } from './Path';
 
 describe('Testing [Gate]', (): void => {
