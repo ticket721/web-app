@@ -5,12 +5,10 @@ import withRedux          from 'next-redux-wrapper';
 import withReduxSaga      from 'next-redux-saga';
 import { canUseDOM }      from 'exenv';
 import { Store }          from 'redux';
-import dynamic            from 'next/dynamic';
 import getConfig          from 'next/config';
 
 // @web_components imports
 import NavBar             from '@web_components/navbar';
-import { FullPageLoader } from '@web_components/loaders/FullPageLoader';
 
 // @utils imports
 import { configureStore }   from '@utils/redux/createStore';
@@ -24,11 +22,6 @@ import { I18N, namespaces } from '@utils/misc/i18n';
 
 // Style imports
 import '@utils/styles/default_fonts.css';
-
-import { IAppGateProps }         from '@web_components/appgate/AppGate';
-import { IProviderGateProps }    from '@web_components/providergate/ProviderGate';
-import { IAuthGateProps }        from '../web_components/authgate/AuthGate';
-import { ILocalWalletGateProps } from '../web_components/localwalletgate/LocalWalletGate';
 
 // App
 class T721App extends App {
