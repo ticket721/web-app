@@ -31,7 +31,7 @@ export class FullPageLoader extends React.Component<IFullPageLoaderProps, IFullP
                     options={options}
                     width={400}
                     height={400}
-                />;
+                />
 
             </div>
         );
