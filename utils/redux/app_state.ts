@@ -2,6 +2,40 @@ import { State } from 'ethvtx/lib/state';
 import Strapi    from 'strapi-sdk-javascript';
 import Tx        from 'ethereumjs-tx';
 
+export interface StrapiCacheDataFragment {
+    data: any;
+}
+
+export interface StrapiCacheErrorFragment {
+    error: Error;
+}
+
+export interface StrapiCacheFragmentStore {
+    [key: string]: (StrapiCacheDataFragment | StrapiCacheErrorFragment);
+}
+
+export interface StrapiCacheCallReturnFragment {
+    hash: string;
+    data: (StrapiCacheDataFragment | StrapiCacheErrorFragment);
+}
+
+export interface StrapiCacheCall {
+    required: boolean;
+    result: string[];
+    height: number;
+    call: () => Promise<StrapiCacheCallReturnFragment[]>;
+}
+
+export interface StrapiCacheCallStore {
+    [key: string]: StrapiCacheCall;
+}
+
+export interface StrapiCacheSection {
+    fragments: StrapiCacheFragmentStore;
+    calls: StrapiCacheCallStore;
+    height: number;
+}
+
 export interface TxAttempt {
     tx: Tx;
     error: string;
@@ -114,11 +148,17 @@ export interface AppState extends State {
     remote_settings: RemoteSettingsSection;
     app: AppSection;
     lwtx: LWTransactionsSection;
+    strapi_cache: StrapiCacheSection;
 }
 
 export const InitialAppState: AppState = {
     lwtx: {
         attempts: []
+    },
+    strapi_cache: {
+        height: 0,
+        fragments: {},
+        calls: {}
     },
     local_settings: {
         device: null,
