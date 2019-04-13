@@ -1,8 +1,7 @@
-import * as React          from 'react';
-import { VtxGateStatuses } from './VtxGateStatuses';
-import { IGateProps }      from '@components/gate/Gate';
-import { FullPageLoader }  from '@web_components/loaders/FullPageLoader';
-import { VtxStatus }       from 'ethvtx/lib/state/vtxconfig';
+import * as React                          from 'react';
+import { VtxGateStatuses, VtxStatusNames } from './VtxGateStatuses';
+import { IGateProps }                      from '@components/gate/Gate';
+import { FullPageLoader }                  from '@web_components/loaders/FullPageLoader';
 import {
     VtxAuthorizingPath,
     VtxIdlePath,
@@ -11,15 +10,15 @@ import {
     VtxLoadedPath,
     VtxUnauthorizedPath,
     VtxWrongNetPath
-}                          from './VtxGatePaths';
-import dynamic             from 'next/dynamic';
+}                                          from './VtxGatePaths';
+import dynamic                             from 'next/dynamic';
 
 const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
     loading: (): React.ReactElement => null
 });
 
 export interface IVtxGateProps {
-    vtx_status?: VtxStatus;
+    vtx_status?: string;
 }
 
 export interface IVtxGateState {
@@ -33,7 +32,7 @@ export class VtxGate extends React.Component<IVtxGateProps, IVtxGateState> {
     render(): React.ReactNode {
 
         return (
-            <Gate status={this.props.vtx_status} statuses={VtxGateStatuses}>
+            <Gate status={VtxStatusNames.indexOf(this.props.vtx_status)} statuses={VtxGateStatuses}>
                 <VtxLoadingPath>
                     <FullPageLoader/>
                 </VtxLoadingPath>
