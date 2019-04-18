@@ -16,21 +16,27 @@ import Router                 from 'next/router';
 import UrlParse               from 'url-parse';
 import { onClient }           from '../../utils/misc/onClient';
 import Link                   from 'next/link';
+import { routes }             from '../../utils/routing';
 import { WalletProviderType } from '../../utils/redux/app_state';
+import { I18NProps }          from '../../utils/misc/i18n';
 
 const {
     Content, Sider,
 }: any = Layout;
 
-export interface INavBarProps {
-    t?: any;
-    disabled?: boolean;
-    logout?: () => any;
-    account?: Account;
-    provider?: WalletProviderType;
+export interface NavBarProps {
+    logout: () => any;
 }
 
-export interface INavBarState {
+export interface NavBarExternRState {
+    disabled: boolean;
+    account: Account;
+    provider: WalletProviderType;
+}
+
+type MergedNavBarProps = NavBarProps & NavBarExternRState & I18NProps;
+
+interface NavBarState {
     dropDownOpen: boolean;
     collapseOpen: boolean;
 }
@@ -38,14 +44,14 @@ export interface INavBarState {
 /**
  * Rendersthe sidebar, or the login video if not logged in
  */
-export default class NavBar extends React.Component<INavBarProps, INavBarState> {
+export default class NavBar extends React.Component<MergedNavBarProps, NavBarState> {
 
-    state: INavBarState = {
+    state: NavBarState = {
         dropDownOpen: false,
         collapseOpen: true
     };
 
-    constructor(props: INavBarProps) {
+    constructor(props: NavBarProps) {
         super(props);
 
     }
@@ -70,12 +76,19 @@ export default class NavBar extends React.Component<INavBarProps, INavBarState> 
 
     render(): React.ReactNode {
 
+        let selection = null;
         const pathname = onClient((): string[] => (new UrlParse(Router.pathname)).pathname.split('/').slice(1).map((path_elem: string) => {
             switch (path_elem) {
                 case '_error':
                     return 'Error';
                 case 'account':
+                    selection = 'account';
                     return 'Account';
+                case 'events':
+                    selection = 'events';
+                    return 'Events';
+                case 'event':
+                    return 'Event';
                 default:
                     return path_elem;
             }
@@ -169,7 +182,7 @@ export default class NavBar extends React.Component<INavBarProps, INavBarState> 
                         <DynamicBreadcrumb style={{margin: '16px 0'}}>
                             {breadcrumb_items}
                         </DynamicBreadcrumb>
-                        <div style={{padding: 24, background: '#fff', height: '90%', minHeight: '90%'}}>
+                        <div style={{height: '90%', minHeight: '90%'}}>
                             {this.props.children}
                         </div>
                     </Content>
@@ -194,7 +207,7 @@ export default class NavBar extends React.Component<INavBarProps, INavBarState> 
 
             const popover_title = <Typography.Text style={{color: '#ffffff', fontSize: 18}}>{this.props.account.address}</Typography.Text>;
 
-            account = <Link href='/account'>
+            account = <routes.Link route={'account'} params={{}}>
                 <div>
                     <style>
                         {`
@@ -212,7 +225,7 @@ export default class NavBar extends React.Component<INavBarProps, INavBarState> 
                         </div>
                     </Popover>
                 </div>
-            </Link>;
+            </routes.Link>;
 
         }
 
@@ -257,10 +270,15 @@ export default class NavBar extends React.Component<INavBarProps, INavBarState> 
                         </div>
                     </Link>
 
-                    <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline' style={{position: 'relative'}}>
-                        <Menu.Item key='1'>
-                            <Icon type='desktop'/>
-                            <span>{this.props.t('placeholder')}</span>
+                    <Menu theme='dark' defaultSelectedKeys={['events']} mode='inline' style={{position: 'relative'}} selectedKeys={[selection]}>
+
+                        <Menu.Item key='events'>
+                            <Link href='/events'>
+                                <div>
+                                    <Icon type='experiment'/>
+                                    <span>{this.props.t('manage_events')}</span>
+                                </div>
+                            </Link>
                         </Menu.Item>
                     </Menu>
                     {account}
@@ -277,7 +295,7 @@ export default class NavBar extends React.Component<INavBarProps, INavBarState> 
                         <DynamicBreadcrumb style={{margin: '16px 0'}}>
                             {breadcrumb_items}
                         </DynamicBreadcrumb>
-                        <div style={{padding: 24, background: '#fff', height: '90%', minHeight: '90%'}}>
+                        <div style={{height: '90%', minHeight: '90%'}}>
                             {this.props.children}
                         </div>
                     </Content>

@@ -1,21 +1,21 @@
 import * as React                          from 'react';
 import { gatePathChecker, OrganizedPaths } from '@utils/misc/gatePathChecker';
 
-export interface IGateProps {
+export interface GateProps {
     status: number;
     statuses: string[];
 }
 
-export interface IGateState {
+export interface GateState {
     paths: OrganizedPaths;
 }
 
 /**
  * Used to render its children only when a specific value is `status` is met
  */
-export default class Gate extends React.Component<IGateProps, IGateState> {
+export default class Gate extends React.Component<GateProps, GateState> {
 
-    constructor(props: IGateProps) {
+    constructor(props: GateProps) {
         super(props);
 
         this.state = {

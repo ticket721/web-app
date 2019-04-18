@@ -1,27 +1,35 @@
 import * as React                       from 'react';
 import { Card, Icon }                   from 'antd';
 import injected_provider_image          from '@static/images/wallet_provider_selection/injected_provider.png';
-import { I18N }                         from '@utils/misc/i18n';
+import { I18N, I18NProps }              from '@utils/misc/i18n';
 import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
 import { SetWalletProvider }            from '@utils/redux/app/actions';
 import { connect }                      from 'react-redux';
 
-export interface IInjectedProviderChoiceProps {
-    t?: any;
-    setWalletProvider?: () => void;
+export interface InjectedProviderChoiceProps {
 }
 
-export interface IInjectedProviderChoiceState {
+interface InjectedProviderChoiceRState {
+
+}
+
+interface InjectedProviderChoiceRDispatch {
+    setWalletProvider: () => void;
+}
+
+type MergedInjectedProviderChoiceProps = InjectedProviderChoiceProps & InjectedProviderChoiceRState & InjectedProviderChoiceRDispatch & I18NProps;
+
+interface InjectedProviderChoiceState {
     available: boolean;
 }
 
-class InjectedProviderChoice extends React.Component<IInjectedProviderChoiceProps, IInjectedProviderChoiceState> {
-    constructor(props: IInjectedProviderChoiceProps) {
+class InjectedProviderChoice extends React.Component<MergedInjectedProviderChoiceProps, InjectedProviderChoiceState> {
+    constructor(props: MergedInjectedProviderChoiceProps) {
         super(props);
 
         this.state = {
-            available: (global.window.web3 !== undefined)
+            available: (global.window.web3 !== undefined || global.window.ethereum !== undefined)
         };
     }
 
@@ -68,8 +76,8 @@ class InjectedProviderChoice extends React.Component<IInjectedProviderChoiceProp
     }
 }
 
-const mapStateToProps = (state: AppState): IInjectedProviderChoiceProps => ({});
-const mapDispatchToProps = (dispatch: Dispatch): IInjectedProviderChoiceProps => ({
+const mapStateToProps = (state: AppState): InjectedProviderChoiceRState => ({});
+const mapDispatchToProps = (dispatch: Dispatch): InjectedProviderChoiceRDispatch => ({
     setWalletProvider: (): void => {
         dispatch(SetWalletProvider(WalletProviderType.InjectedProvider));
     }

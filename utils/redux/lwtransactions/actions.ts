@@ -1,14 +1,30 @@
-import Tx         from 'ethereumjs-tx';
-import { Action } from 'redux';
+import Tx            from 'ethereumjs-tx';
+import { Action }    from 'redux';
+import { TypedData } from '../app_state';
 
 export const LWTXActions = {
-    AddAttempt: '[LWTX] ADD_ATTEMPT',
+    AddTxAttempt: '[LWTX] ADD_TX_ATTEMPT',
+    AddSignAttempt: '[LWTX] ADD_SIGN_ATTEMPT',
     SetStatus: '[LWTX] SET_STATUS'
 };
 
-export interface ILWTXAddAttempt extends Action<string> {
+export const LWTXAttemptType = {
+    Tx: 'Tx',
+    Sign: 'Sign'
+};
+
+export interface ILWTXAttempt {
+    type: string;
+}
+
+export interface ILWTXAddTxAttempt extends Action<string>, ILWTXAttempt {
     tx: Tx;
     error: string;
+    id: number;
+}
+
+export interface ILWTXAddSignAttempt extends Action<string>, ILWTXAttempt {
+    sign: TypedData[];
     id: number;
 }
 
@@ -20,10 +36,16 @@ export interface ILWTXAddAttempt extends Action<string> {
  * @param id
  * @constructor
  */
-export const LWTXAddAttempt = (tx: Tx, error: string, id: number): ILWTXAddAttempt => ({
-    type: LWTXActions.AddAttempt,
+export const LWTXAddTxAttempt = (tx: Tx, error: string, id: number): ILWTXAddTxAttempt => ({
+    type: LWTXActions.AddTxAttempt,
     tx,
     error,
+    id
+});
+
+export const LWTXAddSignAttempt = (sign: TypedData[], id: number): ILWTXAddSignAttempt => ({
+    type: LWTXActions.AddSignAttempt,
+    sign,
     id
 });
 
@@ -45,4 +67,4 @@ export const LWTXSetStatus = (id: number, status: boolean): ILWTXSetStatus => ({
     status
 });
 
-export type LWTXTypes = ILWTXAddAttempt | ILWTXSetStatus;
+export type LWTXTypes = ILWTXAddTxAttempt | ILWTXAddSignAttempt | ILWTXSetStatus;

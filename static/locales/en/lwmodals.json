@@ -14,7 +14,14 @@
     "lwattempts_gas_price": "gas price",
     "lwattempts_gas_limit": "gas limit",
     "lwattempts_data": "data",
-    "lwattempts_tx": "Transaction",
-    "lwattempts_ok_button": "Send Transaction",
-    "lwattempts_cancel_button": "Cancel Transaction"
+    "lwattempts_Tx": "Transaction",
+    "lwattempts_Sign": "Signature",
+    "lwattempts_sign_title": "You are about to sign the following data",
+    "lwattempts_sign_timeout": "Signature Timed Out",
+    "lwattempts_sign_deadline": "Time left to sign data",
+    "lwattempts_ok_button_Tx": "Send Transaction",
+    "lwattempts_ok_button_Sign": "Sign Data",
+    "lwattempts_cancel_button_Tx": "Cancel Transaction",
+    "lwattempts_cancel_button_Sign": "Cancel Signature",
+    "lwattempts_contract": "This transaction will create a new smart contract"
 }

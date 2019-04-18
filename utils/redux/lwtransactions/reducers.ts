@@ -1,13 +1,29 @@
-import { Reducer }                                                 from 'redux';
-import { InitialAppState, LWTransactionsSection, TxAttempt }       from '../app_state';
-import { ILWTXAddAttempt, ILWTXSetStatus, LWTXActions, LWTXTypes } from './actions';
+import { Reducer }                                                                        from 'redux';
+import { InitialAppState, LWTransactionsSection, TxAttempt }                              from '../app_state';
+import { ILWTXAddSignAttempt, ILWTXAddTxAttempt, ILWTXSetStatus, LWTXActions, LWTXTypes } from './actions';
 
-const LWTXAddAttemptReducer: Reducer<LWTransactionsSection, ILWTXAddAttempt> =
-    (state: LWTransactionsSection, action: ILWTXAddAttempt): LWTransactionsSection => ({
+const LWTXAddSignAttemptReducer: Reducer<LWTransactionsSection, ILWTXAddSignAttempt> =
+    (state: LWTransactionsSection, action: ILWTXAddSignAttempt): LWTransactionsSection => ({
         ...state,
         attempts: [
             ...state.attempts,
             {
+                type: 'Sign',
+                sign: action.sign,
+                error: null,
+                id: action.id,
+                validate: null
+            }
+        ]
+    });
+
+const LWTXAddTxAttemptReducer: Reducer<LWTransactionsSection, ILWTXAddTxAttempt> =
+    (state: LWTransactionsSection, action: ILWTXAddTxAttempt): LWTransactionsSection => ({
+        ...state,
+        attempts: [
+            ...state.attempts,
+            {
+                type: 'Tx',
                 tx: action.tx,
                 error: action.error,
                 id: action.id,
@@ -34,8 +50,10 @@ export const LWTXReducer: Reducer<LWTransactionsSection, LWTXTypes> =
     (state: LWTransactionsSection = InitialAppState.lwtx, action: LWTXTypes): LWTransactionsSection => {
 
         switch (action.type) {
-            case LWTXActions.AddAttempt:
-                return LWTXAddAttemptReducer(state, action as ILWTXAddAttempt);
+            case LWTXActions.AddTxAttempt:
+                return LWTXAddTxAttemptReducer(state, action as ILWTXAddTxAttempt);
+            case LWTXActions.AddSignAttempt:
+                return LWTXAddSignAttemptReducer(state, action as ILWTXAddSignAttempt);
             case LWTXActions.SetStatus:
                 return LWTXSetStatusReducer(state, action as ILWTXSetStatus);
             default:

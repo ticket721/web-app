@@ -1,25 +1,21 @@
 import * as React          from 'react';
 import { Card }            from 'antd';
-import { I18N }            from '@utils/misc/i18n';
+import { I18N, I18NProps } from '@utils/misc/i18n';
 import * as GeoPattern     from 'geopattern';
 import { FullDiv }         from '@components/html/FullDiv';
 import { TemporaryWallet } from './LocalWalletCreationView';
 
-export interface IWalletCardProps {
-    t?: any;
-    wallet_infos?: TemporaryWallet;
-    reset_wallet?: () => void;
+export interface WalletCardProps {
+    wallet_infos: TemporaryWallet;
+    reset_wallet: () => void;
 }
 
-export interface IWalletCardState {
+type MergedWalletCardProps = WalletCardProps & I18NProps;
+
+interface IWalletCardState {
 }
 
-class WalletCard extends React.Component<IWalletCardProps, IWalletCardState> {
-
-    constructor(props: IWalletCardProps) {
-        super(props);
-
-    }
+class WalletCard extends React.Component<MergedWalletCardProps, IWalletCardState> {
 
     render(): React.ReactNode {
         const pattern = GeoPattern.generate(this.props.wallet_infos.address).toDataUrl();

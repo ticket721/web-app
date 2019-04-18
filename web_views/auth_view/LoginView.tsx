@@ -4,22 +4,22 @@ import { Box, Grid }  from 'grommet';
 import t721_auth_logo from '@static/images/auth/t721_auth_logo.png';
 import dynamic        from 'next/dynamic';
 
+// Dyanmic Components
+
 const LoginViewForm: React.ComponentType<any> = dynamic<any>(async () => import('./LoginViewForm'), {
     loading: (): React.ReactElement => null
 });
 
-export interface ILoginViewProps {
-    switch?: () => void;
-}
+// Props
 
-export interface ILoginViewState {
-
+export interface LoginViewProps {
+    switch: () => void;
 }
 
 /**
  * Login Form
  */
-export default class LoginView extends React.Component<ILoginViewProps, ILoginViewState> {
+export default class LoginView extends React.Component<LoginViewProps> {
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%'}}>
             <Grid

@@ -1,38 +1,48 @@
 import * as React                                                                  from 'react';
-import { IGateProps }                                                              from '@components/gate/Gate';
+import { GateProps }                                                               from '@components/gate/Gate';
 import { AuthGateStatus, AuthGateStatuses }                                        from './AuthGateStatuses';
 import { AuthenticatedPath, AuthLoginPath, AuthNotRequiredPath, AuthRegisterPath } from './AuthGatePaths';
-import { WalletProviderType }                                                      from '@utils/redux/app_state';
+import { AppState, WalletProviderType }                                            from '@utils/redux/app_state';
 import { FullPageLoader }                                                          from '@web_components/loaders/FullPageLoader';
-import { ILoginViewProps }                                                         from '@web_views/auth_view/LoginView';
-import { IRegisterViewProps }                                                      from '@web_views/auth_view/RegisterView';
+import { LoginViewProps }                                                          from '@web_views/auth_view/LoginView';
+import { RegisterViewProps }                                                       from '@web_views/auth_view/RegisterView';
 import dynamic                                                                     from 'next/dynamic';
+import { connect }                                                                 from 'react-redux';
 
-const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
+// Dynamic Components
+
+const Gate: React.ComponentType<GateProps> = dynamic<GateProps>(async () => import('@components/gate/Gate'), {
     loading: (): React.ReactElement => null
 });
-const LoginView = dynamic<ILoginViewProps>(async () => import('@web_views/auth_view/LoginView'), {
+const LoginView = dynamic<LoginViewProps>(async () => import('@web_views/auth_view/LoginView'), {
     loading: (): React.ReactElement => null
 });
-const RegisterView = dynamic<IRegisterViewProps>(async () => import('@web_views/auth_view/RegisterView'), {
+const RegisterView = dynamic<RegisterViewProps>(async () => import('@web_views/auth_view/RegisterView'), {
     loading: (): React.ReactElement => null
 });
 
-export interface IAuthGateProps {
-    provider?: WalletProviderType;
-    token?: string;
+// Props
+
+export interface AuthGateProps {
 }
 
-export interface IAuthGateState {
+interface AuthGateRState {
+    provider: WalletProviderType;
+    token: string;
+}
+
+interface AuthGateState {
     register: boolean;
 }
+
+type MergedAuthGateProps = AuthGateProps & AuthGateRState;
 
 /**
  * Used to display Login, Register or App depending on `provider` and `token` values
  */
-export class AuthGate extends React.Component<IAuthGateProps, IAuthGateState> {
+class AuthGate extends React.Component<MergedAuthGateProps, AuthGateState> {
 
-    state: IAuthGateState = {
+    state: AuthGateState = {
         register: false
     };
 
@@ -86,3 +96,10 @@ export class AuthGate extends React.Component<IAuthGateProps, IAuthGateState> {
         </Gate>;
     }
 }
+
+const mapStateToProps = (state: AppState): AuthGateRState => ({
+    provider: state.app.provider,
+    token: state.app.token
+});
+
+export default connect(mapStateToProps)(AuthGate);

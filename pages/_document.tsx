@@ -12,7 +12,7 @@ export default class T721Document extends Document {
         return (
             <html>
             <Head>
-                <style/>
+                <script src={'https://maps.googleapis.com/maps/api/js?key=' + process.env.google_api_token + '&libraries=places'}/>
             </Head>
             <body className='custom_class'>
             <Main/>

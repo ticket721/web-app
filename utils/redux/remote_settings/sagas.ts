@@ -4,6 +4,7 @@ import { call, put, select, takeEvery }                            from 'redux-s
 import { AppModuleReady, AppState, AppStatus, WalletProviderType } from '../app_state';
 import Strapi                                                      from 'strapi-sdk-javascript';
 import { SetRemoteConfigs }                                        from './actions';
+import { VtxconfigSetAllowedNet }                                  from 'ethvtx/lib/vtxconfig/actions/actions';
 
 /**
  * Waits for App section to be ready to use strapi to fetch remote settings, and sets them into the store
@@ -30,8 +31,10 @@ function* onAppSectionReady(action: IReady): SagaIterator {
                 remote_config.node_connection_protocol,
                 remote_config.contracts
             ));
+            for (const network of remote_configs) {
+                yield put(VtxconfigSetAllowedNet(network.net_id, network.genesis_block_hash));
+            }
         } catch (e) {
-            // TODO POLL_SERVER => if not responding x times => reset wallet
             yield put(SetWalletProvider(WalletProviderType.None));
             return yield put(Status(AppStatus.CannotReachServer));
         }

@@ -1,6 +1,6 @@
 import * as React                          from 'react';
 import { VtxGateStatuses, VtxStatusNames } from './VtxGateStatuses';
-import { IGateProps }                      from '@components/gate/Gate';
+import { GateProps }                       from '@components/gate/Gate';
 import { FullPageLoader }                  from '@web_components/loaders/FullPageLoader';
 import {
     VtxAuthorizingPath,
@@ -12,41 +12,60 @@ import {
     VtxWrongNetPath
 }                                          from './VtxGatePaths';
 import dynamic                             from 'next/dynamic';
+import { GatesErrors }                     from '../../web_views/message/gates_errors';
+import { AppState }                        from '../../utils/redux/app_state';
+import { connect }                         from 'react-redux';
 
-const Gate: React.ComponentType<IGateProps> = dynamic<IGateProps>(async () => import('@components/gate/Gate'), {
+// Dynamic Components
+
+const Gate: React.ComponentType<GateProps> = dynamic<GateProps>(async () => import('@components/gate/Gate'), {
     loading: (): React.ReactElement => null
 });
 
-export interface IVtxGateProps {
-    vtx_status?: string;
+// Props
+
+export interface VtxGateProps {
+
 }
 
-export interface IVtxGateState {
+interface VtxGateRState {
+    vtx_status: string;
 }
+
+export interface VtxGateState {
+}
+
+type MergedVtxGateProps = VtxGateProps & VtxGateRState;
 
 /**
  * Renders errors or loaders depending on ethvtx status.
  */
-export class VtxGate extends React.Component<IVtxGateProps, IVtxGateState> {
+export class VtxGate extends React.Component<MergedVtxGateProps, VtxGateState> {
 
     render(): React.ReactNode {
 
         return (
             <Gate status={VtxStatusNames.indexOf(this.props.vtx_status)} statuses={VtxGateStatuses}>
                 <VtxLoadingPath>
-                    <FullPageLoader/>
+                    <FullPageLoader
+                        message={'vtx_loading'}
+                    />
                 </VtxLoadingPath>
 
                 <VtxAuthorizingPath>
-                    <p>Vtx Authorizing</p>
+                    <FullPageLoader
+                        message={'vtx_authorizing'}
+                    />
                 </VtxAuthorizingPath>
 
                 <VtxIdlePath>
-                    <FullPageLoader/>
+                    <FullPageLoader
+                        message={'vtx_idle'}
+                    />
                 </VtxIdlePath>
 
                 <VtxErrorPath>
-                    <p>Vtx Error</p>
+                    <GatesErrors message={'vtx_error'}/>
                 </VtxErrorPath>
 
                 <VtxLoadedPath>
@@ -54,14 +73,20 @@ export class VtxGate extends React.Component<IVtxGateProps, IVtxGateState> {
                 </VtxLoadedPath>
 
                 <VtxUnauthorizedPath>
-                    <p>Vtx Unauthorized</p>
+                    <GatesErrors message={'vtx_unauthorized'}/>
                 </VtxUnauthorizedPath>
 
                 <VtxWrongNetPath>
-                    <p>Vtx Wrong Net</p>
+                    <GatesErrors message={'vtx_wrong_net'}/>
                 </VtxWrongNetPath>
             </Gate>
         );
 
     }
 }
+
+const mapStateToProps = (state: AppState): VtxGateRState => ({
+    vtx_status: state.vtxconfig.status
+});
+
+export default connect(mapStateToProps)(VtxGate);

@@ -36,15 +36,31 @@ export interface StrapiCacheSection {
     height: number;
 }
 
-export interface TxAttempt {
-    tx: Tx;
-    error: string;
+export interface AttemptHeader {
+    type: string;
     id: number;
     validate: boolean;
+    error: string;
 }
 
+export interface TxAttempt extends AttemptHeader {
+    tx: Tx;
+}
+
+export interface TypedData {
+    type: string;
+    name: string;
+    value: any;
+}
+
+export interface SignAttempt extends AttemptHeader {
+    sign: TypedData[];
+}
+
+export type WalletAttempt = (TxAttempt | SignAttempt);
+
 export interface LWTransactionsSection {
-    attempts: TxAttempt[];
+    attempts: WalletAttempt[];
 }
 
 export interface ClientInformations {
@@ -81,6 +97,7 @@ export enum AppStatus {
 
 export interface AppConfig {
     strapi_endpoint: string;
+    google_api_token: string;
 }
 
 export enum WalletProviderType {
@@ -143,13 +160,15 @@ export interface RemoteSettingsSection {
     contracts: ContractsStore;
 }
 
-export interface AppState extends State {
+export interface CustomState {
     local_settings: LocalSettingsSection;
     remote_settings: RemoteSettingsSection;
     app: AppSection;
     lwtx: LWTransactionsSection;
     strapi_cache: StrapiCacheSection;
 }
+
+export type AppState = CustomState & State;
 
 export const InitialAppState: AppState = {
     lwtx: {
@@ -187,7 +206,8 @@ export const InitialAppState: AppState = {
         status: AppStatus.Loading,
         strapi: null,
         config: {
-            strapi_endpoint: null
+            strapi_endpoint: null,
+            google_api_token: null
         },
         token: undefined
     }

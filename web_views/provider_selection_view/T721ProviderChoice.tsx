@@ -1,18 +1,27 @@
 import * as React                       from 'react';
 import { Card, Icon }                   from 'antd';
 import t721_provider_image              from '@static/images/wallet_provider_selection/t721_provider.png';
-import { I18N }                         from '@utils/misc/i18n';
+import { I18N, I18NProps }              from '@utils/misc/i18n';
 import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
 import { SetWalletProvider }            from '@utils/redux/app/actions';
 import { connect }                      from 'react-redux';
 
-export interface IT721ProviderChoiceProps {
-    t?: any;
-    setWalletProvider?: () => void;
+export interface T721ProviderChoiceProps {
+
 }
 
-class T721ProviderChoice extends React.Component<IT721ProviderChoiceProps> {
+interface T721ProviderChoiceRState {
+
+}
+
+interface T721ProviderChoiceRDispatch {
+    setWalletProvider: () => void;
+}
+
+type MergedT721ProviderChoiceProps = T721ProviderChoiceProps & T721ProviderChoiceRState & T721ProviderChoiceRDispatch & I18NProps;
+
+class T721ProviderChoice extends React.Component<MergedT721ProviderChoiceProps> {
 
     onClick = (): void => {
         this.props.setWalletProvider();
@@ -35,8 +44,8 @@ class T721ProviderChoice extends React.Component<IT721ProviderChoiceProps> {
     }
 }
 
-const mapStateToProps = (state: AppState): IT721ProviderChoiceProps => ({});
-const mapDispatchToProps = (dispatch: Dispatch): IT721ProviderChoiceProps => ({
+const mapStateToProps = (state: AppState): T721ProviderChoiceRState => ({});
+const mapDispatchToProps = (dispatch: Dispatch): T721ProviderChoiceRDispatch => ({
     setWalletProvider: (): void => {
         dispatch(SetWalletProvider(WalletProviderType.T721Provider));
     }

@@ -1,9 +1,9 @@
-import { I18N }                          from '@utils/misc/i18n';
-import { ILocalWalletCreationViewProps } from './LocalWalletCreationView';
-import dynamic                           from 'next/dynamic';
-import * as React                        from 'react';
+import { I18N }                         from '@utils/misc/i18n';
+import { LocalWalletCreationViewProps } from './LocalWalletCreationView';
+import dynamic                          from 'next/dynamic';
+import * as React                       from 'react';
 
-const LocalWalletCreationView: React.ComponentType<ILocalWalletCreationViewProps> = dynamic<ILocalWalletCreationViewProps>(async () => import('./LocalWalletCreationView'), {
+const LocalWalletCreationView: React.ComponentType<LocalWalletCreationViewProps> = dynamic<LocalWalletCreationViewProps>(async () => import('./LocalWalletCreationView'), {
     loading: (): React.ReactElement => null
 });
 
