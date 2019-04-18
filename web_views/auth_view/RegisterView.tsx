@@ -4,22 +4,22 @@ import { Box, Grid }  from 'grommet';
 import t721_auth_logo from '@static/images/auth/t721_auth_logo.png';
 import dynamic        from 'next/dynamic';
 
+// Dynamic Components
+
 const RegisterViewForm = dynamic<any>(async () => import('./RegisterViewForm'), {
     loading: (): React.ReactElement => null
 });
 
-export interface IRegisterViewProps {
-    switch?: () => void;
-}
+// Props
 
-export interface IRegisterViewState {
-
+export interface RegisterViewProps {
+    switch: () => void;
 }
 
 /**
  * Register Form
  */
-export default class RegisterView extends React.Component<IRegisterViewProps, IRegisterViewState> {
+export default class RegisterView extends React.Component<RegisterViewProps> {
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%'}}>
             <Grid

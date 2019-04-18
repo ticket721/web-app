@@ -1,24 +1,29 @@
 import * as React                                          from 'react';
 import { Button, Checkbox, Form, Icon, Input, Typography } from 'antd';
-import { I18N }                                            from '@utils/misc/i18n';
+import { I18N, I18NProps }                                 from '@utils/misc/i18n';
 import { Dispatch }                                        from 'redux';
 import { AppState, AuthStatus }                            from '@utils/redux/app_state';
 import { Register }                                        from '@utils/redux/app/actions';
 import { connect }                                         from 'react-redux';
+import { FormComponentProps }                              from 'antd/lib/form';
 
-export interface IRegisterFormProps {
-    t?: any;
-    form?: any;
-    switch?: () => void;
-    register?: (username: string, password: string, email: string) => void;
-    status?: AuthStatus;
+// Props
+
+export interface RegisterFormProps {
+    switch: () => void;
 }
 
-export interface IRegisterFormState {
-
+interface RegisterFormRState {
+    status: AuthStatus;
 }
 
-class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormState> {
+interface RegisterFormRDispatch {
+    register: (username: string, password: string, email: string) => void;
+}
+
+type MergedRegisterFormProps = RegisterFormProps & RegisterFormRState & RegisterFormRDispatch & I18NProps & FormComponentProps;
+
+class RegisterForm extends React.Component<MergedRegisterFormProps> {
     handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
         this.props.form.validateFields((err: Error, values: any) => {
@@ -105,10 +110,10 @@ class RegisterForm extends React.Component<IRegisterFormProps, IRegisterFormStat
     }
 }
 
-const mapStateToProps = (state: AppState): IRegisterFormProps => ({
+const mapStateToProps = (state: AppState): RegisterFormRState => ({
     status: state.app.auth_process_status
 });
-const mapDispatchToProps = (dispatch: Dispatch): IRegisterFormProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): RegisterFormRDispatch => ({
     register: (username: string, password: string, email: string): void => {
         dispatch(Register(username, password, email));
     }

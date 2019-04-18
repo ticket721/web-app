@@ -5,8 +5,18 @@ export const StrapiCacheActions = {
     SetHeight: '[STRAPI CACHE] SET HEIGHT',
     NewCall: '[STRAPI CACHE] NEW CALL',
     SetRequired: '[STRAPI CACHE] SET REQUIRED',
-    SetData: '[STRAPI CACHE] SET DATA'
+    SetData: '[STRAPI CACHE] SET DATA',
+    ResetCall: '[STRAPI CACHE] RESET CALL'
 };
+
+export interface IStrapiCacheResetCall extends Action<string> {
+    call: string;
+}
+
+export const StrapiCacheResetCall = (call: string): IStrapiCacheResetCall => ({
+    type: StrapiCacheActions.ResetCall,
+    call
+});
 
 export interface IStrapiCacheSetData extends Action<string> {
     fragments: StrapiCacheCallReturnFragment[];

@@ -4,13 +4,13 @@ import {
     StrapiCacheCallReturnFragment,
     StrapiCacheDataFragment,
     StrapiCacheErrorFragment
-}                                                     from './redux/app_state';
-import { Dispatch }                                   from 'redux';
-import keccak256                                      from 'keccak256';
-import { StrapiCacheNewCall, StrapiCacheSetRequired } from './redux/strapi_cache/actions';
+}                                                                           from './redux/app_state';
+import { Dispatch }                                                         from 'redux';
+import keccak256                                                            from 'keccak256';
+import { StrapiCacheNewCall, StrapiCacheResetCall, StrapiCacheSetRequired } from './redux/strapi_cache/actions';
 
 export type StrapiData = [number, string[], (StrapiCacheDataFragment | StrapiCacheErrorFragment)[]];
-export type StrapiCallFn = (state: AppState, dispatch: Dispatch) => StrapiData;
+export type StrapiCallFn = (state: AppState, dispatch: Dispatch, static_call?: boolean) => StrapiData;
 
 /**
  * Used as props for the StrapiCall component.
@@ -31,10 +31,10 @@ export class StrapiHelper {
      */
     public static getEntry(name: string, id: string): StrapiCallFn {
 
-        return (state: AppState, dispatch: Dispatch): StrapiData => {
+        return (state: AppState, dispatch: Dispatch, static_call?: boolean): StrapiData => {
 
             if (state.app.status !== AppStatus.Ready || !state.app.strapi) {
-                return [-1, [], []];
+                return [0, [], undefined];
             }
 
             const hash: string = StrapiHelper.getEntry_signature(name, id);
@@ -67,11 +67,11 @@ export class StrapiHelper {
 
                 dispatch(StrapiCacheNewCall(hash, cb));
 
-                return [-1, [], []];
+                return [0, [], undefined];
 
             } else {
 
-                if (call_data.required === false) {
+                if (call_data.required === false && !static_call) {
                     dispatch(StrapiCacheSetRequired(hash));
                 }
 
@@ -82,6 +82,13 @@ export class StrapiHelper {
 
         };
 
+    }
+
+    public static resetEntries(dispatch: Dispatch, name: string, args: any): void {
+
+        const hash: string = StrapiHelper.getEntries_signature(name, args);
+
+        dispatch(StrapiCacheResetCall(hash));
     }
 
     /**
@@ -95,10 +102,10 @@ export class StrapiHelper {
      */
     public static getEntries(name: string, args: any): StrapiCallFn {
 
-        return (state: AppState, dispatch: Dispatch): StrapiData => {
+        return (state: AppState, dispatch: Dispatch, static_call?: boolean): StrapiData => {
 
             if (state.app.status !== AppStatus.Ready || !state.app.strapi) {
-                return [-1, [], []];
+                return [0, [], undefined];
             }
 
             const hash: string = StrapiHelper.getEntries_signature(name, args);
@@ -131,11 +138,11 @@ export class StrapiHelper {
 
                 dispatch(StrapiCacheNewCall(hash, cb));
 
-                return [-1, [], []];
+                return [0, [], undefined];
 
             } else {
 
-                if (call_data.required === false) {
+                if (call_data.required === false && !static_call) {
                     dispatch(StrapiCacheSetRequired(hash));
                 }
 
@@ -159,10 +166,10 @@ export class StrapiHelper {
      */
     public static getEntryCount(name: string, args: any): StrapiCallFn {
 
-        return (state: AppState, dispatch: Dispatch): StrapiData => {
+        return (state: AppState, dispatch: Dispatch, static_call?: boolean): StrapiData => {
 
             if (state.app.status !== AppStatus.Ready || !state.app.strapi) {
-                return [-1, [], []];
+                return [0, [], undefined];
             }
 
             const hash: string = StrapiHelper.getEntryCount_signature(name, args);
@@ -196,11 +203,11 @@ export class StrapiHelper {
 
                 dispatch(StrapiCacheNewCall(hash, cb));
 
-                return [-1, [], []];
+                return [0, [], undefined];
 
             } else {
 
-                if (call_data.required === false) {
+                if (call_data.required === false && !static_call) {
                     dispatch(StrapiCacheSetRequired(hash));
                 }
 
@@ -226,11 +233,11 @@ export class StrapiHelper {
      * @param requestConfig
      * @param output_converter
      */
-    public static request(method: string, path: string, requestConfig: any, output_converter: (raw: any) => StrapiCacheCallReturnFragment[]): any {
-        return (state: AppState, dispatch: Dispatch): StrapiData => {
+    public static request(method: string, path: string, requestConfig: any, output_converter: (raw: any) => StrapiCacheCallReturnFragment[]): StrapiCallFn {
+        return (state: AppState, dispatch: Dispatch, static_call?: boolean): StrapiData => {
 
             if (state.app.status !== AppStatus.Ready || !state.app.strapi) {
-                return [-1, [], []];
+                return [0, [], undefined];
             }
 
             const hash: string = StrapiHelper.request_signature(name, path, requestConfig);
@@ -256,11 +263,11 @@ export class StrapiHelper {
 
                 dispatch(StrapiCacheNewCall(hash, cb));
 
-                return [-1, [], []];
+                return [0, [], undefined];
 
             } else {
 
-                if (call_data.required === false) {
+                if (call_data.required === false && !static_call) {
                     dispatch(StrapiCacheSetRequired(hash));
                 }
 
@@ -277,7 +284,7 @@ export class StrapiHelper {
      *  Signature generators
      */
 
-    private static getEntryCount_signature(name: string, args: any): string {
+    static getEntryCount_signature(name: string, args: any): string {
         let data = `getEntryCount:${name}`;
         for (const key of Object.keys(args).sort()) {
             data += `${key}:${args[key]}:`;
@@ -285,15 +292,15 @@ export class StrapiHelper {
         return keccak256(data).toString('hex').toLowerCase();
     }
 
-    private static getEntry_signature(name: string, id: string): string {
+    static getEntry_signature(name: string, id: string): string {
         return keccak256(`getEntry:${name}:${id}`).toString('hex').toLowerCase();
     }
 
-    private static fragment_signature(name: string, id: string): string {
+    static fragment_signature(name: string, id: string): string {
         return keccak256(`fragment:${name}:${id}`).toString('hex').toLowerCase();
     }
 
-    private static request_error_signature(name: string, path: string, args: any): string {
+    static request_error_signature(name: string, path: string, args: any): string {
         let data = `error:${name}:${path}`;
         for (const key of Object.keys(args).sort()) {
             data += `${key}:${args[key]}:`;
@@ -301,7 +308,7 @@ export class StrapiHelper {
         return keccak256(data).toString('hex').toLowerCase();
     }
 
-    private static entrycount_error_signature(name: string, args: any): string {
+    static entrycount_error_signature(name: string, args: any): string {
         let data = `error:getEntryCount:${name}:`;
         for (const key of Object.keys(args).sort()) {
             data += `${key}:${args[key]}:`;
@@ -309,7 +316,7 @@ export class StrapiHelper {
         return keccak256(data).toString('hex').toLowerCase();
     }
 
-    private static entries_error_signature(name: string, args: any): string {
+    static entries_error_signature(name: string, args: any): string {
         let data = `error:getEntries:${name}:`;
         for (const key of Object.keys(args).sort()) {
             data += `${key}:${args[key]}:`;
@@ -317,11 +324,11 @@ export class StrapiHelper {
         return keccak256(data).toString('hex').toLowerCase();
     }
 
-    private static error_signature(name: string, id: string): string {
+    static error_signature(name: string, id: string): string {
         return keccak256(`error:getEntry:${name}:${id}`).toString('hex').toLowerCase();
     }
 
-    private static request_signature(name: string, path: string, args: any): string {
+    static request_signature(name: string, path: string, args: any): string {
         let data = `getEntries:${name}:${path}:`;
         for (const key of Object.keys(args).sort()) {
             data += `${key}:${args[key]}:`;
@@ -329,7 +336,7 @@ export class StrapiHelper {
         return keccak256(data).toString('hex').toLowerCase();
     }
 
-    private static getEntries_signature(name: string, args: any): string {
+    static getEntries_signature(name: string, args: any): string {
         let data = `getEntries:${name}:`;
         for (const key of Object.keys(args).sort()) {
             data += `${key}:${args[key]}:`;

@@ -1,11 +1,12 @@
-import { Store }                                  from 'redux';
-import { AppState, LocalWalletStatus, TxAttempt } from './app_state';
-import { UnlockingLocalWallet }                   from './app/actions';
-import { fromV3 }                                 from 'ethereumjs-wallet';
-import Tx                                         from 'ethereumjs-tx';
-import Web3                                       from 'web3';
-import { LWTXAddAttempt }                         from './lwtransactions/actions';
-import { getAccount }                             from 'ethvtx/lib/accounts/helpers/getters';
+import { Store }                                             from 'redux';
+import { AppState, LocalWalletStatus, TxAttempt, TypedData } from './app_state';
+import { UnlockingLocalWallet }                 from './app/actions';
+import { fromV3 }                               from 'ethereumjs-wallet';
+import Tx                                       from 'ethereumjs-tx';
+import Web3                                     from 'web3';
+import { LWTXAddSignAttempt, LWTXAddTxAttempt } from './lwtransactions/actions';
+import { getAccount }                           from 'ethvtx/lib/accounts/helpers/getters';
+import { typed_signature }                      from '../misc/Web3TypedSignature';
 
 /**
  * This class manages the web3 instance used in the T721Provider Scenario
@@ -18,6 +19,7 @@ export class LWManager {
 
     private static store: Store;
     private static coinbase: string;
+    private static id: number = 0;
 
     constructor() {
 
@@ -58,16 +60,48 @@ export class LWManager {
 
         })
 
-    public static sendAttempt = async (tx: Tx, error: string, nonce: number): Promise<void> => {
+    public static signAttempt = async (msgParams: TypedData[], id: number): Promise<void> => {
 
-        LWManager.store.dispatch(LWTXAddAttempt(tx, error !== '' ? error : null, nonce));
+        LWManager.store.dispatch(LWTXAddSignAttempt(msgParams, id));
 
         return new Promise<void>((ok: any, ko: any): void => {
             let end_sub_cb;
             end_sub_cb = LWManager.store.subscribe((): void => {
                 const state = LWManager.store.getState();
 
-                const attempt_list = state.lwtx.attempts.filter((tx: TxAttempt): boolean => tx.id === nonce);
+                const attempt_list = state.lwtx.attempts.filter((tx: TxAttempt): boolean => tx.id === id);
+
+                if (attempt_list.length === 0) {
+                    end_sub_cb();
+                    ko();
+                }
+
+                const attempt = attempt_list[0];
+
+                if (attempt.validate !== null) {
+                    if (attempt.validate === false) {
+                        end_sub_cb();
+                        ko();
+                    } else {
+                        end_sub_cb();
+                        ok();
+                    }
+                }
+
+            });
+        });
+    }
+
+    public static sendTxAttempt = async (tx: Tx, error: string, id: number): Promise<void> => {
+
+        LWManager.store.dispatch(LWTXAddTxAttempt(tx, error !== '' ? error : null, id));
+
+        return new Promise<void>((ok: any, ko: any): void => {
+            let end_sub_cb;
+            end_sub_cb = LWManager.store.subscribe((): void => {
+                const state = LWManager.store.getState();
+
+                const attempt_list = state.lwtx.attempts.filter((tx: TxAttempt): boolean => tx.id === id);
 
                 if (attempt_list.length === 0) {
                     end_sub_cb();
@@ -98,7 +132,6 @@ export class LWManager {
 
         LWManager.coinbase = LWManager.store.getState().app.t721_wallet.address;
 
-        const defaultGas = 90000;
         const defaultGasPrice = await web3.eth.getGasPrice();
 
         provider._send = provider.send;
@@ -108,6 +141,38 @@ export class LWManager {
             const command = args[0];
 
             switch (command.method) {
+                case 'eth_signTypedData': {
+
+                    if (typeof args[1] !== 'function') {
+                        throw new Error('Missing callback function');
+                    }
+
+                    const cb = args[1];
+                    const msgParams = command.params[0];
+                    const from = command.params[1];
+
+                    if (from.toLowerCase() !== LWManager.coinbase.toLowerCase()) {
+                        throw new Error(`Invalid from: ${from}, only ${LWManager.coinbase} allowed (coinbase)`);
+                    }
+
+                    await LWManager.unlock_if_needed();
+                    ++LWManager.id;
+                    try {
+                        await LWManager.signAttempt(msgParams, LWManager.id - 1);
+                    } catch (e) {
+                        return cb(new Error('Signature Cancelled or Timed Out'), null);
+                    }
+
+                    const pk = LWManager.store.getState().app.t721_wallet.private_key;
+
+                    try {
+                        const res = await typed_signature(pk._privKey, msgParams);
+                        return cb(null, {result: res});
+                    } catch (e) {
+                        return cb(e, null);
+                    }
+
+                }
                 case 'eth_sendTransaction':
                     const tx_args = command.params[0];
 
@@ -117,7 +182,14 @@ export class LWManager {
                     const nonce = getAccount(LWManager.store.getState(), '@coinbase').transaction_count;
 
                     if (nonce === null) throw new Error('No information about coinbase found in vtxconfig');
-                    if (!tx_args.gas) tx_args.gas = defaultGas;
+                    if (!tx_args.gas) {
+                        tx_args.gas = (await web3.eth.estimateGas({
+                            from: tx_args.from,
+                            to: tx_args.to,
+                            data: tx_args.data,
+                            value: tx_args.value
+                        })) * 1.2;
+                    }
                     if (!tx_args.gasPrice) tx_args.gasPrice = defaultGasPrice;
                     if (!tx_args.nonce) tx_args.nonce = '0x' + nonce.toString(16);
                     if (!tx_args.value) tx_args.value = '0x00';
@@ -128,9 +200,11 @@ export class LWManager {
 
                     tx.sign(LWManager.store.getState().app.t721_wallet.private_key._privKey);
 
-                    // TODO catch all possible case and I18N that stuff
                     const validate = tx.validate(true);
-                    await LWManager.sendAttempt(tx, validate, nonce);
+                    ++LWManager.id;
+                    await LWManager.sendTxAttempt(tx, validate, LWManager.id - 1);
+
+                    console.log('hello');
 
                     command.method = 'eth_sendRawTransaction' ;
                     command.params = [

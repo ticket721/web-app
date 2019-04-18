@@ -1,24 +1,29 @@
-import * as React                                           from 'react';
-import { Button, Checkbox, Form, Icon, Input, Typography, } from 'antd';
-import { I18N }                                             from '@utils/misc/i18n';
-import { AppState, AuthStatus }                             from '@utils/redux/app_state';
-import { Dispatch }                                         from 'redux';
-import { Auth }                                             from '@utils/redux/app/actions';
-import { connect }                                          from 'react-redux';
+import * as React                                          from 'react';
+import { Button, Checkbox, Form, Icon, Input, Typography } from 'antd';
+import { I18N, I18NProps }                                 from '@utils/misc/i18n';
+import { AppState, AuthStatus }                            from '@utils/redux/app_state';
+import { Dispatch }                                        from 'redux';
+import { Auth }                                            from '@utils/redux/app/actions';
+import { connect }                                         from 'react-redux';
+import { FormComponentProps }                              from 'antd/lib/form';
 
-export interface ILoginFormProps {
-    t?: any;
-    form?: any;
-    switch?: () => void;
-    auth?: (username: string, password: string, remember: boolean) => void;
-    status?: AuthStatus;
+// Props
+
+export interface LoginFormProps {
+    switch: () => void;
 }
 
-export interface ILoginFormState {
-
+interface LoginFormRState {
+    status: AuthStatus;
 }
 
-class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
+interface LoginFormRDispatch {
+    auth: (username: string, password: string, remember: boolean) => void;
+}
+
+type MergedLoginFormProps = LoginFormProps & LoginFormRState & LoginFormRDispatch & I18NProps & FormComponentProps;
+
+class LoginForm extends React.Component<MergedLoginFormProps> {
     handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
         this.props.form.validateFields((err: Error, values: any) => {
@@ -97,10 +102,10 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
     }
 }
 
-const mapStateToProps = (state: AppState): ILoginFormProps => ({
+const mapStateToProps = (state: AppState): LoginFormRState => ({
     status: state.app.auth_process_status
 });
-const mapDispatchToProps = (dispatch: Dispatch): ILoginFormProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): LoginFormRDispatch => ({
     auth: (username: string, password: string, remember: boolean): void => {
         dispatch(Auth(username, password, remember));
     }

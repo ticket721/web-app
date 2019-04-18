@@ -8,7 +8,8 @@ import { AppState }              from '@utils/redux/app_state';
 import { Dispatch }              from 'redux';
 import { SubmitEncryptedWallet } from '@utils/redux/app/actions';
 import { connect }               from 'react-redux';
-import { I18N }                  from '@utils/misc/i18n';
+import { I18N, I18NProps }       from '@utils/misc/i18n';
+import { FormComponentProps }    from 'antd/lib/form';
 
 const PasswordSchema = new PasswordValidator();
 
@@ -25,12 +26,19 @@ function hasErrors(fieldsError: any): any {
     return Object.keys(fieldsError).some((field: any) => fieldsError[field]);
 }
 
-export interface IHorizontalLockFormProps {
-    form?: any;
-    wallet_infos?: TemporaryWallet;
-    submit?: (encrypted_wallet: string) => void;
-    t?: any;
+export interface HorizontalLockFormProps {
+    wallet_infos: TemporaryWallet;
 }
+
+interface HorizontalLockFormRState {
+
+}
+
+interface HorizontalLockFormRDispatch {
+    submit: (encrypted_wallet: string) => void;
+}
+
+type MergedHorizontalLockFormProps = HorizontalLockFormProps & HorizontalLockFormRState & HorizontalLockFormRDispatch & I18NProps & FormComponentProps;
 
 enum WalletCreationStatus {
     Ok = 0,
@@ -38,14 +46,15 @@ enum WalletCreationStatus {
     Sent
 }
 
-export interface IHorizontalLockFormState {
+export interface HorizontalLockFormState {
     status: WalletCreationStatus;
     errors: string[];
     error_messages: any;
 }
 
-class HorizontalLockForm extends React.Component<IHorizontalLockFormProps, IHorizontalLockFormState> {
-    constructor(props: IHorizontalLockFormProps) {
+class HorizontalLockForm extends React.Component<MergedHorizontalLockFormProps, HorizontalLockFormState> {
+
+    constructor(props: MergedHorizontalLockFormProps) {
         super(props);
 
         this.state = {
@@ -167,8 +176,8 @@ class HorizontalLockForm extends React.Component<IHorizontalLockFormProps, IHori
     }
 }
 
-const mapStateToProps = (state: AppState): IHorizontalLockFormProps => ({});
-const mapDispatchToProps = (dispatch: Dispatch): IHorizontalLockFormProps => ({
+const mapStateToProps = (state: AppState): HorizontalLockFormRState => ({});
+const mapDispatchToProps = (dispatch: Dispatch): HorizontalLockFormRDispatch => ({
     submit: (encrypted_wallet: string): void => {
         dispatch(SubmitEncryptedWallet(encrypted_wallet));
     }

@@ -16,6 +16,7 @@ import { LWManager }             from './LWManager';
 import { LWTXReducer }           from './lwtransactions/reducers';
 import { StrapiCacheSaga }       from './strapi_cache/sagas';
 import { StrapiCacheReducer }    from './strapi_cache/reducers';
+import ReduxStore from '@uppy/store-redux';
 
 /**
  * Configures the store, merges reducers and sagas
@@ -31,7 +32,8 @@ export function configureStore(): Store<State> {
         remote_settings: RemoteSettingsReducer,
         app: AppReducer,
         lwtx: LWTXReducer,
-        strapi_cache: StrapiCacheReducer
+        strapi_cache: StrapiCacheReducer,
+        uppy: ReduxStore.reducer
     });
     const sagaMiddleware = createSagaMiddleware();
     const composer = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

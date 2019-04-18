@@ -5,7 +5,6 @@ import withRedux          from 'next-redux-wrapper';
 import withReduxSaga      from 'next-redux-saga';
 import { canUseDOM }      from 'exenv';
 import { Store }          from 'redux';
-import getConfig          from 'next/config';
 
 // @web_components imports
 import NavBar             from '@web_components/navbar';
@@ -34,7 +33,8 @@ class T721App extends App {
         }
 
         // Inject env variables into SSR
-        pageProps.CONFIG = getConfig().publicRuntimeConfig.env as AppConfig;
+        //pageProps.CONFIG = getConfig().publicRuntimeConfig.env as AppConfig;
+        pageProps.CONFIG = (process.env as any) as AppConfig;
 
         // Fetch correct required namespaces depending on route
         pageProps.namespacesRequired = namespaces[router.route];

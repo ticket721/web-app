@@ -24,17 +24,18 @@ import { call, put, select, takeEvery }                                        f
 import { AppModuleReady, AppState, AppStatus, AuthStatus, WalletProviderType } from '../app_state';
 import Strapi                                                                  from 'strapi-sdk-javascript';
 import { RxDatabase }                                                          from 'rxdb';
-import { getRxDB }                                                             from '../../rxdb';
+import { getRxDB }                      from '../../rxdb';
 import {
     VtxconfigReset,
     VtxconfigSetWeb3
-}                                                                              from 'ethvtx/lib/actions';
-import Web3                                                                    from 'web3';
+}                                       from 'ethvtx/lib/actions';
+import Web3                             from 'web3';
 import {
     ContractsAddSpec,
     ContractsNew
-}                                                                              from 'ethvtx/lib/actions';
-import { LWManager }                                                           from '../LWManager';
+}                                       from 'ethvtx/lib/actions';
+import { LWManager }                    from '../LWManager';
+import { VtxconfigAuthorizeAndSetWeb3 } from 'ethvtx/lib/vtxconfig/actions/actions';
 
 /**
  * Called when the app starts. Builds Strapi and sets it in the store.
@@ -164,10 +165,37 @@ function* onStartVortex(action: IStartVortex): SagaIterator {
     switch (state.app.provider) {
         case WalletProviderType.InjectedProvider: {
 
-            const browser_web3 = global.window.web3;
-            const web3 = new Web3(browser_web3.currentProvider);
+            if (global.window.ethereum) {
 
-            yield put(VtxconfigSetWeb3(web3));
+                const web3_getter = async (): Promise<any> => {
+                    const provider = global.window.ethereum;
+
+                    const web3 = new Web3(provider);
+
+                    return web3;
+                };
+
+                let cb;
+
+                const promise = new Promise<void>((ok: any, ko: any): void => {
+                    cb = ok;
+                });
+
+                yield put(VtxconfigAuthorizeAndSetWeb3({
+                    enable: global.window.ethereum.enable,
+                    web3: web3_getter
+                }, cb));
+
+                yield call(async (): Promise<void> => promise);
+
+            } else if (global.window.web3) {
+
+                const browser_web3 = global.window.web3;
+                const web3 = new Web3(browser_web3.currentProvider);
+
+                yield put(VtxconfigSetWeb3(web3));
+
+            }
 
             for (const contract of Object.keys(state.remote_settings.contracts)) {
                 yield put(ContractsAddSpec(contract, JSON.parse(state.remote_settings.contracts[contract].abi), {
@@ -180,7 +208,7 @@ function* onStartVortex(action: IStartVortex): SagaIterator {
                 }));
             }
 
-            yield put(VtxconfigReset(global.window.ethereum ? global.window.ethereum.enable : null));
+            yield put(VtxconfigReset());
 
             break;
         }

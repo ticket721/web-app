@@ -3,35 +3,41 @@ import { FullDiv }          from '@components/html/FullDiv';
 import { Box, Grid }        from 'grommet';
 import { Wallet, generate } from 'ethereumjs-wallet';
 import dynamic              from 'next/dynamic';
-import { IWalletCardProps } from './WalletCard';
+import { WalletCardProps }  from './WalletCard';
+import { I18NProps }        from '../../utils/misc/i18n';
 
-const WalletCard: React.ComponentType<IWalletCardProps> = dynamic<IWalletCardProps>(async () => import('./WalletCard'), {
+// Dynamic Components
+
+const WalletCard: React.ComponentType<WalletCardProps> = dynamic<WalletCardProps>(async () => import('./WalletCard'), {
     loading: (): React.ReactElement => null
 });
 
-const HorizontalLockForm: React.ComponentType<any> = dynamic<IWalletCardProps>(async () => import('./HorizontalLockForm'), {
+const HorizontalLockForm: React.ComponentType<any> = dynamic<WalletCardProps>(async () => import('./HorizontalLockForm'), {
     loading: (): React.ReactElement => null
 });
 
-export interface ILocalWalletCreationViewProps {
-    t?: any;
+// Props
+
+export interface LocalWalletCreationViewProps {
 }
+
+type MergedLocalWalletCreationViewProps = LocalWalletCreationViewProps & I18NProps;
 
 export interface TemporaryWallet {
     wallet: Wallet;
     address: string;
 }
 
-export interface ILocalWalletCreationViewState {
+interface ILocalWalletCreationViewState {
     wallet: TemporaryWallet;
 }
 
 /**
  * Wallet creation form
  */
-export default class LocalWalletCreationView extends React.Component<ILocalWalletCreationViewProps, ILocalWalletCreationViewState> {
+export default class LocalWalletCreationView extends React.Component<MergedLocalWalletCreationViewProps, ILocalWalletCreationViewState> {
 
-    constructor(props: ILocalWalletCreationViewProps) {
+    constructor(props: MergedLocalWalletCreationViewProps) {
         super(props);
 
         const wallet = generate(true);

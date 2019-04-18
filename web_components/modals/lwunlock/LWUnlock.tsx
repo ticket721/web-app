@@ -3,22 +3,27 @@ import * as React                         from 'react';
 import { LWUnlockForm }                   from './LWUnlockForm';
 import { Wallet }                         from 'ethereumjs-wallet';
 import { LWManager }                      from '@utils/redux/LWManager';
+import { I18NProps }                      from '@utils/misc/i18n';
 
-export interface ILWUnlockProps {
-    lw?: LocalWallet;
-    unlocked?: (wallet: Wallet, period: number) => any;
-    unlocking?: () => any;
-    t?: any;
-    coinbase?: string;
+export interface LWUnlockProps {
 }
 
-export interface ILWUnlockState {
+export interface LWUnlockExternRState {
+    lw: LocalWallet;
+    coinbase: string;
 }
+
+export interface LWUnlockExternRDispatch {
+    unlocked: (wallet: Wallet, period: number) => any;
+    unlocking: () => any;
+}
+
+type MergedLWUnlockProps = LWUnlockProps & LWUnlockExternRState & LWUnlockExternRDispatch & I18NProps;
 
 /**
  * Renders the modal to unlock the local wallet with the wallet password.
  */
-export default class LWUnlock extends React.Component<ILWUnlockProps, ILWUnlockState> {
+export default class LWUnlock extends React.Component<MergedLWUnlockProps> {
 
     formRef: any;
 

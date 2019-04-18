@@ -1,11 +1,11 @@
-import * as React from 'react';
-import Lottie     from 'react-lottie';
-import BarLoader  from './animations/bar_loader.json';
+import * as React     from 'react';
+import { Typography } from 'antd';
+import Lottie         from 'react-lottie';
+import BarLoader      from './animations/bar_loader.json';
+import { NamespacesConsumer } from 'react-i18next';
 
-interface IFullPageLoaderProps {
-}
-
-interface IFullPageLoaderState {
+interface FullPageLoaderProps {
+    message?: string;
 }
 
 const options = {
@@ -17,21 +17,32 @@ const options = {
     }
 };
 
-export class FullPageLoader extends React.Component<IFullPageLoaderProps, IFullPageLoaderState> {
+export class FullPageLoader extends React.Component<FullPageLoaderProps> {
 
-    constructor(props: IFullPageLoaderProps) {
+    constructor(props: FullPageLoaderProps) {
         super(props);
     }
 
     render(): React.ReactNode {
         return (
-            <div>
+            <div style={{textAlign: 'center'}}>
 
                 <Lottie
                     options={options}
                     width={400}
                     height={400}
                 />
+                {this.props.message
+                    ?
+                    <NamespacesConsumer ns={['messages']}>
+                        {
+                            (t: any): React.ReactNode =>
+                                <Typography.Text style={{fontSize: 32}}>{t(this.props.message)}</Typography.Text>
+                        }
+                    </NamespacesConsumer>
+                    :
+                    null
+                }
 
             </div>
         );

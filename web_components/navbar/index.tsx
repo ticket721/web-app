@@ -1,5 +1,5 @@
 import { AppState, AppStatus, WalletProviderType } from '@utils/redux/app_state';
-import { INavBarProps }                            from './NavBar';
+import { NavBarExternRState, NavBarProps }         from './NavBar';
 import { connect }                                 from 'react-redux';
 import { I18N }                                    from '@utils/misc/i18n';
 import { VtxStatus }                               from 'ethvtx/lib/state/vtxconfig';
@@ -13,13 +13,13 @@ const NavBar = dynamic<any>(async () => import('./NavBar'), {
     loading: (): React.ReactElement => null
 });
 
-const mapStateToProps = (state: AppState): INavBarProps => ({
+const mapStateToProps = (state: AppState): NavBarExternRState => ({
     disabled: !(state.app.status === AppStatus.Ready && state.app.provider !== WalletProviderType.None && state.vtxconfig.status === VtxStatus.Loaded),
     provider: state.app.provider,
     account: getAccount(state, '@coinbase')
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): INavBarProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): NavBarProps => ({
     logout: (): any => dispatch(SetWalletProvider(WalletProviderType.None))
 });
 

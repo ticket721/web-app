@@ -1,30 +1,30 @@
-import * as React                       from 'react';
-import { Grid, Box }                    from 'grommet';
-import { FullDiv }                      from '@components/html/FullDiv';
-import { IInjectedProviderChoiceProps } from './InjectedProviderChoice';
-import { IT721ProviderChoiceProps }     from './T721ProviderChoice';
-import dynamic                          from 'next-server/dynamic';
+import * as React                      from 'react';
+import { Grid, Box }                   from 'grommet';
+import { FullDiv }                     from '@components/html/FullDiv';
+import { InjectedProviderChoiceProps } from './InjectedProviderChoice';
+import { T721ProviderChoiceProps }     from './T721ProviderChoice';
+import dynamic                         from 'next-server/dynamic';
+import { I18NProps }                   from '../../utils/misc/i18n';
 
-const InjectedProviderChoice: React.ComponentType<IInjectedProviderChoiceProps> = dynamic<IInjectedProviderChoiceProps>(async () => import('./InjectedProviderChoice'), {
+// Dyanmic Components
+
+const InjectedProviderChoice: React.ComponentType<InjectedProviderChoiceProps> = dynamic<InjectedProviderChoiceProps>(async () => import('./InjectedProviderChoice'), {
     loading: (): React.ReactElement => null
 });
 
-const T721ProviderChoice: React.ComponentType<IT721ProviderChoiceProps> = dynamic<IInjectedProviderChoiceProps>(async () => import('./T721ProviderChoice'), {
+const T721ProviderChoice: React.ComponentType<T721ProviderChoiceProps> = dynamic<InjectedProviderChoiceProps>(async () => import('./T721ProviderChoice'), {
     loading: (): React.ReactElement => null
 });
 
-export interface IProviderSelectionViewProps {
-    t?: any;
+export interface ProviderSelectionViewProps {
 }
 
-export interface IProviderSelectionViewState {
-
-}
+type MergedProviderSelectionViewProps = ProviderSelectionViewProps & I18NProps;
 
 /**
  * Provider selection buttons
  */
-export default class ProviderSelectionView extends React.Component<IProviderSelectionViewProps, IProviderSelectionViewState> {
+export default class ProviderSelectionView extends React.Component<MergedProviderSelectionViewProps> {
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%'}}>
             <Grid

@@ -1,6 +1,6 @@
 import { InitialAppState, StrapiCacheSection }                                                    from '../app_state';
 import {
-    IStrapiCacheNewCall, IStrapiCacheSetData,
+    IStrapiCacheNewCall, IStrapiCacheResetCall, IStrapiCacheSetData,
     IStrapiCacheSetHeight,
     IStrapiCacheSetRequired,
     StrapiCacheActions,
@@ -54,6 +54,29 @@ const StrapiCacheNewCallReducer: Reducer<StrapiCacheSection, IStrapiCacheNewCall
     }
 });
 
+const StrapiCacheResetCallReducer: Reducer<StrapiCacheSection, IStrapiCacheResetCall> = (state: StrapiCacheSection, action: IStrapiCacheResetCall): StrapiCacheSection => {
+    const call = state.calls[action.call];
+
+    if (call && call.height) {
+
+        console.log('call exists', call, call.height);
+
+        call.height -= 1;
+
+        return {
+            ...state,
+            calls: {
+                ...state.calls,
+                [action.call]: {
+                    ...call
+                }
+            }
+        };
+    }
+
+    return state;
+};
+
 const StrapiCacheSetHeightReducer: Reducer<StrapiCacheSection, IStrapiCacheSetHeight> = (state: StrapiCacheSection, action: IStrapiCacheSetHeight): StrapiCacheSection => ({
     ...state,
     height: action.height
@@ -69,6 +92,8 @@ export const StrapiCacheReducer = (state: StrapiCacheSection = InitialAppState.s
             return StrapiCacheSetRequiredReducer(state, action as IStrapiCacheSetRequired);
         case StrapiCacheActions.SetData:
             return StrapiCacheSetData(state, action as IStrapiCacheSetData);
+        case StrapiCacheActions.ResetCall:
+            return StrapiCacheResetCallReducer(state, action as IStrapiCacheResetCall);
         default:
             return state;
     }

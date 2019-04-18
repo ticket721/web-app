@@ -4,3 +4,4 @@ portal
 .DS_Store
 .next
 coverage
+.env

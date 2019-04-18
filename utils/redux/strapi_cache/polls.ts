@@ -22,6 +22,7 @@ const height_fetcher_poll: VtxPollCb = async (state: AppState, emit: Dispatch, n
         }
 
     } catch (e) {
+        console.error(e);
         // TODO Critical error management
     }
 

@@ -1,41 +1,56 @@
-import React   from 'react';
-import dynamic from 'next/dynamic';
+import React                from 'react';
+import dynamic              from 'next/dynamic';
+import { AccountViewProps } from '../web_views/account_view';
+import { isValidAddress }   from 'ethereumjs-util';
+import { InvalidAddress }   from '../web_views/message/invalid_address';
 
-const AppGate: React.ComponentType = dynamic<any>(async () => import('@web_components/appgate/connectedAppGate'), {
+const AppGate: React.ComponentType = dynamic<any>(async () => import('@web_components/appgate/AppGate'), {
     loading: (): React.ReactElement => null,
-    ssr: false
+    ssr: true
 });
 
-const AuthGate: React.ComponentType = dynamic<any>(async () => import('@web_components/authgate/connectedAuthGate'), {
+const AuthGate: React.ComponentType = dynamic<any>(async () => import('@web_components/authgate/AuthGate'), {
     loading: (): React.ReactElement => null,
-    ssr: false
+    ssr: true
 });
 
-const LocalWalletGate: React.ComponentType = dynamic<any>(async () => import('@web_components/localwalletgate/connectedLocalWalletGate'), {
+const LocalWalletGate: React.ComponentType = dynamic<any>(async () => import('@web_components/localwalletgate/LocalWalletGate'), {
     loading: (): React.ReactElement => null,
-    ssr: false
+    ssr: true
 });
 
-const VtxGate: React.ComponentType = dynamic<any>(async () => import('@web_components/vtxgate/connectedVtxGate'), {
+const VtxGate: React.ComponentType = dynamic<any>(async () => import('@web_components/vtxgate/VtxGate'), {
     loading: (): React.ReactElement => null,
-    ssr: false
+    ssr: true
 });
 
-const ProviderGate: React.ComponentType = dynamic<any>(async () => import('@web_components/providergate/connectedProviderGate'), {
+const ProviderGate: React.ComponentType = dynamic<any>(async () => import('@web_components/providergate/ProviderGate'), {
     loading: (): React.ReactElement => null,
-    ssr: false
+    ssr: true
 });
 
-export default class extends React.Component {
+const AccountView: React.ComponentType<AccountViewProps> = dynamic<AccountViewProps>(async () => import('@web_views/account_view'), {
+    loading: (): React.ReactElement => null
+});
+
+export default class extends React.Component<any> {
+    static getInitialProps({query}: {query: any; }): any {
+        return query;
+    }
 
     render(): React.ReactNode {
+
+        if (this.props.address && !isValidAddress(this.props.address)) {
+            return <InvalidAddress address={this.props.address}/>;
+        }
+
         return (
             <AppGate>
                 <ProviderGate>
                     <AuthGate>
                         <LocalWalletGate>
                             <VtxGate>
-                                <p>account</p>
+                                <AccountView address={this.props.address}/>
                             </VtxGate>
                         </LocalWalletGate>
                     </AuthGate>

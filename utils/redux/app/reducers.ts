@@ -14,6 +14,7 @@ import {
     IUnlockedLocalWallet,
     IUnlockingLocalWallet
 }                                                                                    from './actions';
+import { VtxeventsActions }                                                          from 'ethvtx/lib/vtxevents/actions/actionTypes';
 
 const UnlockedLocalWalletReducer: Reducer<AppSection, IUnlockedLocalWallet> =
     (state: AppSection, action: IUnlockedLocalWallet): AppSection => ({
