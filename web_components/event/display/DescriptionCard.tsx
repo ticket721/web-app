@@ -13,12 +13,9 @@ export default class DescriptionCard extends React.Component<MergedDescriptionCa
         if (this.props.description) {
             return <Card
                 style={{width: '100%', height: '100%'}}
+                title={this.props.t('description_title')}
+                size={'small'}
             >
-                <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                    {this.props.t('description_title')}
-                </Typography.Text>
-                <br/>
-                <br/>
                 <Typography.Text style={{fontSize: 18}}>
                     {this.props.description}
                 </Typography.Text>
@@ -26,12 +23,9 @@ export default class DescriptionCard extends React.Component<MergedDescriptionCa
         } else {
             return <Card
                 style={{width: '100%', height: '100%'}}
+                title={this.props.t('description_title')}
+                size={'small'}
             >
-                <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                    {this.props.t('description_title')}
-                </Typography.Text>
-                <br/>
-                <br/>
                 <div style={{textAlign: 'center'}}>
                 <Typography.Text style={{fontSize: 18}}>
                     {this.props.t('no_defined_description')}

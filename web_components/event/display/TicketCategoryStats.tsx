@@ -64,7 +64,13 @@ export default class TicketCategoryStats extends React.Component<MergedTicketCat
 
     render(): React.ReactNode {
         if (this.props.categories === null || this.props.categories.length === 0 || !this.props.creation) {
-            return <FullPageLoader/>;
+            return <Card
+                style={{width: '100%', height: '100%'}}
+                title={this.props.t('categories_title')}
+                size={'small'}
+            >
+                <FullPageLoader/>;
+            </Card>;
         }
 
         const options = this.props.categories.map((cat: TicketCategory, idx: number): React.ReactNode =>
@@ -81,10 +87,9 @@ export default class TicketCategoryStats extends React.Component<MergedTicketCat
 
         return <Card
             style={{width: '100%', height: '100%'}}
+            title={this.props.t('categories_title')}
+            size={'small'}
         >
-            <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                {this.props.t('categories_title')}
-            </Typography.Text>
             <div style={{width: '100%', textAlign: 'center'}}>
                 <br/>
                 <Typography.Text style={{fontSize: 18}}>

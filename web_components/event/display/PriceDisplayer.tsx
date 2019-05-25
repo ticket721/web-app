@@ -30,10 +30,9 @@ export default class PriceDisplayer extends React.Component<MergedPriceDisplayer
         if (this.props.price) {
             return <Card
                 style={{width: '100%', height: '100%'}}
+                title={this.props.t('prices_title')}
+                size={'small'}
             >
-                <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                    {this.props.t('prices_title')}
-                </Typography.Text>
                 <div style={{width: '100%', textAlign: 'center'}}>
                     <br/>
                     <Typography.Text style={{fontSize: 18}}>
