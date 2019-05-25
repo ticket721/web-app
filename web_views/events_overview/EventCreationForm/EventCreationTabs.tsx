@@ -3,19 +3,19 @@ import { Steps, Button }                  from 'antd';
 import dynamic                            from 'next/dynamic';
 import { EventCreationInformationsProps } from './EventCreationInformations';
 import { EventCreationData }              from './EventCreationData';
-import { MinterSelectionFormProps }       from './MinterSelectionForm';
+import { MinterSelectionFormProps }       from '@web_contract_plugins/minter/MinterSelectionForm';
 import { StrapiMinter }                   from '@utils/strapi/minter';
 import { StrapiApprover }                 from '@utils/strapi/approver';
 import { StrapiMarketer }                 from '@utils/strapi/marketer';
 import { StrapiEventContract }            from '@utils/strapi/eventcontract';
-import { MarketerSelectionFormProps }     from './MarketerSelectionForm';
-import { ApproverSelectionFormProps } from './ApproverSelectionForm';
-import EventCreationSummaryModal      from './EventCreationSummaryModal';
-import { ContractsSpecStore }         from 'ethvtx/lib/state/contracts';
-import { AppState }                   from '@utils/redux/app_state';
-import { connect }                    from 'react-redux';
-import { Dispatch }                   from 'redux';
-import { loadContractSpec }           from 'ethvtx/lib/contracts/helpers/dispatchers';
+import { MarketerSelectionFormProps }     from '../../../web_contract_plugins/marketer/MarketerSelectionForm';
+import { ApproverSelectionFormProps }     from '@web_contract_plugins/approver/ApproverSelectionForm';
+import EventCreationSummaryModal          from './EventCreationSummaryModal';
+import { ContractsSpecStore }             from 'ethvtx/lib/state/contracts';
+import { AppState }                       from '@utils/redux/app_state';
+import { connect }                        from 'react-redux';
+import { Dispatch }                       from 'redux';
+import { loadContractSpec }               from 'ethvtx/lib/contracts/helpers/dispatchers';
 import { I18N, I18NProps }            from '@utils/misc/i18n';
 
 const Step = Steps.Step;
@@ -27,17 +27,17 @@ const EventCreationInformations: React.ComponentType<EventCreationInformationsPr
     ssr: false
 });
 
-const MinterSelectionForm: React.ComponentType<MinterSelectionFormProps> = dynamic<MinterSelectionFormProps>(async () => import('./MinterSelectionForm'), {
+const MinterSelectionForm: React.ComponentType<MinterSelectionFormProps> = dynamic<MinterSelectionFormProps>(async () => import('../../../web_contract_plugins/minter/MinterSelectionForm'), {
     loading: (): React.ReactElement => null,
     ssr: false
 });
 
-const MarketerSelectionForm: React.ComponentType<MarketerSelectionFormProps> = dynamic<MarketerSelectionFormProps>(async () => import('./MarketerSelectionForm'), {
+const MarketerSelectionForm: React.ComponentType<MarketerSelectionFormProps> = dynamic<MarketerSelectionFormProps>(async () => import('../../../web_contract_plugins/marketer/MarketerSelectionForm'), {
     loading: (): React.ReactElement => null,
     ssr: false
 });
 
-const ApproverSelectionForm: React.ComponentType<ApproverSelectionFormProps> = dynamic<ApproverSelectionFormProps>(async () => import('./ApproverSelectionForm'), {
+const ApproverSelectionForm: React.ComponentType<ApproverSelectionFormProps> = dynamic<ApproverSelectionFormProps>(async () => import('../../../web_contract_plugins/approver/ApproverSelectionForm'), {
     loading: (): React.ReactElement => null,
     ssr: false
 });

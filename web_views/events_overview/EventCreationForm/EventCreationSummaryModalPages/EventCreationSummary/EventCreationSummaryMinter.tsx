@@ -3,7 +3,7 @@ import { Divider, Typography } from 'antd';
 import { EventCreationData }   from '../../EventCreationData';
 import { I18N, I18NProps }     from '@utils/misc/i18n';
 import { StrapiMinter }        from '@utils/strapi/minter';
-import * as MinterDescriptions from './MinterDescriptions';
+import * as MinterDescriptions from '@web_contract_plugins/minter/MinterDescriptions';
 
 export interface EventCreationSummaryMinterProps {
     form_data: EventCreationData;

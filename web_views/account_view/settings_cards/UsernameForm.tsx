@@ -1,42 +1,43 @@
 import * as React                                         from 'react';
+import { SyntheticEvent }                                 from 'react';
 import { StrapiAddress }                                  from '@utils/strapi/address';
 import { Button, Card, Input, message, Spin, Typography } from 'antd';
 import { I18N, I18NProps }                                from '@utils/misc/i18n';
 import { HandleGetter }                                   from '../misc/HandleGetter';
-import { SyntheticEvent }                                 from 'react';
-import { AppState }                                       from '@utils/redux/app_state';
+import { AppState, WalletProviderType }                   from '@utils/redux/app_state';
 import { connect }                                        from 'react-redux';
 import { sign }                                           from '@utils/misc/Web3TypedSignature';
 import Strapi                                             from 'strapi-sdk-javascript';
 import { Dispatch }                                       from 'redux';
 import { StrapiHelper }                                   from '@utils/StrapiHelper';
 
-export interface IUsernameFormProps {
+export interface UsernameFormProps {
     strapi_address: StrapiAddress;
     address: string;
     coinbase: string;
 }
 
-interface IUsernameFormState {
+interface UsernameFormState {
     new_username: string;
     old_username: string;
     loading: boolean;
 }
 
-interface IReduxStateUsernameFormProps {
+interface UsernameFormRState {
     web3: any;
     strapi: Strapi;
+    provider: WalletProviderType;
 }
 
-interface IReduxDispatchUsernameFormProps {
+interface UsernameFormRDispatch {
     resetCoinbase: () => void;
 }
 
-type UsernameFormProps = IUsernameFormProps & I18NProps & IReduxStateUsernameFormProps & IReduxDispatchUsernameFormProps;
+type MergedUsernameFormProps = UsernameFormProps & I18NProps & UsernameFormRState & UsernameFormRDispatch;
 
-class UsernameForm extends React.Component<UsernameFormProps, IUsernameFormState> {
+class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameFormState> {
 
-    constructor(props: UsernameFormProps) {
+    constructor(props: MergedUsernameFormProps) {
         super(props);
 
         const handle = HandleGetter(this.props.strapi_address, this.props.address, this.props.coinbase);
@@ -56,7 +57,7 @@ class UsernameForm extends React.Component<UsernameFormProps, IUsernameFormState
         }
     }
 
-    shouldComponentUpdate(nextProps: Readonly<IUsernameFormProps & I18NProps & IReduxStateUsernameFormProps & IReduxDispatchUsernameFormProps>, nextState: Readonly<IUsernameFormState>, nextContext: any): boolean {
+    shouldComponentUpdate(nextProps: Readonly<UsernameFormProps & I18NProps & UsernameFormRState & UsernameFormRDispatch>, nextState: Readonly<UsernameFormState>, nextContext: any): boolean {
         if (nextProps.strapi_address && nextProps.strapi_address.username !== nextState.old_username) {
             this.setState({
                 old_username: nextProps.strapi_address.username
@@ -189,6 +190,19 @@ class UsernameForm extends React.Component<UsernameFormProps, IUsernameFormState
                                                 Submit
                                             </Button>
                                         </div>
+                                        {
+                                            this.props.provider === WalletProviderType.T721Provider
+
+                                                ?
+                                                <div>
+                                                    <br/>
+                                                    <Typography.Text type='warning' style={{fontSize: 12}}>{this.props.t('settings_username_no_login_change')}</Typography.Text>
+                                                    <br/>
+                                                </div>
+
+                                                :
+                                                null
+                                        }
                                     </div>
                             }
 
@@ -200,15 +214,16 @@ class UsernameForm extends React.Component<UsernameFormProps, IUsernameFormState
     }
 }
 
-const mapStateToProps = (state: AppState): IReduxStateUsernameFormProps => ({
+const mapStateToProps = (state: AppState): UsernameFormRState => ({
     web3: state.vtxconfig.web3,
-    strapi: state.app.strapi
+    strapi: state.app.strapi,
+    provider: state.app.provider
 });
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: IUsernameFormProps): IReduxDispatchUsernameFormProps => ({
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: UsernameFormProps): UsernameFormRDispatch => ({
     resetCoinbase: (): void => StrapiHelper.resetEntries(dispatch, 'addresses', {address: ownProps.strapi_address.address.toLowerCase()})
 });
 
 export default I18N.withNamespaces(['account'])(
     connect(mapStateToProps, mapDispatchToProps)(UsernameForm)
-) as React.ComponentType<IUsernameFormProps>;
+) as React.ComponentType<UsernameFormProps>;

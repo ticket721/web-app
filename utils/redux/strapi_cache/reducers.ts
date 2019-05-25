@@ -59,8 +59,6 @@ const StrapiCacheResetCallReducer: Reducer<StrapiCacheSection, IStrapiCacheReset
 
     if (call && call.height) {
 
-        console.log('call exists', call, call.height);
-
         call.height -= 1;
 
         return {

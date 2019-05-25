@@ -3,7 +3,7 @@ import { Divider, Typography }   from 'antd';
 import { EventCreationData }     from '../../EventCreationData';
 import { I18N, I18NProps }       from '@utils/misc/i18n';
 import { StrapiMarketer }        from '@utils/strapi/marketer';
-import * as MarketerDescriptions from './MarketerDescriptions';
+import * as MarketerDescriptions from '@web_contract_plugins/marketer/MarketerDescriptions';
 
 //Props
 

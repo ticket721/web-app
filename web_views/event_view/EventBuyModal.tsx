@@ -1,10 +1,10 @@
 import * as React             from 'react';
 import { Button, Modal }      from 'antd';
 import EventBuyModalContent   from './EventBuyModalContent';
-import { TicketCategory }     from '@utils/event/MinterCategoriesGetter';
+import { TicketCategory }     from '@web_contract_plugins/minter/MinterCategoriesGetter';
 import { StrapiAddress }      from '@utils/strapi/address';
 import { StrapiEvent }        from '@utils/strapi/event';
-import MintingController      from './logics/MintingController';
+import MintingController      from '@web_contract_plugins/minter/MintingController';
 import { StrapiMinter }       from '@utils/strapi/minter';
 import { VtxContract }        from 'ethvtx/lib/contracts/VtxContract';
 import { Tx }                 from 'ethvtx/lib/state/txs';

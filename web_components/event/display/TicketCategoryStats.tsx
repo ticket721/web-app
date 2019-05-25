@@ -1,5 +1,5 @@
 import * as React                                                  from 'react';
-import { TicketCategory }                                          from '../../../utils/event/MinterCategoriesGetter';
+import { TicketCategory }                                          from '../../../web_contract_plugins/minter/MinterCategoriesGetter';
 import { Card, Col, Progress, Row, Select, Statistic, Typography } from 'antd';
 import { FullPageLoader }                                          from '../../loaders/FullPageLoader';
 import { I18NProps }                                               from '../../../utils/misc/i18n';
@@ -12,13 +12,14 @@ export interface TicketCategoryStatsProps {
     categories: TicketCategory[];
     selection: number;
     set_selection: (idx: number) => void;
+    t: any;
 }
 
 interface TicketCategoryStatsState {
     auto_update: any;
 }
 
-type MergedTicketCategoryStatsProps = TicketCategoryStatsProps & I18NProps;
+type MergedTicketCategoryStatsProps = TicketCategoryStatsProps;
 
 export default class TicketCategoryStats extends React.Component<MergedTicketCategoryStatsProps, TicketCategoryStatsState> {
 

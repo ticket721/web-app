@@ -3,7 +3,7 @@ import { Divider, Typography }   from 'antd';
 import { EventCreationData }     from '../../EventCreationData';
 import { I18N, I18NProps }       from '@utils/misc/i18n';
 import { StrapiApprover }        from '@utils/strapi/approver';
-import * as ApproverDescriptions from './ApproverDescriptions';
+import * as ApproverDescriptions from '@web_contract_plugins/approver/ApproverDescriptions';
 
 // Props
 

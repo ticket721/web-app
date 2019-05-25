@@ -1,8 +1,9 @@
-import * as React     from 'react';
-import { FullDiv }    from '@components/html/FullDiv';
-import { Box, Grid }  from 'grommet';
-import t721_auth_logo from '@static/images/auth/t721_auth_logo.png';
-import dynamic        from 'next/dynamic';
+import * as React        from 'react';
+import { FullDiv }       from '@components/html/FullDiv';
+import { Box, Grid }     from 'grommet';
+import t721_auth_logo    from '@static/assets/ticket721/dark.svg';
+import dynamic           from 'next/dynamic';
+import { Card, Divider } from 'antd';
 
 // Dynamic Components
 
@@ -21,31 +22,28 @@ export interface RegisterViewProps {
  */
 export default class RegisterView extends React.Component<RegisterViewProps> {
     render(): React.ReactNode {
-        return <FullDiv style={{padding: '2%'}}>
-            <Grid
-
-                fill={true}
-                rows={['1/4', '1/2', '1/4']}
-                columns={['1/3', '1/3', '1/3']}
-                gap='small'
-                areas={[
-                    {name: 'logo', start: [1, 0], end: [1, 0]},
-                    {name: 'form', start: [1, 1], end: [1, 1]}
-                ]}
-            >
-                <Box alignContent='center' alignSelf='center' align='center' gridArea='logo'>
-                    <img
-                        src={t721_auth_logo}
-                        style={{
-                            height: 'auto',
-                            width: '60%'
-                        }}
-                    />
-                </Box>
-                <Box align='center' alignContent='center' alignSelf='center' gridArea='form'>
-                    <RegisterViewForm switch={this.props.switch}/>
-                </Box>
-            </Grid>
+        return <FullDiv style={{padding: '2%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <div>
+                        <Card
+                            style={{
+                                padding: 48,
+                                paddingBottom: 0,
+                                borderRadius: 6,
+                                boxShadow: '0 3px 5px rgba(0,0,0,0.16)'
+                            }}
+                        >
+                            <img
+                                src={t721_auth_logo}
+                                style={{
+                                    height: 'auto',
+                                    width: '100%',
+                                    marginBottom: 24
+                                }}
+                            />
+                            <Divider/>
+                            <RegisterViewForm switch={this.props.switch}/>
+                        </Card>
+                    </div>
         </FullDiv>;
     }
 }

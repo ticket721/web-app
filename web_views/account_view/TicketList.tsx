@@ -1,13 +1,13 @@
-import { StrapiAddress }                    from '@utils/strapi/address';
-import * as React                           from 'react';
-import { StrapiTicket }                     from '@utils/strapi/ticket';
+import { StrapiAddress }                          from '@utils/strapi/address';
+import * as React                                 from 'react';
+import { StrapiTicket }                           from '@utils/strapi/ticket';
 import { Button, List, Select, Typography } from 'antd';
-import Ticket                               from '@web_components/ticket';
-import { StrapiEvent }                      from '@utils/strapi/event';
-import FilterForm, { FilterOptions }        from './FilterForm';
-import LoadingTicket                        from '@web_components/ticket/LoadingTicket';
-import { NoTickets }                        from '../message/no_tickets';
-import { I18N, I18NProps }                  from '../../utils/misc/i18n';
+import Ticket                                     from '@web_components/ticket';
+import { StrapiEvent }                            from '@utils/strapi/event';
+import FilterForm, { FilterOptions }              from './FilterForm';
+import LoadingTicket                              from '@web_components/ticket/LoadingTicket';
+import { NoTickets }                              from '../message/no_tickets';
+import { I18N, I18NProps }                        from '../../utils/misc/i18n';
 
 const Option = Select.Option;
 
@@ -15,6 +15,7 @@ const Option = Select.Option;
 
 export interface TicketListProps {
     address: StrapiAddress;
+    coinbase: string;
     tickets: StrapiTicket[];
     ticket_count: number;
     filter_setter: (field: string, value: any) => void;
@@ -53,15 +54,15 @@ class TicketList extends React.Component<MergedTicketListProps, TicketListState>
 
     render_item = (ticket: any): React.ReactNode => {
         if (ticket.loader) {
-            return <List.Item style={{marginTop: 16, height: 250}}>
+            return <List.Item style={{marginTop: 62, height: 250}}>
                 <div style={{height: 250, display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
                     <LoadingTicket/>
                 </div>
             </List.Item>;
         }
-        return <List.Item style={{marginTop: 16, height: 250}}>
+        return <List.Item style={{marginTop: 62, height: 250}}>
             <div style={{height: 250, display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
-                <Ticket ticket={ticket.data}/>
+                <Ticket ticket={ticket.data} coinbase={this.props.coinbase} show_marketplace_link={true}/>
             </div>
         </List.Item>;
 
@@ -98,7 +99,7 @@ class TicketList extends React.Component<MergedTicketListProps, TicketListState>
     }
 
     render(): React.ReactNode {
-        if (this.props.address === undefined || this.props.address.tickets.length === 0) {
+        if (this.props.address.tickets.length === 0) {
             return <div style={{margin: 100}}>
                 <NoTickets/>
             </div>;
@@ -117,7 +118,7 @@ class TicketList extends React.Component<MergedTicketListProps, TicketListState>
                 {this.props.t('list_filter')}
             </Button>
             <div style={{float: 'right', marginRight: 24}}>
-                <Select defaultValue='12' onChange={this.on_page_size_change}>
+                <Select defaultValue='6' onChange={this.on_page_size_change}>
                     <Option key='6' value={6}>6</Option>
                     <Option key='12' value={12}>12</Option>
                     <Option key='24' value={24}>24</Option>

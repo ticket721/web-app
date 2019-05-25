@@ -1,9 +1,8 @@
 import * as React                   from 'react';
-import { TicketPrices }             from '@utils/event/MinterCategoriesGetter';
+import { TicketPrices }             from '@web_contract_plugins/minter/MinterCategoriesGetter';
 import { Card, Select, Typography } from 'antd';
 import { FullPageLoader }           from '../../loaders/FullPageLoader';
 import CurrencyConverter            from './CurrencyConverter';
-import { I18NProps }                from '@utils/misc/i18n';
 
 const Option = Select.Option;
 
@@ -11,9 +10,10 @@ export interface PriceDisplayerProps {
     price: TicketPrices;
     selection: string;
     set_selection: (curr: string) => void;
+    t: any;
 }
 
-type MergedPriceDisplayerProps = PriceDisplayerProps & I18NProps;
+type MergedPriceDisplayerProps = PriceDisplayerProps;
 
 export default class PriceDisplayer extends React.Component<MergedPriceDisplayerProps> {
 

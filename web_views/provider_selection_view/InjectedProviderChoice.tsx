@@ -1,6 +1,6 @@
 import * as React                       from 'react';
 import { Card, Icon }                   from 'antd';
-import injected_provider_image          from '@static/images/wallet_provider_selection/injected_provider.png';
+import injected_provider_image          from '@static/assets/providers/metamask_status_tokenary.png';
 import { I18N, I18NProps }              from '@utils/misc/i18n';
 import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
@@ -42,7 +42,7 @@ class InjectedProviderChoice extends React.Component<MergedInjectedProviderChoic
             return <Card
                 style={{width: '100%'}}
                 hoverable={true}
-                cover={<img alt='injected' style={{height: '10%'}} src={injected_provider_image}/>}
+                cover={<img alt='injected' style={{width: '100%', backgroundColor: '#ffffff', padding: '15%'}} src={injected_provider_image}/>}
                 actions={[<Icon type='double-right' key={0}/>]}
                 onClick={this.onClick}
 

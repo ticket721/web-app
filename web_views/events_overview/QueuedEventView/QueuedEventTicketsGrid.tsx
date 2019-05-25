@@ -6,7 +6,7 @@ import { I18N, I18NProps }                        from '@utils/misc/i18n';
 import { StrapiQueuedEvent }                      from '@utils/strapi/queuedevent';
 import { VtxContract }                            from 'ethvtx/lib/contracts/VtxContract';
 import { StrapiMinter }                           from '@utils/strapi/minter';
-import { MinterCategoriesGetter, TicketCategory } from '@utils/event/MinterCategoriesGetter';
+import { MinterCategoriesGetter, TicketCategory } from '@web_contract_plugins/minter/MinterCategoriesGetter';
 import { AppState }                               from '@utils/redux/app_state';
 import { connect }                                from 'react-redux';
 import { TicketCategoryStatsProps }               from '@web_components/event/display/TicketCategoryStats';
@@ -109,8 +109,8 @@ class QueuedEventTicketsGrid extends React.Component<MergedQueuedEventTicketsGri
                         categories={this.props.categories}
                         selection={this.state.selection}
                         set_selection={this.set_selection}
-                        t={this.props.t}
                         creation={this.props.queued_event.creation}
+                        t={this.props.t}
                     />
                 </Box>
                 <Box alignContent='center' alignSelf='center' align='center' gridArea='characs' fill={true}>
@@ -123,9 +123,9 @@ class QueuedEventTicketsGrid extends React.Component<MergedQueuedEventTicketsGri
                 <Box alignContent='center' alignSelf='center' align='center' gridArea='price' fill={true}>
                     <PriceDisplayer
                         price={this.props.categories && this.props.categories.length > 0 ? this.props.categories[this.state.selection].price : undefined}
-                        t={this.props.t}
                         selection={this.state.price_selection}
                         set_selection={this.set_price_selection}
+                        t={this.props.t}
                     />
                 </Box>
                 <Box style={{alignItems: 'center', justifyContent: 'center'}} gridArea='ticket' fill={true}>
@@ -136,7 +136,7 @@ class QueuedEventTicketsGrid extends React.Component<MergedQueuedEventTicketsGri
                         strapi_url={this.props.strapi_url}
                         t={this.props.t}
                         event_begin={this.props.queued_event.start}
-                        category={this.props.categories && this.props.categories.length > 0 ? this.props.categories[this.state.selection] : null}
+                        infos={this.props.categories && this.props.categories.length > 0 ? [this.props.categories[this.state.selection].name] : []}
                     />
                 </Box>
             </Grid>

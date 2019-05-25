@@ -30,12 +30,18 @@ class FilterForm extends React.Component<MergedFilterFormProps> {
 
     render(): React.ReactNode {
 
-        const event_options = this.props.events.map((event: StrapiEvent, idx: number): React.ReactNode =>
-            <Option key={idx} value={event.id}>
-                <Typography.Text>{event.name}</Typography.Text>
-                <Typography.Text style={{marginLeft: 12, color: '#aaaaaa'}}>#{event.id}</Typography.Text>
+        const event_options = this.props.events
 
-            </Option>);
+            ?
+            this.props.events.map((event: StrapiEvent, idx: number): React.ReactNode =>
+                <Option key={idx} value={event.id}>
+                    <Typography.Text>{event.name}</Typography.Text>
+                    <Typography.Text style={{marginLeft: 12, color: '#aaaaaa'}}>#{event.id}</Typography.Text>
+
+                </Option>)
+
+            :
+            [];
 
         return <div>
             <div style={{width: '33%'}}>

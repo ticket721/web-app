@@ -87,15 +87,15 @@ class LoginForm extends React.Component<MergedLoginFormProps> {
                         valuePropName: 'checked',
                         initialValue: true,
                     })(
-                        <Checkbox>{this.props.t('remember_me')}</Checkbox>
+                        <Checkbox style={{color: '#ffffff'}}>{this.props.t('remember_me')}</Checkbox>
                     )}
-                    <a className='login-form-forgot' href=''>{this.props.t('forgot_password')}</a>
+                    <a className='login-form-forgot' href='' style={{color: '#ffffff'}}>{this.props.t('forgot_password')}</a>
                     {warning !== null ? <br/> : null}
                     {warning}
                     <Button loading={this.props.status === AuthStatus.AuthStarted} type='primary' htmlType='submit' className='login-form-button'>
                         {this.props.t('log_in')}
                     </Button>
-                    <a onClick={this.handleRegister}>{this.props.t('register_now')}</a>
+                    <a onClick={this.handleRegister} style={{color: '#ffffff'}}>{this.props.t('register_now')}</a>
                 </Form.Item>
             </Form>
         </div>;

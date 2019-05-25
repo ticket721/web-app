@@ -12,14 +12,14 @@ Web App to use the ticket721 plateform
 
 | Variable | Definition |
 | :------: | :--------: |
-| `T721_GOOGLE_API_KEY` | Api key used for google maps |
+| `google_api_token` | Api key used for google maps |
 | `strapi_endpoint` | URL of the strapi server |
 
 ## Tasks
 
-## Module Update Procedure
+## Module Update Procedure: Minter
 
-When adding or editing a module, the following files should be checked:
+When adding or editing a Minter module, the following files should be checked:
 
 * `minters.json`, the I18N configuration
 * `MinterSelectionForm/ignore.ts`, Ignored Modules
@@ -27,5 +27,16 @@ When adding or editing a module, the following files should be checked:
 * `MinterCategoriesGetter.ts`, used to retrieve ticket categories
 * `MintingController.ts`, used to properly call the mint method
 * `EventCreationSummary/MinterDescription.ts`, Used to pretty print a concise decription of the minting process
+
+## Module Update Procedure: Marketer
+
+When adding or editing a Minter module, the following files should be checked:
+
+* `marketers.json`, the I18N configuration
+* `MarketerSelectionForm/ignore.ts`, Ignored Modules
+* `BuildArgumentForm/overrides.ts`, Build Argument Processors
+* `EventCreationSummary/MarketerDescription.ts`, Used to pretty print a concise decription of the minting process
+* `web_components/event/misc/MarketerEnabled.ts`, Used to quickly disable Marketplace features
+* `web_components/ticket/modals/MarketerSaleController.ts` Create input form to sell a ticket
 
 

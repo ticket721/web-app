@@ -6,3 +6,4 @@ portal
 coverage
 .env
 package-lock.json
+/static/assets

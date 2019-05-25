@@ -1,12 +1,12 @@
-import * as React              from 'react';
-import { TicketCategory }      from '@utils/event/MinterCategoriesGetter';
-import { StrapiEvent }         from '@utils/strapi/event';
-import StaticTicketPreview     from '@web_components/event/display/StaticTicketPreview';
-import { StrapiAddress }       from '@utils/strapi/address';
-import { List, Typography }    from 'antd';
-import CurrencyConverter       from '@web_components/event/display/CurrencyConverter';
-import EventBuyModalTxProgress from './EventBuyModalTxProgress';
-import { Tx }                  from 'ethvtx/lib/state/txs';
+import * as React           from 'react';
+import { TicketCategory }   from '@web_contract_plugins/minter/MinterCategoriesGetter';
+import { StrapiEvent }      from '@utils/strapi/event';
+import StaticTicketPreview  from '@web_components/event/display/StaticTicketPreview';
+import { StrapiAddress }    from '@utils/strapi/address';
+import { List, Typography } from 'antd';
+import CurrencyConverter    from '@web_components/event/display/CurrencyConverter';
+import TxProgress           from '@web_components/tx/TxProgress';
+import { Tx }               from 'ethvtx/lib/state/txs';
 
 // Props
 
@@ -71,7 +71,7 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
                         event_address={this.props.address.address}
                         name={this.props.event.name}
                         strapi_url={this.props.strapi_url}
-                        category={this.props.category}
+                        infos={[this.props.category.name]}
                         event_begin={this.props.event.start}
                     />
                 </div>
@@ -107,7 +107,7 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
                             </div>
                         </div>
                     :
-                    <EventBuyModalTxProgress t={this.props.t} tx={this.props.tx}/>
+                    <TxProgress t={this.props.t} tx={this.props.tx} scope='buy_modal' route='account'/>
             }
         </div>;
     }

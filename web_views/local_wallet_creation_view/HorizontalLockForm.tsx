@@ -183,10 +183,10 @@ const mapDispatchToProps = (dispatch: Dispatch): HorizontalLockFormRDispatch => 
     }
 });
 
-export default Form.create({name: 'lock'})(
+export default (Form.create({name: 'lock'})(
     I18N.withNamespaces(['local_wallet_creation'])(
         connect(mapStateToProps, mapDispatchToProps)(
             HorizontalLockForm
         ) as React.ComponentClass<any>
     )
-);
+) as any) as React.ComponentType<HorizontalLockFormProps>;

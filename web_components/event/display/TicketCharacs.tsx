@@ -1,40 +1,46 @@
 import * as React                   from 'react';
 import { Button, Card, Typography } from 'antd';
-import { I18N, I18NProps }          from '@utils/misc/i18n';
+import { I18N }                     from '@utils/misc/i18n';
 import { StrapiMarketer }           from '@utils/strapi/marketer';
 import { StrapiApprover }           from '@utils/strapi/approver';
 import { FullPageLoader }           from '../../loaders/FullPageLoader';
 import { MarketerEnabled }          from '../misc/MarketerEnabled';
+import { routes }                     from '../../../utils/routing';
+import { StrapiEvent }              from '../../../utils/strapi/event';
 
 export interface TicketCharacsProps {
+    event?: StrapiEvent;
     marketer: StrapiMarketer;
     approver: StrapiApprover;
+    t: any;
 }
 
-type MergedTicketCharacsProps = TicketCharacsProps & I18NProps;
+type MergedTicketCharacsProps = TicketCharacsProps;
 
-const MarketerDisplayer = I18N.withNamespaces(['marketers'])(({t, marketer}: any): React.ReactNode =>
-    <div style={{textAlign: 'center'}}>
-        <br/>
-        <Typography.Text style={{fontSize: 20}}>{t('marketplace_strategy')}</Typography.Text>
-        <br/>
-        <br/>
-        <div style={{marginLeft: 16}}>
-            <Typography.Text style={{fontSize: 16}}>{t(`${marketer}_concise_description`)}</Typography.Text>
-            {
-                MarketerEnabled[marketer] === true
-                    ?
-                    <div style={{textAlign: 'center'}}>
-                        <br/>
-                        <Button>
-                            {t('go_to_marketplace')}
-                        </Button>
-                    </div>
-                    :
-                    null
-            }
+const MarketerDisplayer = I18N.withNamespaces(['marketers'])(({t, marketer, event}: any): React.ReactNode =>
+        <div style={{textAlign: 'center'}}>
+            <br/>
+            <Typography.Text style={{fontSize: 20}}>{t('marketplace_strategy')}</Typography.Text>
+            <br/>
+            <br/>
+            <div style={{marginLeft: 16}}>
+                <Typography.Text style={{fontSize: 16}}>{t(`${marketer}_concise_description`)}</Typography.Text>
+                {
+                    MarketerEnabled[marketer] === true && event
+                        ?
+                        <div style={{textAlign: 'center'}}>
+                            <br/>
+                            <routes.Link route={'marketplace'} params={{event: event.address.address}}>
+                                <Button>
+                                    {t('go_to_marketplace')}
+                                </Button>
+                            </routes.Link>
+                        </div>
+                        :
+                        null
+                }
+            </div>
         </div>
-    </div>
 );
 
 const ApproverDisplayer = I18N.withNamespaces(['approvers'])(({t, approver}: any): React.ReactNode =>
@@ -76,7 +82,7 @@ export default class TicketCharacs extends React.Component<MergedTicketCharacsPr
             </Typography.Text>
             <br/>
             <br/>
-            <MarketerDisplayer marketer={this.props.marketer.name}/>
+            <MarketerDisplayer marketer={this.props.marketer.name} event={this.props.event}/>
             <br/>
             <br/>
             <ApproverDisplayer approver={this.props.approver.name}/>

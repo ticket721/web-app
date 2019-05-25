@@ -42,17 +42,18 @@ export const LWUnlockForm = Form.create({name: 'lwunlock_form'})(
             return (
                 <div>
                     <style>{`
-                        .ant-modal-header {
+                        .lw_unlock .ant-modal-header {
                             background-image: ${pattern};
                         }
-                        .ant-modal-title {
+                        .lw_unlock .ant-modal-title {
                             color: white;
                         }
-                        .ant-modal-close {
+                        .lw_unlock .ant-modal-close {
                             color: white;
                         }
                     `}</style>
                     <Modal
+                        wrapClassName={'lw_unlock'}
                         visible={visible}
                         title={this.props.t('lwunlock_title')}
                         okText={this.props.t('lwunlock_ok_button')}
