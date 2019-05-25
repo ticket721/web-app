@@ -129,17 +129,18 @@ export default class EventActivityTable extends React.Component<EventActivityTab
             #activity_table td {
                 text-align: center;
             }
+            #activity_table .ant-table-tbody tr td {
+                background-color: white;
+            }
             `}</style>
-            <Card
-                style={{width: '100%', height: '100%'}}
-            >
+            <div id={'activity_table'}>
                 <Table
                     columns={columns}
                     dataSource={actions}
                     size='middle'
                     bordered={true}
                 />
-            </Card>
+            </div>
         </div>;
     }
 }

@@ -1,7 +1,7 @@
-import * as React                     from 'react';
-import { Card, Progress, Typography } from 'antd';
-import { DateRange }                  from 'react-date-range';
-import { I18NProps }                  from '@utils/misc/i18n';
+import * as React                              from 'react';
+import { Card, Divider, Progress, Typography } from 'antd';
+import { DateRange }                           from 'react-date-range';
+import { I18NProps }                           from '@utils/misc/i18n';
 
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -41,12 +41,9 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
 
             return <Card
                 style={{width: '100%', height: '100%'}}
+                title={this.props.t('dates_title')}
+                size={'small'}
             >
-                <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                    {this.props.t('dates_title')}
-                </Typography.Text>
-                <br/>
-                <br/>
                 <style>{`
             #range_displayer .rdrDateDisplay {
                 background-color: transparent !important;
@@ -81,7 +78,7 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
                 width: 100%;
             }
             `}</style>
-                <div style={{width: '96%', marginLeft: '2%', border: 'solid 1px #188ae2', borderRadius: 8, padding: '5%'}} id='range_displayer'>
+                <div style={{width: '96%', marginLeft: '2%', borderRadius: 8, padding: '5%'}} id='range_displayer'>
                     <DateRange
                         dateDisplayFormat={'MMM D, YYYY, HH:mm'}
                         ranges={[{
@@ -104,8 +101,7 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
                         />
                     </div>
                 </div>
-                <br/>
-                <br/>
+                <Divider style={{marginTop: 0}}/>
                 <div style={{textAlign: 'center', fontSize: 18}}>
                     <Typography.Text>
                         {this.props.t('dates_warning')}
@@ -115,12 +111,9 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
         } else {
             return <Card
                 style={{width: '100%', height: '100%'}}
+                title={this.props.t('dates_title')}
+                size={'small'}
             >
-                <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                    {this.props.t('dates_title')}
-                </Typography.Text>
-                <br/>
-                <br/>
                 <div style={{textAlign: 'center'}}>
                     <Typography.Text style={{fontSize: 18, fontWeight: 300}}>
                         {this.props.t('no_defined_dates')}

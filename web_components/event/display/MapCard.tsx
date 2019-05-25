@@ -15,10 +15,9 @@ export default class MapCard extends React.Component<MergedMapCardProps> {
         if (!this.props.location) {
             return <Card
                 style={{width: '100%', height: '100%'}}
+                title={this.props.t('location_title')}
+                size={'small'}
             >
-                <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                    {this.props.t('location_title')}
-                </Typography.Text>
                 <br/>
                 <br/>
                 <div style={{textAlign: 'center'}}>

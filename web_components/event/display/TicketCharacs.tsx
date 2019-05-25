@@ -65,6 +65,8 @@ export default class TicketCharacs extends React.Component<MergedTicketCharacsPr
                     width: '100%',
                     height: '100%'
                 }}
+                title={this.props.t('characs_title')}
+                size={'small'}
             >
                 <FullPageLoader/>
             </Card>;
@@ -76,12 +78,9 @@ export default class TicketCharacs extends React.Component<MergedTicketCharacsPr
                 width: '100%',
                 height: '100%'
             }}
+            title={this.props.t('characs_title')}
+            size={'small'}
         >
-            <Typography.Text style={{fontSize: 22, fontWeight: 500}}>
-                {this.props.t('characs_title')}
-            </Typography.Text>
-            <br/>
-            <br/>
             <MarketerDisplayer marketer={this.props.marketer.name} event={this.props.event}/>
             <br/>
             <br/>
