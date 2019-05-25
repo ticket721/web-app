@@ -1,7 +1,7 @@
 import * as React                                                        from 'react';
 import { Layout, Menu, Icon, Popover, Skeleton, Typography, Breadcrumb } from 'antd';
 import dynamic                                                           from 'next-server/dynamic';
-import Logo                                                              from '@static/images/logos/logo_light.svg';
+import Logo                                                              from '@static/assets/ticket721/light.svg';
 import VideoCover                                                        from 'react-video-cover';
 
 const DynamicBreadcrumb = dynamic<any>(async () => import('antd').then((antd: any): any => antd.Breadcrumb), {
@@ -51,7 +51,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
         collapseOpen: true
     };
 
-    constructor(props: NavBarProps) {
+    constructor(props: MergedNavBarProps) {
         super(props);
 
     }
@@ -80,15 +80,18 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
         const pathname = onClient((): string[] => (new UrlParse(Router.pathname)).pathname.split('/').slice(1).map((path_elem: string) => {
             switch (path_elem) {
                 case '_error':
-                    return 'Error';
+                    return this.props.t('_error');
                 case 'account':
                     selection = 'account';
-                    return 'Account';
+                    return this.props.t('account');
                 case 'events':
                     selection = 'events';
-                    return 'Events';
+                    return this.props.t('events');
                 case 'event':
-                    return 'Event';
+                    return this.props.t('event');
+                case 'marketplace':
+                    selection = 'marketplace';
+                    return this.props.t('marketplace');
                 default:
                     return path_elem;
             }
@@ -208,16 +211,16 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
             const popover_title = <Typography.Text style={{color: '#ffffff', fontSize: 18}}>{this.props.account.address}</Typography.Text>;
 
             account = <routes.Link route={'account'} params={{}}>
-                <div>
+                <div id='wallet_widget'>
                     <style>
                         {`
-                .ant-popover-title {
-                    background-image: ${pattern};
-                    color: #202020;
-                }
+                        .wallet_widget .ant-popover-title {
+                            background-image: ${pattern};
+                            color: #202020;
+                        }
                 `}
                     </style>
-                    <Popover placement='rightBottom' title={popover_title} content={popover_content}>
+                    <Popover overlayClassName='wallet_widget' placement='rightBottom' title={popover_title} content={popover_content}>
                         <div className='wallet' style={{backgroundImage: pattern}}>
                             <Icon type='wallet' style={{verticalAlign: 'middle', fontSize: 16, color: '#ffffff'}}/>
                             {!this.state.collapseOpen ?
@@ -272,6 +275,14 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
 
                     <Menu theme='dark' defaultSelectedKeys={['events']} mode='inline' style={{position: 'relative'}} selectedKeys={[selection]}>
 
+                        <Menu.Item key='marketplace'>
+                            <Link href='/marketplace'>
+                                <div>
+                                    <Icon type='bank'/>
+                                    <span>{this.props.t('marketplace')}</span>
+                                </div>
+                            </Link>
+                        </Menu.Item>
                         <Menu.Item key='events'>
                             <Link href='/events'>
                                 <div>

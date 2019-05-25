@@ -31,7 +31,7 @@ class AccountTabs extends React.Component<MergedAccountTabsProps> {
 
         const panes: React.ReactNode[] = ([
             <TabPane tab={this.props.t('account_tabs_tickets')} key='tickets'>
-                <TicketListFetcher address={this.props.address}/>
+                <TicketListFetcher address={this.props.address} coinbase={this.props.coinbase}/>
             </TabPane>
         ] as React.ReactNode[]).concat(TabGetter(this.props.address, this.props.queried_address, this.props.coinbase, this.props.t));
 

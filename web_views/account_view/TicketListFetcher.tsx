@@ -1,16 +1,18 @@
-import { StrapiAddress }              from '@utils/strapi/address';
-import * as React                     from 'react';
-import { FilterOptions }              from './FilterForm';
-import { StrapiHelper }               from '@utils/StrapiHelper';
-import { StrapiTicket }               from '@utils/strapi/ticket';
-import StrapiCall                     from '@components/strapi';
-import TicketList                     from './TicketList';
-import { FullPageLoader }             from '@web_components/loaders/FullPageLoader';
+import { StrapiAddress }  from '@utils/strapi/address';
+import * as React         from 'react';
+import { FilterOptions }  from './FilterForm';
+import { StrapiHelper }   from '@utils/StrapiHelper';
+import { StrapiTicket }   from '@utils/strapi/ticket';
+import StrapiCall         from '@components/strapi';
+import TicketList         from './TicketList';
+import { FullPageLoader } from '@web_components/loaders/FullPageLoader';
+import { NoTickets }      from '../message/no_tickets';
 
 // Props
 
 export interface TicketListFetcherProps {
     address: StrapiAddress;
+    coinbase: string;
 }
 
 export interface TicketListFetcherState {
@@ -46,7 +48,7 @@ export default class TicketListFetcher extends React.Component<TicketListFetcher
         ticket_filter_options: {
             event: null
         },
-        page_size: 12
+        page_size: 6
     };
 
     set_filter_value = (field: string, value: any): void => {
@@ -138,7 +140,9 @@ export default class TicketListFetcher extends React.Component<TicketListFetcher
     render(): React.ReactNode {
 
         if (this.props.address === undefined) {
-            return <p>NO TICKETS</p>;
+            return <div style={{margin: 100}}>
+                <NoTickets/>
+            </div>;
         }
 
         const count_url = this.get_axios_count_path(this.props.address);
@@ -165,13 +169,14 @@ export default class TicketListFetcher extends React.Component<TicketListFetcher
                 if (events) {
                     return <TicketList
                         address={this.props.address}
+                        coinbase={this.props.coinbase}
                         tickets={tickets || null}
                         ticket_count={count !== undefined ? count[0] : 0}
                         filter_setter={this.set_filter_value}
                         entry_setter={this.set_entry_start}
                         page_size_setter={this.set_page_size}
                         options={this.state.ticket_filter_options}
-                        linked_events={events[0].events}
+                        linked_events={events ? events[0].events : null}
                         page_size={this.state.page_size}
                     />;
                 } else {

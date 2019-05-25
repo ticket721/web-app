@@ -14,6 +14,7 @@ export interface StrapiCascadeCall {
 export interface StrapiCallProps {
     calls: {[key: string]: (StrapiCallFn | StrapiCascadeCall)};
     static?: string[];
+    always_refresh?: boolean;
 }
 
 interface StrapiCallRState {
@@ -105,10 +106,11 @@ class StrapiCall extends React.Component<MergedStrapiCallProps> {
 
     }
 
-    static changed(old: StrapiData, data: StrapiData): boolean {
+    changed(old: StrapiData, data: StrapiData): boolean {
         if (old === undefined) return true;
         if (old[2] !== undefined && data[2] === undefined) return true;
         if (data[0] === 0) return false;
+        if (this.props.always_refresh) return true;
         if (data[0] < old[0]) return true;
         if (data[0] > old[0]) return true;
         return !_.isEqual(data[1], old[1]);
@@ -138,7 +140,7 @@ class StrapiCall extends React.Component<MergedStrapiCallProps> {
 
                     const fresh: StrapiData = strapi_fn(nextProps.state, nextProps.dispatch, this.props.static && this.props.static.indexOf(calls[idx]) !== -1);
 
-                    if (StrapiCall.changed(this.call_result[calls[idx]], fresh)) {
+                    if (this.changed(this.call_result[calls[idx]], fresh)) {
 
                         this.call_result[calls[idx]] = fresh;
                         this.render_result[calls[idx]] = this.call_result[calls[idx]][2];
@@ -168,7 +170,7 @@ class StrapiCall extends React.Component<MergedStrapiCallProps> {
 
                             const fresh: StrapiData = generate_call(nextProps.state, nextProps.dispatch, this.props.static && this.props.static.indexOf(calls[idx]) !== -1);
 
-                            if (StrapiCall.changed(this.call_result[calls[idx]], fresh)) {
+                            if (this.changed(this.call_result[calls[idx]], fresh)) {
 
                                 this.call_result[calls[idx]] = fresh;
                                 this.render_result[calls[idx]] = this.call_result[calls[idx]][2];

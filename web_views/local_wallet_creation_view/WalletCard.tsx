@@ -1,9 +1,9 @@
-import * as React          from 'react';
-import { Card }            from 'antd';
-import { I18N, I18NProps } from '@utils/misc/i18n';
-import * as GeoPattern     from 'geopattern';
-import { FullDiv }         from '@components/html/FullDiv';
-import { TemporaryWallet } from './LocalWalletCreationView';
+import * as React           from 'react';
+import { Card, Typography } from 'antd';
+import { I18N, I18NProps }  from '@utils/misc/i18n';
+import * as GeoPattern      from 'geopattern';
+import { FullDiv }          from '@components/html/FullDiv';
+import { TemporaryWallet }  from './LocalWalletCreationView';
 
 export interface WalletCardProps {
     wallet_infos: TemporaryWallet;
@@ -52,7 +52,8 @@ class WalletCard extends React.Component<MergedWalletCardProps, IWalletCardState
                     padding: 0;
                 }
             `}</style>
-            <h4>{this.props.t('click_to_gen')}</h4>
+            <Typography.Text style={{fontSize: 22}}>{this.props.t('click_to_gen')}</Typography.Text>
+            <br/>
             <br/>
             <Card
                 style={{

@@ -111,21 +111,22 @@ class EventCreationSummaryModal extends React.Component<MergedEventCreationSumma
             <style>
         {`
         
-            .ant-modal-header {
+            .event_creation .ant-modal-header {
             background-color: #131313;
             }
             
-            .ant-modal-title {
+            .event_creation .ant-modal-title {
             color: white;
             }
             
-            .ant-modal-close {
+            .event_creation .ant-modal-close {
             color: white;
             }
             
         `}
             </style>
             <Modal
+                wrapClassName={'event_creation'}
                 width='50%'
                 title={this.props.t(steps[this.state.step].title)}
                 visible={this.props.open}

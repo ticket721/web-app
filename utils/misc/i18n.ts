@@ -13,7 +13,8 @@ const base = ['navbar', 'provider_selection', 'auth', 'local_wallet_creation', '
 
 export const namespaces = {
     '/': base,
-    '/account': base.concat(['account']),
+    '/marketplace': base.concat(['marketplace']),
+    '/account': base.concat(['account', 'tickets']),
     '/_error': base,
     '/events': base.concat(['event_creation', 'minters', 'marketers', 'approvers', 'events']),
     '/event': base.concat(['event_creation', 'minters', 'marketers', 'approvers', 'events'])

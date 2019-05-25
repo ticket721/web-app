@@ -5,7 +5,7 @@ import { Typography }                             from 'antd';
 import { I18N, I18NProps }                        from '@utils/misc/i18n';
 import { VtxContract }                            from 'ethvtx/lib/contracts/VtxContract';
 import { StrapiMinter }                           from '@utils/strapi/minter';
-import { MinterCategoriesGetter, TicketCategory } from '@utils/event/MinterCategoriesGetter';
+import { MinterCategoriesGetter, TicketCategory } from '@web_contract_plugins/minter/MinterCategoriesGetter';
 import { AppState }                               from '@utils/redux/app_state';
 import { connect }                  from 'react-redux';
 import { TicketCategoryStatsProps } from '@web_components/event/display/TicketCategoryStats';
@@ -136,12 +136,13 @@ class QueuedEventTicketsGrid extends React.Component<MergedEventTicketsGridProps
                         categories={this.props.categories}
                         selection={this.state.selection}
                         set_selection={this.set_selection}
-                        t={this.props.t}
                         creation={this.props.event.creation}
+                        t={this.props.t}
                     />
                 </Box>
                 <Box alignContent='center' alignSelf='center' align='center' gridArea='characs' fill={true}>
                     <TicketCharacs
+                        event={this.props.event}
                         marketer={this.props.marketer}
                         approver={this.props.approver}
                         t={this.props.t}
@@ -150,9 +151,9 @@ class QueuedEventTicketsGrid extends React.Component<MergedEventTicketsGridProps
                 <Box alignContent='center' alignSelf='center' align='center' gridArea='price' fill={true}>
                     <PriceDisplayer
                         price={this.props.categories && this.props.categories.length > 0 ? this.props.categories[this.state.selection].price : undefined}
-                        t={this.props.t}
                         selection={this.state.price_selection}
                         set_selection={this.set_price_selection}
+                        t={this.props.t}
                     />
                 </Box>
                 <Box style={{alignItems: 'center', justifyContent: 'center'}} gridArea='ticket' fill={true}>
@@ -161,9 +162,8 @@ class QueuedEventTicketsGrid extends React.Component<MergedEventTicketsGridProps
                         event_address={this.props.address.address}
                         name={this.props.event.name}
                         strapi_url={this.props.strapi_url}
-                        t={this.props.t}
                         on_click={this.set_visibility.bind(this, true)}
-                        category={this.props.categories && this.props.categories.length > 0 ? this.props.categories[this.state.selection] : null}
+                        infos={this.props.categories && this.props.categories.length > 0 ? [this.props.categories[this.state.selection].name] : []}
                         event_begin={this.props.event.start}
                     />
                 </Box>

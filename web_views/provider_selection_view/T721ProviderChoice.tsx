@@ -1,6 +1,6 @@
 import * as React                       from 'react';
 import { Card, Icon }                   from 'antd';
-import t721_provider_image              from '@static/images/wallet_provider_selection/t721_provider.png';
+import t721_provider_image              from '@static/assets/ticket721/light.svg';
 import { I18N, I18NProps }              from '@utils/misc/i18n';
 import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
@@ -31,7 +31,7 @@ class T721ProviderChoice extends React.Component<MergedT721ProviderChoiceProps> 
         return <Card
             style={{width: '100%'}}
             hoverable={true}
-            cover={<img alt='t721' style={{height: '10%'}} src={t721_provider_image}/>}
+            cover={<img alt='t721' style={{width: '100%', backgroundColor: '#202020', padding: '15%'}} src={t721_provider_image}/>}
             actions={[<Icon type='double-right' key={0}/>]}
             onClick={this.onClick}
         >

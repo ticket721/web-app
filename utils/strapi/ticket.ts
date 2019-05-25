@@ -7,4 +7,5 @@ export interface StrapiTicket {
     mint_block: number;
     sale: any;
     issuer: any;
+    current_sale: any;
 }

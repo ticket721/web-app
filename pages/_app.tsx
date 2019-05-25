@@ -6,9 +6,6 @@ import withReduxSaga      from 'next-redux-saga';
 import { canUseDOM }      from 'exenv';
 import { Store }          from 'redux';
 
-// @web_components imports
-import NavBar             from '@web_components/navbar';
-
 // @utils imports
 import { configureStore }   from '@utils/redux/createStore';
 import { setupApp }         from '@utils/redux/setupApp';
@@ -57,9 +54,7 @@ class T721App extends App {
 
         return <Container>
             <Provider store={store}>
-                <NavBar>
                     <Component {...pageProps}/>
-                </NavBar>
             </Provider>
         </Container>;
     }

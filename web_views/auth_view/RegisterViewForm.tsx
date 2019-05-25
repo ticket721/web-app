@@ -48,7 +48,7 @@ class RegisterForm extends React.Component<MergedRegisterFormProps> {
                 break;
         }
 
-        return <div style={{width: '62%'}}>
+        return <div style={{width: '100%'}}>
             <style>{`
                 .register-form {
                     max-width: 300px;

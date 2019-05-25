@@ -12,13 +12,13 @@ import {
     loadContractInstance,
     loadContractSpec,
     removeContractInstance
-}                                     from 'ethvtx/lib/contracts/helpers/dispatchers';
-import LoadingTicket                  from './LoadingTicket';
-import Ticket                         from './Ticket';
-import { StrapiEvent }                from '@utils/strapi/event';
-import { StrapiMinter }               from '@utils/strapi/minter';
-import { to_ascii }                   from '@utils/misc/ascii';
-import { StrapiMarketer }             from '@utils/strapi/marketer';
+}                         from 'ethvtx/lib/contracts/helpers/dispatchers';
+import LoadingTicket      from './LoadingTicket';
+import Ticket             from './Ticket';
+import { StrapiEvent }    from '@utils/strapi/event';
+import { StrapiMinter }   from '@utils/strapi/minter';
+import { to_ascii }       from '@utils/misc/ascii';
+import { StrapiMarketer } from '@utils/strapi/marketer';
 
 export interface IInputTicketReduxWrapperProps {
     strapi_event: StrapiEvent;
@@ -26,6 +26,9 @@ export interface IInputTicketReduxWrapperProps {
         minter: StrapiMinter;
         marketer: StrapiMarketer;
     };
+    coinbase: string;
+    show_marketplace_link?: boolean;
+
 }
 
 export interface IReduxStateTicketReduxWrapperProps {
@@ -81,6 +84,8 @@ class TicketReduxWrapper extends React.Component<IReduxStateTicketReduxWrapperPr
             ticket={this.props.ticket}
             ticket_infos={this.props.infos}
             contract_plugins={this.props.contract_plugins}
+            coinbase={this.props.coinbase}
+            show_marketplace_link={this.props.show_marketplace_link}
         />;
     }
 }
@@ -115,6 +120,8 @@ const WrappedTicketReduxWrapper: React.ComponentType<IInputTicketReduxWrapperPro
 
 export interface IInputTicketProps {
     ticket: StrapiTicket;
+    coinbase: string;
+    show_marketplace_link?: boolean;
 }
 
 const filter_strapi = (entities: any[]): any[] => {
@@ -179,10 +186,13 @@ export default class TicketStrapiWrapper extends React.Component<IInputTicketPro
                                 minter: minter[0],
                                 marketer: marketer[0]
                             }}
+                            coinbase={this.props.coinbase}
+                            show_marketplace_link={this.props.show_marketplace_link}
                         />;
                     }
 
                     return <LoadingTicket/>;
+
                 }}
         </StrapiCall>;
     }

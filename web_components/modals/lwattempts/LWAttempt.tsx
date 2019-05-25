@@ -80,17 +80,18 @@ export default class LWAttempt extends React.Component<MergedLWAttemptProps, LWA
         return (
             <div>
                 <style>{`
-                        .ant-modal-header {
+                        .lw_attempt .ant-modal-header {
                             background-image: ${pattern};
                         }
-                        .ant-modal-title {
+                        .lw_attempt .ant-modal-title {
                             color: white;
                         }
-                        .ant-modal-close {
+                        .lw_attempt .ant-modal-close {
                             color: white;
                         }
                     `}</style>
                 <Modal
+                    wrapClassName='lw_attempt'
                     visible={visible}
                     title={`${this.props.t(`lwattempts_${this.props.attempts[this.state.tx_idx].type}`)} #${this.state.tx_idx + 1}`}
                     onOk={this.handleOk}

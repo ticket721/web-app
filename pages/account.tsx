@@ -1,8 +1,14 @@
-import React                from 'react';
-import dynamic              from 'next/dynamic';
-import { AccountViewProps } from '../web_views/account_view';
-import { isValidAddress }   from 'ethereumjs-util';
-import { InvalidAddress }   from '../web_views/message/invalid_address';
+import React                            from 'react';
+import dynamic                          from 'next/dynamic';
+import { AccountViewProps }             from '../web_views/account_view';
+import { isValidAddress }               from 'ethereumjs-util';
+import { InvalidAddress }               from '../web_views/message/invalid_address';
+import { AppState, ClientInformations } from '../utils/redux/app_state';
+import { connect }                      from 'react-redux';
+import { device_type }                  from '../utils/misc/device_type';
+import { FullPageLoader }               from '../web_components/loaders/FullPageLoader';
+import { SupportComingSoon }            from '../web_views/message/support_coming_soon';
+import { NavBarProps }                  from '../web_components/navbar/NavBar';
 
 const AppGate: React.ComponentType = dynamic<any>(async () => import('@web_components/appgate/AppGate'), {
     loading: (): React.ReactElement => null,
@@ -29,33 +35,65 @@ const ProviderGate: React.ComponentType = dynamic<any>(async () => import('@web_
     ssr: true
 });
 
+const NavBar: React.ComponentType<any> = dynamic<any>(async () => import('@web_components/navbar'), {
+    loading: (): React.ReactElement => null,
+    ssr: true
+});
+
 const AccountView: React.ComponentType<AccountViewProps> = dynamic<AccountViewProps>(async () => import('@web_views/account_view'), {
     loading: (): React.ReactElement => null
 });
 
-export default class extends React.Component<any> {
+interface AccountPageRState {
+    device: ClientInformations;
+}
+
+class AccountPage extends React.Component<any> {
     static getInitialProps({query}: {query: any; }): any {
         return query;
     }
 
     render(): React.ReactNode {
 
-        if (this.props.address && !isValidAddress(this.props.address)) {
-            return <InvalidAddress address={this.props.address}/>;
+        const device = device_type(this.props.device);
+
+        switch (device) {
+            case null:
+                return <FullPageLoader/>;
+            case 'mobile':
+                return <div style={{width: '100%', height: '100%'}}>
+                    <SupportComingSoon/>
+                </div>;
+            case 'desktop':
+
+                if (this.props.address && !isValidAddress(this.props.address)) {
+                    return <NavBar>
+                        <InvalidAddress address={this.props.address}/>
+                    </NavBar>;
+                }
+
+                return (
+                    <NavBar>
+                        <AppGate>
+                            <ProviderGate>
+                                <AuthGate>
+                                    <LocalWalletGate>
+                                        <VtxGate>
+                                            <AccountView address={this.props.address}/>
+                                        </VtxGate>
+                                    </LocalWalletGate>
+                                </AuthGate>
+                            </ProviderGate>
+                        </AppGate>
+                    </NavBar>
+                );
         }
 
-        return (
-            <AppGate>
-                <ProviderGate>
-                    <AuthGate>
-                        <LocalWalletGate>
-                            <VtxGate>
-                                <AccountView address={this.props.address}/>
-                            </VtxGate>
-                        </LocalWalletGate>
-                    </AuthGate>
-                </ProviderGate>
-            </AppGate>
-        );
     }
 }
+
+const mapStateToProps = (state: AppState): AccountPageRState => ({
+    device: state.local_settings.device
+});
+
+export default connect(mapStateToProps)(AccountPage);

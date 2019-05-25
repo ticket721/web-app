@@ -1,10 +1,12 @@
-import * as React           from 'react';
-import { FullDiv }          from '@components/html/FullDiv';
-import { Box, Grid }        from 'grommet';
-import { Wallet, generate } from 'ethereumjs-wallet';
-import dynamic              from 'next/dynamic';
-import { WalletCardProps }  from './WalletCard';
-import { I18NProps }        from '../../utils/misc/i18n';
+import * as React                  from 'react';
+import { FullDiv }                 from '@components/html/FullDiv';
+import { Box, Grid }               from 'grommet';
+import { Wallet, generate }        from 'ethereumjs-wallet';
+import dynamic                     from 'next/dynamic';
+import { WalletCardProps }         from './WalletCard';
+import { I18NProps }               from '../../utils/misc/i18n';
+import { Typography }              from 'antd';
+import { HorizontalLockFormProps } from './HorizontalLockForm';
 
 // Dynamic Components
 
@@ -12,7 +14,7 @@ const WalletCard: React.ComponentType<WalletCardProps> = dynamic<WalletCardProps
     loading: (): React.ReactElement => null
 });
 
-const HorizontalLockForm: React.ComponentType<any> = dynamic<WalletCardProps>(async () => import('./HorizontalLockForm'), {
+const HorizontalLockForm: React.ComponentType<HorizontalLockFormProps> = dynamic<HorizontalLockFormProps>(async () => import('./HorizontalLockForm'), {
     loading: (): React.ReactElement => null
 });
 
@@ -75,16 +77,17 @@ export default class LocalWalletCreationView extends React.Component<MergedLocal
             >
 
                 <Box alignContent='center' alignSelf='center' align='center' gridArea='title'>
-                    <h2>{this.props.t('title')}</h2>
+                    <Typography.Text style={{fontSize: 56, fontWeight: 100}}>{this.props.t('title')}</Typography.Text>
                 </Box>
                 <Box alignContent='center' alignSelf='center' align='center' style={{padding: '5%'}} gridArea='description'>
-                    <h5 style={{lineHeight: 1.5}}>{this.props.t('desc')}</h5>
+                    <Typography.Text style={{lineHeight: 1.5, fontSize: 20}}>{this.props.t('desc')}</Typography.Text>
                 </Box>
                 <Box style={{padding: '5%'}} gridArea='generator'>
                     <WalletCard reset_wallet={this.onReloadWallet} wallet_infos={this.state.wallet}/>
                 </Box>
                 <Box align='center' style={{padding: '5%', paddingTop: '0%'}} gridArea='input'>
-                    <p>{this.props.t('secure_wallet')}</p>
+                    <Typography.Text style={{fontSize: 20}}>{this.props.t('secure_wallet')}</Typography.Text>
+                    <br/>
                     <HorizontalLockForm wallet_infos={this.state.wallet}/>
                 </Box>
             </Grid>

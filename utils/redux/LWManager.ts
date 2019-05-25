@@ -183,12 +183,12 @@ export class LWManager {
 
                     if (nonce === null) throw new Error('No information about coinbase found in vtxconfig');
                     if (!tx_args.gas) {
-                        tx_args.gas = (await web3.eth.estimateGas({
+                        tx_args.gas = Math.floor((await web3.eth.estimateGas({
                             from: tx_args.from,
                             to: tx_args.to,
                             data: tx_args.data,
                             value: tx_args.value
-                        })) * 1.2;
+                        })) * 1.2);
                     }
                     if (!tx_args.gasPrice) tx_args.gasPrice = defaultGasPrice;
                     if (!tx_args.nonce) tx_args.nonce = '0x' + nonce.toString(16);
@@ -203,8 +203,6 @@ export class LWManager {
                     const validate = tx.validate(true);
                     ++LWManager.id;
                     await LWManager.sendTxAttempt(tx, validate, LWManager.id - 1);
-
-                    console.log('hello');
 
                     command.method = 'eth_sendRawTransaction' ;
                     command.params = [

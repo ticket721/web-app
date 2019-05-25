@@ -3,7 +3,6 @@ import * as React                         from 'react';
 import { Card, Tag, Typography } from 'antd';
 import * as GeoPattern                    from 'geopattern';
 import posed                              from 'react-pose';
-import { TicketCategory }                 from '../../../utils/event/MinterCategoriesGetter';
 import { Textfit } from 'react-textfit';
 
 import moment        from 'moment';
@@ -14,9 +13,10 @@ export interface TicketPreviewProps {
     event_address: string;
     name: string;
     strapi_url: string;
-    category: TicketCategory;
+    infos: string[];
     event_begin: string;
     on_click?: () => {};
+    id?: number;
 }
 
 type MergedTicketPreviewProps = TicketPreviewProps & I18NProps;
@@ -65,6 +65,11 @@ export default class TicketPreview extends React.Component<MergedTicketPreviewPr
 
         const pattern = GeoPattern.generate(this.props.event_address).toDataUrl();
         const date = this.props.event_begin ? moment(this.props.event_begin).format('DD MMM YYYY') : null;
+        const tags = this.props.infos ?
+            this.props.infos.map((info: string, idx: number): React.ReactNode =>
+                <Tag key={idx}>{info}</Tag>)
+            :
+            [<Tag key={0}>???</Tag>];
 
         return <HoverZoom>
             <div
@@ -128,18 +133,8 @@ export default class TicketPreview extends React.Component<MergedTicketPreviewPr
                             float: 'left'
                         }}
                     >
-                        {
-                            this.props.category ?
-                                [
-                                    <Tag style={{color: '#202020'}} color='#f0f2f5' key={0}>🎫 ???</Tag>,
-                                    <Tag style={{color: '#202020'}} color='#f0f2f5' key={1}>{this.props.category.name}</Tag>
-                                ]
-                                :
-                                [
-                                    <Tag style={{color: '#202020'}} color='#f0f2f5' key={0}>🎫 ???</Tag>,
-                                    <Tag style={{color: '#202020'}} color='#f0f2f5' key={1}>???</Tag>
-                                ]
-                        }
+                        <Tag style={{color: '#202020'}} color='#f0f2f5' key={0}>🎫 {this.props.id !== null ? this.props.id : '???'}</Tag>
+                        {tags}
                         <div style={{height: '70%', marginTop: '5%'}}>
                             <div className='parent' style={{width: 265, textAlign: 'center', height: '50%', paddingTop: '6.25%'}}>
                                 <Textfit
