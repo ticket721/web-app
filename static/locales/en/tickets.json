@@ -16,6 +16,7 @@
 
     "sale_modal_cancel_button": "Cancel",
     "sale_modal_first_title": "Sell this ticket ?",
+    "sale_modal_sell_form_title": "Fill the sale form",
 
     "sale_modal_waiting_button": "Waiting for transaction ...",
     "sale_modal_final_button": "Go to marketplace",

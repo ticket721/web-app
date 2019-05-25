@@ -70,8 +70,7 @@ class EventCreationDeploy extends React.Component<MergedEventCreationDeployProps
 
         this.setState({
             deploy_tx_id: this.props.deploy(event_contract.name, {
-                from: this.props.coinbase,
-                gas: 0xffffff
+                from: this.props.coinbase
             }, args)
         });
 
