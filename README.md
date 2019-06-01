@@ -39,4 +39,16 @@ When adding or editing a Minter module, the following files should be checked:
 * `web_components/event/misc/MarketerEnabled.ts`, Used to quickly disable Marketplace features
 * `web_components/ticket/modals/MarketerSaleController.ts` Create input form to sell a ticket
 
+## ENV Variables for the build process
 
+| Var Name | Details |
+| :---:    | :---:   |
+| `NEXUS_USERNAME` | Username to use to recover the portal |
+| `NEXUS_PASSWORD` | Password for given username |
+| `NEXUS_ENDPOINT` | Url of the nexus repo (no trailing `/`) |
+| `NEXUS_REPOSITORY` | Name of the repository |
+| `DOCKER_REPOSITORY` | Repository to push built images |
+| `DOCKER_USERNAME` | Username for docker account |
+| `DOCKER_PASSWORD` | Password of docker account |
+
+All these variables are used in `build.sh` and `publish.js`
