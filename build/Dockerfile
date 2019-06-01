@@ -7,7 +7,6 @@ RUN npm cache clean --force
 
 RUN npm install
 RUN npm run postinstall
-RUN npm run prebuild
 RUN npm run build
 
 EXPOSE 3000
