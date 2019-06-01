@@ -7,6 +7,9 @@
     "scripts": {
         "setup:links": "link-module-alias",
         "postinstall": "npm run setup:links",
+        "start": "next start",
+        "prebuild": "gulp webapp:setup",
+        "build": "next build",
         "next": "ts-node --project ./script.tsconfig.json ./scripts/index.ts",
         "test:editorconfig": "editorconfig-cli",
         "test:lint": "tslint --project .",
@@ -131,23 +134,23 @@
         "tslint-react": "^4.0.0",
         "typescript": "^3.3.3",
         "url-parse": "^1.4.4",
-        "web3": "1.0.0-beta.32"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^7.5.2",
-        "@commitlint/config-conventional": "^7.5.0",
+        "web3": "1.0.0-beta.32",
         "@types/enzyme": "^3.9.1",
         "@types/jest": "^24.0.6",
         "@types/next-redux-saga": "^3.0.1",
         "@types/react-redux": "^7.0.1",
         "@zeit/next-less": "^1.0.1",
+        "deep-extend": ">=0.5.1",
+        "merge": ">=1.2.1"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^7.5.2",
+        "@commitlint/config-conventional": "^7.5.0",
         "conventional-changelog-cli": "^2.0.12",
         "coveralls": "^3.0.2",
-        "deep-extend": ">=0.5.1",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.9.1",
         "jest": "^24.1.0",
-        "merge": ">=1.2.1",
         "react-test-renderer": "^16.8.2"
     },
     "editorconfig-cli": [
