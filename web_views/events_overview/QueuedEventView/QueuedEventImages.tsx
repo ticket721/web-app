@@ -33,7 +33,7 @@ export default class QueuedEventImages extends React.Component<QueuedEventImages
                     address={this.props.queued_event.address}
                 />
             </div>
-            <div style={{width: '110%', height: 125, marginLeft: -24, backgroundColor: '#f0f2f5'}}>
+            <div style={{width: '110%', height: 125, marginLeft: -24}}>
                 <SquaredEventIcon
                     image={this.props.queued_event.image}
                     strapi_url={this.props.strapi_url}

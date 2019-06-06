@@ -1,4 +1,8 @@
 {
+    "event_card_event": "Event  ⚡️",
+    "event_card_marketplace": "Marketplace  \uD83C\uDFE6",
+    "event_card_website": "Website  \uD83D\uDDA5",
+    "event_card_category": "Category",
     "general_informations_title": "ℹ️ General Informations",
     "dates_title": "Dates",
     "dates_warning": "These dates might differ from the sale date, this means that ticket sale might end sooner than event's beginning !",

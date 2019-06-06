@@ -98,6 +98,7 @@ export enum AppStatus {
 export interface AppConfig {
     strapi_endpoint: string;
     google_api_token: string;
+    tx_explorer: string;
 }
 
 export enum WalletProviderType {

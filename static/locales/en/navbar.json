@@ -6,5 +6,6 @@
     "event": "Event",
     "events": "Events Management",
     "account": "Account",
-    "_error": "Error"
+    "_error": "Error",
+    "ticket": "Ticket"
 }
