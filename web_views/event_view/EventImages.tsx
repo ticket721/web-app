@@ -47,7 +47,7 @@ class EventImages extends React.Component<MergedEventImagesProps> {
     }
 
     render(): React.ReactNode {
-        return <div id={`queued_event_images_${this.props.event.address}`}>
+        return <div id={`queued_event_images_${this.props.event.address.address}`}>
             <div style={{marginTop: -24, marginLeft: -24, marginRight: -24}}>
                 <BannersCarousel
                     banners={this.props.event.banners}
@@ -55,7 +55,7 @@ class EventImages extends React.Component<MergedEventImagesProps> {
                     address={this.props.event.address.address}
                 />
             </div>
-            <div style={{width: '110%', height: 125, marginLeft: -24, backgroundColor: '#f0f2f5'}}>
+            <div style={{width: '110%', height: 125, marginLeft: -24}}>
                 <SquaredEventIcon
                     image={this.props.event.image}
                     strapi_url={this.props.strapi_url}

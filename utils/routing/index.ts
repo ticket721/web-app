@@ -5,4 +5,5 @@ export const routes = Index()
     .add('account', '/account/:address?', 'account')
     .add('events', '/events/:id?', 'events')
     .add('event', '/event/:address', 'event')
-    .add('marketplace', '/marketplace', 'marketplace');
+    .add('marketplace', '/marketplace', 'marketplace')
+    .add('ticket', '/ticket/:id', 'ticket');

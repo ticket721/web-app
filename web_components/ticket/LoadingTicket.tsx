@@ -43,7 +43,7 @@ export default class LoadingTicket extends React.Component {
                         style={{
                             height: 170,
                             width: 170,
-                            borderRadius: 7,
+                            borderRadius: 6,
                             padding: 15
                         }}
                     />

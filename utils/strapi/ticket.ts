@@ -8,4 +8,7 @@ export interface StrapiTicket {
     sale: any;
     issuer: any;
     current_sale: any;
+    mint_currency: string;
+    mint_price: string;
+    creation: Date;
 }
