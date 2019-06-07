@@ -9,6 +9,7 @@ import { I18N, I18NProps }        from '../../utils/misc/i18n';
 export interface AddressProps {
     address: StrapiAddress;
     size: number;
+    color?: string;
 }
 
 type MergedAddressProps = AddressProps & I18NProps;
@@ -31,13 +32,13 @@ class Address extends React.Component<MergedAddressProps> {
                         return <Spin/>;
                     } else {
                         if (event.length && event[0].data) {
-                            return <routes.Link route={'event'} params={{id: event[0].data.address.address}}>
-                                <Typography.Text style={{fontSize: this.props.size, cursor: 'pointer'}}>
+                            return <routes.Link route={'event'} params={{address: event[0].data.address.address}}>
+                                <Typography.Text style={{fontSize: this.props.size, cursor: 'pointer', color: this.props.color}}>
                                     {event[0].data.name}
                                 </Typography.Text>
                             </routes.Link>;
                         } else {
-                            return <Typography.Text type='warning' style={{fontSize: this.props.size}}>
+                            return <Typography.Text type='warning' style={{fontSize: this.props.size, color: this.props.color}}>
                                 <Icon type='warning'/> {this.props.t('fetch_error')}
                             </Typography.Text>;
                         }
@@ -46,7 +47,7 @@ class Address extends React.Component<MergedAddressProps> {
             </StrapiCall>;
         } else {
             return <routes.Link route={'account'} params={{address: this.props.address.address}}>
-                <Typography.Text style={{fontSize: this.props.size, cursor: 'pointer'}}>
+                <Typography.Text style={{fontSize: this.props.size, cursor: 'pointer', color: this.props.color}}>
                     {
                         this.props.address.username
                             ?

@@ -165,7 +165,7 @@ export class TicketDetailsPopover extends React.Component<TicketDetailsPopoverPr
             onMouseLeave={this.props.on_leave}
             style={{borderRadius: 5, float: 'left', marginLeft: 12, background: '#303030', cursor: 'pointer'}}
         >
-            <routes.Link route='ticket' params={{address: this.props.ticket_id}}>
+            <routes.Link route='ticket' params={{id: this.props.ticket_id.toString()}}>
                 <div
                     style={{
                         height: 50,
