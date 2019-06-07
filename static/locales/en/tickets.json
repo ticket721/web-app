@@ -1,4 +1,11 @@
 {
+    "ticket_page_event_title": "Event",
+    "ticket_page_info_title": "Informations",
+    "ticket_page_activity_title": "Ticket Activity",
+    "ticket_page_info_owner": "Owner",
+    "ticket_page_info_creation": "Created on",
+    "ticket_page_info_initial_price": "Initial Price",
+    "ticket_page_info_identifier": "Identifier",
     "top_popover_event_title": "Event",
 
     "top_popover_marketplace_warning": "Marketplace is not available for this event",
@@ -67,5 +74,23 @@
     "sale_tag_title": "This ticket is currently on sale !",
     "sale_tag_body": "Click to see the marketplace",
 
-    "sale_controller_invalid_arguments": "Provided parameters are invalid"
+    "sale_controller_invalid_arguments": "Provided parameters are invalid",
+
+    "ticket_activity_card_owner": "Owner",
+    "ticket_activity_card_price": "Price",
+    "ticket_activity_card_date": "Date",
+    "ticket_activity_card_event": "Event",
+    "ticket_activity_card_sale_start": "Sale Start",
+    "ticket_activity_card_sale_end": "Sale End",
+    "ticket_activity_card_creator": "Created by",
+    "ticket_activity_card_closed_by": "Closed by",
+    "ticket_activity_card_new_owner": "New Owner",
+    "ticket_activity_card_previous_owner": "Previous Owner",
+    "ticket_activity_card_more_infos": "More infos ...",
+
+    "ticket_activity_card_buy_title": "Marketplace Purchase",
+    "ticket_activity_card_mint_title": "Ticket Creation",
+    "ticket_activity_card_sale_title": "Sale Opened",
+    "ticket_activity_card_sale_close_title": "Sale Closed",
+    "ticket_activity_card_transfer_title": "Ownership Transfer"
 }

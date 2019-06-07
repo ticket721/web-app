@@ -1,9 +1,9 @@
 export interface StrapiEventContract {
     id: number;
     abi: any[];
-    approver: {id: number};
-    minter: {id: number};
-    marketer: {id: number};
+    approver: any;
+    minter: any;
+    marketer: any;
     binary: string;
     name: string;
     runtime_binary: string;

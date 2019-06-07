@@ -23,5 +23,7 @@
     "not_an_event": "Address is not an event.",
     "event_management": "Manage or Create Events",
     "fetch_error": "An error occured while fetching from server.",
-    "support_coming_soon": "Mobile version is on its way !"
+    "support_coming_soon": "Mobile version is on its way !",
+    "ticket_page_loading": "Loading Ticket Details",
+    "no_ticket_id": "No Such Ticket"
 }

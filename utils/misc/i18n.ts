@@ -17,5 +17,6 @@ export const namespaces = {
     '/account': base.concat(['account', 'tickets']),
     '/_error': base,
     '/events': base.concat(['event_creation', 'minters', 'marketers', 'approvers', 'events']),
-    '/event': base.concat(['event_creation', 'minters', 'marketers', 'approvers', 'events'])
+    '/event': base.concat(['event_creation', 'minters', 'marketers', 'approvers', 'events']),
+    '/ticket': base.concat(['events'])
 };
