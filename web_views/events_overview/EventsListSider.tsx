@@ -30,7 +30,7 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
     render(): React.ReactNode {
 
         if (this.props.coinbase === undefined) {
-            return <Sider width={280} style={{ background: '#ffffff', height: '100%', overflow: 'auto', boxShadow: '0 3px 6px rgba(0,0,0,0.16)'}}>
+            return <Sider width={280} style={{ background: '#ffffff', height: '100%', overflow: 'auto'}}>
                 <Menu
                     mode='inline'
                     style={{ height: '100%' }}
@@ -76,7 +76,7 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
             }
         }
 
-        return <Sider width={280} style={{ background: '#fff', height: '100%', overflow: 'auto', borderRadius: 6, boxShadow: '0 3px 6px rgba(0,0,0,0.16)'}}>
+        return <Sider width={280} style={{ background: '#fff', height: '100%', overflow: 'auto'}}>
             <Menu
                 mode='inline'
                 selectedKeys={this.props.selection ? [this.props.selection] : undefined}
