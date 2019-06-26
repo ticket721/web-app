@@ -29,7 +29,6 @@ export interface TicketProps {
     };
     coinbase: string;
     show_marketplace_link?: boolean;
-    always_hovered?: boolean;
 }
 
 type MergedTicketProps = TicketProps & I18NProps;
@@ -163,7 +162,7 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
             );
         }
 
-        const deployed = this.props.always_hovered || this.state.hovered || this.state.opensale_visible;
+        const deployed = this.state.hovered || this.state.opensale_visible;
 
         const owner = this.isOwner();
         const market = this.props.contract_plugins.marketer ? MarketerEnabled[this.props.contract_plugins.marketer.name] : null;
@@ -325,13 +324,13 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
                         style={{
                             height: 170,
                             width: 170,
-                            borderRadius: 6,
-                            padding: 10
+                            borderRadius: 7,
+                            padding: 15
                         }}
                         cover={
                             this.props.event.image
                                 ?
-                                <img alt='icon' src={this.props.strapi_url + this.props.event.image.url} style={{width: 150, height: 150, borderRadius: 6}}/>
+                                <img alt='icon' src={this.props.strapi_url + this.props.event.image.url} style={{width: 140, height: 140}}/>
                                 :
                                 null
                         }

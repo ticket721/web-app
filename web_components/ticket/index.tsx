@@ -28,7 +28,7 @@ export interface IInputTicketReduxWrapperProps {
     };
     coinbase: string;
     show_marketplace_link?: boolean;
-    always_hovered?: boolean;
+
 }
 
 export interface IReduxStateTicketReduxWrapperProps {
@@ -86,7 +86,6 @@ class TicketReduxWrapper extends React.Component<IReduxStateTicketReduxWrapperPr
             contract_plugins={this.props.contract_plugins}
             coinbase={this.props.coinbase}
             show_marketplace_link={this.props.show_marketplace_link}
-            always_hovered={this.props.always_hovered}
         />;
     }
 }
@@ -123,7 +122,6 @@ export interface IInputTicketProps {
     ticket: StrapiTicket;
     coinbase: string;
     show_marketplace_link?: boolean;
-    always_hovered?: boolean;
 }
 
 const filter_strapi = (entities: any[]): any[] => {
@@ -190,7 +188,6 @@ export default class TicketStrapiWrapper extends React.Component<IInputTicketPro
                             }}
                             coinbase={this.props.coinbase}
                             show_marketplace_link={this.props.show_marketplace_link}
-                            always_hovered={this.props.always_hovered}
                         />;
                     }
 

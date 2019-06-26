@@ -14,7 +14,6 @@ Web App to use the ticket721 plateform
 | :------: | :--------: |
 | `google_api_token` | Api key used for google maps |
 | `strapi_endpoint` | URL of the strapi server |
-| `tx_explorer` | URL for the transaction explorer, with `TRANSACTION_HASH` where it should be replaced (`https://ropsten.etherscan.io/tx/TRANSACTION_HASH`)|
 
 ## Tasks
 

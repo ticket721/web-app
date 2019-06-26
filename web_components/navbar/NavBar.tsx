@@ -92,8 +92,6 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                 case 'marketplace':
                     selection = 'marketplace';
                     return this.props.t('marketplace');
-                case 'ticket':
-                    return this.props.t('ticket');
                 default:
                     return path_elem;
             }

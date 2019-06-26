@@ -27,11 +27,11 @@ export default class QuaredEventIcon extends React.Component<SquaredEventIconPro
             <Card
                 hoverable={false}
                 bordered={false}
-                style={{width: 230, height: 230, padding: 15, borderRadius: 8, float: 'left', marginLeft: 24, marginTop: -115}}
+                style={{width: 230, height: 230, padding: 15, borderRadius: 7, float: 'left', marginLeft: 24, marginTop: -115}}
                 cover={
                     this.props.image
                         ?
-                        <img alt='icon' src={this.props.strapi_url + this.props.image.url} style={{width: 200, height: 200, borderRadius: 8}}/>
+                        <img alt='icon' src={this.props.strapi_url + this.props.image.url} style={{width: 200, height: 200}}/>
                         :
                         null
                 }

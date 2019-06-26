@@ -113,12 +113,12 @@ export default class TicketPreview extends React.Component<MergedTicketPreviewPr
                                 height: 170,
                                 width: 170,
                                 borderRadius: 6,
-                                padding: 10
+                                padding: 15
                             }}
                             cover={
                                 this.props.image
                                     ?
-                                    <img alt='icon' src={this.props.strapi_url + this.props.image.url} style={{width: 150, height: 150, borderRadius: 6}}/>
+                                    <img alt='icon' src={this.props.strapi_url + this.props.image.url} style={{width: 140, height: 140}}/>
                                     :
                                     null
                             }
