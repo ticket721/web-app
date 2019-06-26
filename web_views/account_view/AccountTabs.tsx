@@ -35,7 +35,7 @@ class AccountTabs extends React.Component<MergedAccountTabsProps> {
             </TabPane>
         ] as React.ReactNode[]).concat(TabGetter(this.props.address, this.props.queried_address, this.props.coinbase, this.props.t));
 
-        return <div style={{width: '96%', marginTop: -32, marginLeft: '2%', marginBottom: 16}}>
+        return <div style={{width: '96%', marginLeft: '2%', marginBottom: 16}}>
             <div style={{marginLeft: 48}}>
                 <Typography.Text style={{fontSize: 42}}>
                     {

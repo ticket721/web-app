@@ -309,13 +309,13 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
                 }
             `}</style>
             <Typography.Text
-                style={{color: '#202020', fontSize: 28}}
+                style={{color: '#ffffff', fontSize: 28}}
             >
                 {this.props.t('filter_event_title')}
             </Typography.Text>
             <br/>
             <Typography.Text
-                style={{color: '#202020', fontSize: 12}}
+                style={{color: '#ffffff', fontSize: 12}}
             >
                 {this.props.t('filter_event_desc')}
             </Typography.Text>

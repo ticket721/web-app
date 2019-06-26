@@ -93,9 +93,7 @@ class EventPage extends React.Component<MergedEventPageProps> {
                                                                     width: '100%',
                                                                     height: '100%',
                                                                     paddingLeft: '5%',
-                                                                    paddingRight: '5%',
-                                                                    marginTop: '2%',
-                                                                    marginBottom: '2%'
+                                                                    paddingRight: '5%'
                                                                 }}
                                                             >
                                                                 <EventView
@@ -109,9 +107,7 @@ class EventPage extends React.Component<MergedEventPageProps> {
                                                                     width: '100%',
                                                                     height: '100%',
                                                                     paddingLeft: '5%',
-                                                                    paddingRight: '5%',
-                                                                    marginTop: '2%',
-                                                                    marginBottom: '2%',
+                                                                    paddingRight: '5%'
                                                                 }}
                                                             >
                                                                 <InvalidAddress address={this.props.address}/>
