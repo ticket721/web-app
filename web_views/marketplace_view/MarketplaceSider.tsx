@@ -15,7 +15,7 @@ export interface MarketplaceSiderProps {
 
 export default class MarketplaceSider extends React.Component<MarketplaceSiderProps> {
     render(): React.ReactNode {
-        return <Sider width={280} style={{ background: '#ffffff', height: '100%', overflow: 'auto', borderRadius: 6, boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)', padding: 12}}>
+        return <Sider width={280} style={{ background: '#232323', height: '100%', overflow: 'auto', padding: 12}}>
             <EventFilter events={this.props.events} add_event={this.props.add_event} rm_event={this.props.rm_event}/>
         </Sider>;
 

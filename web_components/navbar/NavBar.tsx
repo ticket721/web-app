@@ -183,13 +183,8 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
 
                 </Sider>
                 <Layout>
-                    <Content style={{margin: '0 16px', height: '100%'}}>
-                        <DynamicBreadcrumb style={{margin: '16px 0'}}>
-                            {breadcrumb_items}
-                        </DynamicBreadcrumb>
-                        <div style={{height: '90%', minHeight: '90%'}}>
-                            {this.props.children}
-                        </div>
+                    <Content style={{height: '100%'}}>
+                        {this.props.children}
                     </Content>
                 </Layout>
             </Layout>;
@@ -304,13 +299,8 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                     </div>
                 </Sider>
                 <Layout>
-                    <Content style={{margin: '0 16px', height: '100%'}}>
-                        <DynamicBreadcrumb style={{margin: '16px 0'}}>
-                            {breadcrumb_items}
-                        </DynamicBreadcrumb>
-                        <div style={{height: '90%', minHeight: '90%'}}>
-                            {this.props.children}
-                        </div>
+                    <Content style={{height: '100%'}}>
+                        {this.props.children}
                     </Content>
                 </Layout>
             </Layout>

@@ -54,7 +54,7 @@ export default class EventsContentDisplayer extends React.Component<EventsConten
         }
 
         if (this.props.selection < this.props.coinbase.queuedevents.length) {
-            return <Content style={{marginLeft: 24, padding: 24, minHeight: 280, borderTop: '1px solid #ddddee', borderBottom: '1px solid #ddddee'}}>
+            return <Content style={{marginLeft: 24, padding: 24, minHeight: 280}}>
                 <QueuedEventView
                     address={this.props.coinbase.queuedevents[this.props.selection].address}
                     coinbase={this.props.coinbase}
@@ -74,7 +74,7 @@ export default class EventsContentDisplayer extends React.Component<EventsConten
                 {({address}: { address: any[] }): React.ReactNode => {
                     if (address && address.length) {
                         if (address[0].data) {
-                            return <Content style={{marginLeft: 24, padding: 24, minHeight: 280, borderTop: '1px solid #ddddee', borderBottom: '1px solid #ddddee'}}>
+                            return <Content style={{marginLeft: 24, padding: 24, minHeight: 280}}>
                                 <EventView address={address[0].data.address} coinbase={this.props.coinbase}/>
                             </Content>;
                         } else {
