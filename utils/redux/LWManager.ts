@@ -206,7 +206,7 @@ export class LWManager {
 
                     command.method = 'eth_sendRawTransaction' ;
                     command.params = [
-                        '0x' + tx.serialize().toString('hex')
+                        tx.serialize()
                     ];
 
                     break ;
