@@ -9,6 +9,7 @@ export interface PriceInputProps {
     on_change: (field: string, value: any) => void;
     value: BigNumber;
     t: any;
+    options?: any;
 }
 
 export class PriceInput extends React.Component<PriceInputProps> {
