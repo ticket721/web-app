@@ -1,9 +1,10 @@
-import { StrapiUpload }         from '../../../utils/strapi/strapiupload';
-import * as React               from 'react';
+import { StrapiUpload }   from '../../../utils/strapi/strapiupload';
+import * as React         from 'react';
 import { Carousel, Icon } from 'antd';
-import { StrapiEvent }          from '../../../utils/strapi/event';
-import { AppState }             from '../../../utils/redux/app_state';
-import { connect }              from 'react-redux';
+import { StrapiEvent }    from '../../../utils/strapi/event';
+import { AppState }       from '../../../utils/redux/app_state';
+import { connect }        from 'react-redux';
+import { theme }          from '../../../utils/theme';
 
 export interface EventCardBannerCarouselProps {
     event: StrapiEvent;
@@ -21,7 +22,7 @@ class EventCardBannerCarousel extends React.Component<MergedEventCardBannerCarou
         const carousel_content = this.props.event
             ?
             this.props.event.banners.map((banner: StrapiUpload, idx: number): React.ReactNode =>
-                <div style={{backgroundColor: '#202020', height: '100%'}} key={idx}>
+                <div style={{backgroundColor: theme.dark0, height: '100%'}} key={idx}>
                     <img src={this.props.strapi_url + banner.url} style={{width: '100%', marginTop: '50%', transform: 'translateY(-100%)'}}/>
                 </div>)
 
@@ -41,11 +42,11 @@ class EventCardBannerCarousel extends React.Component<MergedEventCardBannerCarou
                         overflow: hidden;
                         border-top-right-radius: 6px;
                         border-top-left-radius: 6px;
-                        background-color: #353535;
+                        background-color: ${theme.dark0};
                     }
                     
                     #event_carousel .ant-carousel .slick-slide h3 {
-                        color: #fff;
+                        color: ${theme.white};
                     }
                 `}</style>
 
@@ -60,7 +61,7 @@ class EventCardBannerCarousel extends React.Component<MergedEventCardBannerCarou
                         [
                             <div key={0} style={{height: '100%', width: '100%'}}>
                                 <div style={{height: 160, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                    <Icon type='loading' style={{fontSize: 64, color: '#505050'}} spin={true}/>
+                                    <Icon type='loading' style={{fontSize: 64, color: theme.dark7}} spin={true}/>
                                 </div>
                             </div>
                         ]

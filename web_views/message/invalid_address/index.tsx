@@ -2,6 +2,7 @@ import * as React     from 'react';
 import { I18N }       from '@utils/misc/i18n';
 import { Typography } from 'antd';
 import image          from './image.svg';
+import { theme }      from '../../../utils/theme';
 
 // Props
 
@@ -24,11 +25,12 @@ class InvalidAddressContainer extends React.Component<InvalidAddressProps> {
             <div style={{textAlign: 'center'}}>
                 <img src={image} style={{width: '50px', marginBottom: '75px'}}/>
                 <br/>
-                <Typography.Text style={{fontSize: 28, fontWeight: 500}}>{this.props.t('error')}</Typography.Text>
+                <Typography.Text style={{fontSize: 28, fontWeight: 500, color: theme.primary}}>{this.props.t('error')}</Typography.Text>
                 <Typography.Text
                     style={{
                         fontSize: 28,
-                        marginLeft: 24
+                        marginLeft: 24,
+                        color: theme.dark2
                     }}
                 >
                     {this.props.t('invalid_address').replace('//address//', this.props.address)}

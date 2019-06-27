@@ -1,14 +1,15 @@
 import * as React                    from 'react';
 import { Divider, Typography }       from 'antd';
 import { EventCreationTabBaseProps } from './EventCreationData';
-import EventCreationNameDesc         from './EventCreationNameDesc';
-import { I18N, I18NProps }           from '@utils/misc/i18n';
-import EventCreationBanners          from './EventCreationBanners';
-import { ReactReduxContext }         from 'react-redux';
-import { Store }                     from 'redux';
-import EventCreationImage            from './EventCreationImage';
-import EventCreationLocation         from './EventCreationLocation';
-import EventCreationDates            from './EventCreationDates';
+import EventCreationNameDesc from './EventCreationNameDesc';
+import { I18N, I18NProps }   from '@utils/misc/i18n';
+import EventCreationBanners  from './EventCreationBanners';
+import { ReactReduxContext } from 'react-redux';
+import { Store }             from 'redux';
+import EventCreationImage    from './EventCreationImage';
+import EventCreationLocation from './EventCreationLocation';
+import EventCreationDates    from './EventCreationDates';
+import { theme }             from '../../../utils/theme';
 
 // Props
 
@@ -26,7 +27,7 @@ class EventCreationInformations extends React.Component<MergedEventCreationInfor
             <ReactReduxContext.Consumer>
                 {({ store }: {store: Store; }): React.ReactNode =>
                     <div>
-                        <Typography.Text style={{fontSize: 42}}>
+                        <Typography.Text style={{fontSize: 42, color: theme.primary}}>
                             {this.props.t('namedesc_title')}
                         </Typography.Text>
                         <EventCreationNameDesc
@@ -36,7 +37,7 @@ class EventCreationInformations extends React.Component<MergedEventCreationInfor
                         />
                         <br/>
                         <Divider/>
-                        <Typography.Text style={{fontSize: 42}}>
+                        <Typography.Text style={{fontSize: 42, color: theme.primary}}>
                             {this.props.t('location_dates_title')}
                         </Typography.Text>
                         <EventCreationLocation
@@ -51,7 +52,7 @@ class EventCreationInformations extends React.Component<MergedEventCreationInfor
                         />
                         <br/>
                         <Divider/>
-                        <Typography.Text style={{fontSize: 42}}>
+                        <Typography.Text style={{fontSize: 42, color: theme.primary}}>
                             {this.props.t('images_title')}
                         </Typography.Text>
                         <EventCreationBanners form_data={this.props.form_data} set_data={this.props.set_data} t={this.props.t} store={store} />

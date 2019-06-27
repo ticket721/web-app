@@ -4,6 +4,7 @@ import { connect }                from 'react-redux';
 import { AppState }               from '../../../utils/redux/app_state';
 import { Card, Icon, Typography } from 'antd';
 import * as GeoPattern            from 'geopattern';
+import { theme }                  from '../../../utils/theme';
 
 export interface EventCardIconProps {
     event: StrapiEvent;
@@ -22,12 +23,12 @@ class EventCardIcon extends React.Component<MergedEventCardProps> {
             return <div>
                 <style>{`
                     #loading_ticket_body .ant-card {
-                        background-color: #404040;
+                        background-color: ${theme.dark5};
                         border: none; 
                     }
                     
                     #loading_ticket_body .ant-card-body {
-                        background-color: #404040;
+                        background-color: ${theme.dark5};
                         padding: 0;
                         width: 100%;
                         height: 100%;
@@ -49,8 +50,8 @@ class EventCardIcon extends React.Component<MergedEventCardProps> {
                             marginBottom: 24
                         }}
                     >
-                        <div key={0} style={{height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#404040'}}>
-                            <Icon type='loading' style={{fontSize: 64, color: '#505050'}} spin={true}/>
+                        <div key={0} style={{height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: theme.dark5}}>
+                            <Icon type='loading' style={{fontSize: 64, color: theme.dark7}} spin={true}/>
                         </div>
                     </Card>
                 </div>
@@ -92,7 +93,7 @@ class EventCardIcon extends React.Component<MergedEventCardProps> {
                 />
             </div>
             <div style={{float: 'left', marginLeft: 24, display: 'flex', alignItems: 'center', height: 85, overflow: 'hidden'}}>
-            <Typography.Text style={{color: '#ffffff', fontSize: 30}}>{this.props.event.name}</Typography.Text>
+            <Typography.Text style={{color: theme.white, fontSize: 30}}>{this.props.event.name}</Typography.Text>
             </div>
         </div>;
     }

@@ -19,6 +19,7 @@ import Link                   from 'next/link';
 import { routes }             from '../../utils/routing';
 import { WalletProviderType } from '../../utils/redux/app_state';
 import { I18NProps }          from '../../utils/misc/i18n';
+import { theme }              from '../../utils/theme';
 
 const {
     Content, Sider,
@@ -131,7 +132,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                 #app_navbar .logout {
                     height: 48px;
                     line-height: 48px;
-                    background: #242424;
+                    background: ${theme.dark2};
                     position: absolute;
                     bottom: 48px;
                     width: 100%;
@@ -148,7 +149,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                     cursor: pointer;
                 }
                 #__next {
-                    background-color: #f0f2f5;
+                    background-color: ${theme.bwhite};
                 }
                 `}</style>
                 <Sider
@@ -200,12 +201,12 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
 
             if (this.props.account.balance) {
                 popover_content = <div style={{textAlign: 'center'}}>
-                    <Typography.Text style={{fontSize: 48}} strong={true}>{this.props.account.balance.div('1000000000000000000').toFormat(3, 6)}
-                        <span style={{fontWeight: 100}}>Ξ</span></Typography.Text>
+                    <Typography.Text style={{fontSize: 48, color: theme.dark2}} strong={true}>{this.props.account.balance.div('1000000000000000000').toFormat(3, 6)}
+                        <span style={{fontWeight: 100, color: theme.dark0}}>Ξ</span></Typography.Text>
                 </div>;
             }
 
-            const popover_title = <Typography.Text style={{color: '#ffffff', fontSize: 18}}>{this.props.account.address}</Typography.Text>;
+            const popover_title = <Typography.Text style={{color: theme.white, fontSize: 18}}>{this.props.account.address}</Typography.Text>;
 
             account = <routes.Link route={'account'} params={{}}>
                 <div id='wallet_widget'>
@@ -213,15 +214,15 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                         {`
                         .wallet_widget .ant-popover-title {
                             background-image: ${pattern};
-                            color: #202020;
+                            color: ${theme.dark2};
                         }
                 `}
                     </style>
                     <Popover overlayClassName='wallet_widget' placement='rightBottom' title={popover_title} content={popover_content}>
                         <div className='wallet' style={{backgroundImage: pattern}}>
-                            <Icon type='wallet' style={{verticalAlign: 'middle', fontSize: 16, color: '#ffffff'}}/>
+                            <Icon type='wallet' style={{verticalAlign: 'middle', fontSize: 16, color: theme.white}}/>
                             {!this.state.collapseOpen ?
-                                <span style={{marginLeft: 20, color: '#ffffff'}}>{this.props.t('wallet')}</span> : null}
+                                <span style={{marginLeft: 20, color: theme.white}}>{this.props.t('wallet')}</span> : null}
                         </div>
                     </Popover>
                 </div>
@@ -239,7 +240,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                 #app_navbar .logout {
                     height: 48px;
                     line-height: 48px;
-                    background: #242424;
+                    background: ${theme.dark2};
                     position: absolute;
                     bottom: 48px;
                     width: 100%;
@@ -256,7 +257,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                     cursor: pointer;
                 }
                 #__next {
-                    background-color: #f0f2f5;
+                    background-color: ${theme.bwhite};
                 }
                 `}</style>
                 <Sider
@@ -292,9 +293,9 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                     {account}
                     <div className='logout' onClick={this.props.logout}>
                         <div>
-                            <Icon type='logout' style={{verticalAlign: 'middle', fontSize: 16, color: '#ffffff'}}/>
+                            <Icon type='logout' style={{verticalAlign: 'middle', fontSize: 16, color: theme.white}}/>
                             {!this.state.collapseOpen ?
-                                <span style={{marginLeft: 20, color: '#ffffff'}}>{this.props.t('logout')}</span> : null}
+                                <span style={{marginLeft: 20, color: theme.white}}>{this.props.t('logout')}</span> : null}
                         </div>
                     </div>
                 </Sider>

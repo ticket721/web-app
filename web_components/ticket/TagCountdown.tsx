@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { theme }  from '../../utils/theme';
 
 export interface TagCountdownProps {
     end: Date;
@@ -51,6 +52,6 @@ export default class TagCountdown extends React.Component<TagCountdownProps, Tag
             content = `${Math.floor((time - now) % HOUR / (60 * 1000))}m`;
         }
 
-        return <span style={{color: '#202020'}}>{content}</span>;
+        return <span style={{color: theme.dark2}}>{content}</span>;
     }
 }

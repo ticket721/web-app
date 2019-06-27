@@ -2,6 +2,7 @@ import * as React             from 'react';
 import { Typography }         from 'antd';
 import image                  from './image.svg';
 import { NamespacesConsumer } from 'react-i18next';
+import { theme }              from '../../../utils/theme';
 
 // Props
 
@@ -28,9 +29,9 @@ export class GatesErrors extends React.Component<GatesErrorsProps> {
                 >
                     {(t: any): React.ReactNode =>
                         <div>
-                            <Typography.Text style={{fontSize: 28, fontWeight: 500}}>{t('error')}</Typography.Text>
+                            <Typography.Text style={{fontSize: 28, fontWeight: 500, color: theme.primary}}>{t('error')}</Typography.Text>
                             <Typography.Text
-                                style={{fontSize: 28, marginLeft: 24}}
+                                style={{fontSize: 28, marginLeft: 24, color: theme.dark2}}
                             >
                                 {t(this.props.message)}
                             </Typography.Text>

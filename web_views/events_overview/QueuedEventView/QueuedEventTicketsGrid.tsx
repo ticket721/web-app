@@ -9,12 +9,13 @@ import { StrapiMinter }                           from '@utils/strapi/minter';
 import { MinterCategoriesGetter, TicketCategory } from '@web_contract_plugins/minter/MinterCategoriesGetter';
 import { AppState }                               from '@utils/redux/app_state';
 import { connect }                                from 'react-redux';
-import { TicketCategoryStatsProps }               from '@web_components/event/display/TicketCategoryStats';
-import { TicketCharacsProps }                     from '@web_components/event/display/TicketCharacs';
-import { StrapiMarketer }                         from '@utils/strapi/marketer';
-import { StrapiApprover }                         from '@utils/strapi/approver';
-import { PriceDisplayerProps }                    from '@web_components/event/display/PriceDisplayer';
-import TicketPreview                              from '@web_components/event/display/TicketPreview';
+import { TicketCategoryStatsProps } from '@web_components/event/display/TicketCategoryStats';
+import { TicketCharacsProps }       from '@web_components/event/display/TicketCharacs';
+import { StrapiMarketer }           from '@utils/strapi/marketer';
+import { StrapiApprover }           from '@utils/strapi/approver';
+import { PriceDisplayerProps }      from '@web_components/event/display/PriceDisplayer';
+import TicketPreview                from '@web_components/event/display/TicketPreview';
+import { theme }                    from '../../../utils/theme';
 
 // Dynamic Components
 
@@ -87,7 +88,7 @@ class QueuedEventTicketsGrid extends React.Component<MergedQueuedEventTicketsGri
         return <div>
             <br/>
             <Typography.Text
-                style={{fontSize: 42}}
+                style={{fontSize: 42, color: theme.primary}}
             >
                 {this.props.t('ticket_informations_title')}{extra_title !== null ? ` | ${extra_title}` : undefined}
             </Typography.Text>

@@ -1,12 +1,13 @@
 import * as React           from 'react';
 import { Card, Typography } from 'antd';
-import { I18NProps }        from '@utils/misc/i18n';
+import { theme }            from '../../../utils/theme';
 
 export interface DescriptionCardProps {
     description: string;
+    t: any;
 }
 
-type MergedDescriptionCardProps = DescriptionCardProps & I18NProps;
+type MergedDescriptionCardProps = DescriptionCardProps;
 
 export default class DescriptionCard extends React.Component<MergedDescriptionCardProps> {
     render(): React.ReactNode {
@@ -16,7 +17,7 @@ export default class DescriptionCard extends React.Component<MergedDescriptionCa
                 title={this.props.t('description_title')}
                 size={'small'}
             >
-                <Typography.Text style={{fontSize: 18}}>
+                <Typography.Text style={{fontSize: 18, color: theme.dark2}}>
                     {this.props.description}
                 </Typography.Text>
             </Card>;
@@ -27,7 +28,7 @@ export default class DescriptionCard extends React.Component<MergedDescriptionCa
                 size={'small'}
             >
                 <div style={{textAlign: 'center'}}>
-                <Typography.Text style={{fontSize: 18}}>
+                <Typography.Text style={{fontSize: 18, color: theme.dark2}}>
                     {this.props.t('no_defined_description')}
                 </Typography.Text>
                 </div>

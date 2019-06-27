@@ -3,6 +3,7 @@ import { TicketPrices }             from '@web_contract_plugins/minter/MinterCat
 import { Card, Select, Typography } from 'antd';
 import { FullPageLoader }           from '../../loaders/FullPageLoader';
 import CurrencyConverter            from './CurrencyConverter';
+import { theme }                    from '../../../utils/theme';
 
 const Option = Select.Option;
 
@@ -35,7 +36,7 @@ export default class PriceDisplayer extends React.Component<MergedPriceDisplayer
             >
                 <div style={{width: '100%', textAlign: 'center'}}>
                     <br/>
-                    <Typography.Text style={{fontSize: 18}}>
+                    <Typography.Text style={{fontSize: 18, color: theme.dark2}}>
                         {this.props.t('select_currency')}
                     </Typography.Text>
                     <br/>
@@ -60,7 +61,7 @@ export default class PriceDisplayer extends React.Component<MergedPriceDisplayer
                 <br/>
                 <br/>
                 <div style={{textAlign: 'center'}}>
-                    <Typography.Text style={{fontSize: 18}}>{this.props.t('click_to_buy')}</Typography.Text>
+                    <Typography.Text style={{fontSize: 18, color: theme.dark2}}>{this.props.t('click_to_buy')}</Typography.Text>
                 </div>
                 <br/>
 

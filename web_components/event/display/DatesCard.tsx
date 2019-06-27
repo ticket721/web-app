@@ -1,18 +1,19 @@
 import * as React                              from 'react';
 import { Card, Divider, Progress, Typography } from 'antd';
 import { DateRange }                           from 'react-date-range';
-import { I18NProps }                           from '@utils/misc/i18n';
 
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { theme }                               from '../../../utils/theme';
 
 export interface DatesCardProps {
     start: string;
     end: string;
     creation: string;
+    t: any;
 }
 
-type MergedDatesCardProps = DatesCardProps & I18NProps;
+type MergedDatesCardProps = DatesCardProps;
 
 export default class DatesCard extends React.Component<MergedDatesCardProps> {
 
@@ -59,7 +60,7 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
             
             #range_displayer .rdrDateDisplayItem {
                 box-shadow: none;
-                border: 1px solid #aaaaaa;
+                border: 1px solid ${theme.lightgrey};
                 border-radius: 6px;
                 cursor: default;
             }
@@ -71,11 +72,31 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
             
             #range_displayer .rdrDateDisplayItem > input {
                 cursor: default;
-                color: #121212;
+                color: ${theme.dark2};
             }
             
             #range_displayer .rdrMonth {
                 width: 100%;
+            }
+            
+            #range_displayer .rdrStartEdge {
+                color: ${theme.primary} !important;
+            }
+           
+            #range_displayer .rdrDayToday .rdrDayNumber span:after {
+                background-color: ${theme.primary} !important;
+            }
+            
+            #range_displayer .rdrInRange {
+                color: ${theme.primary} !important;
+            }
+            
+            #range_displayer .rdrEndEdge {
+                color: ${theme.primary} !important;
+            }
+            
+            #range_displayer .rdrDayActive {
+                color: ${theme.primary} !important;
             }
             `}</style>
                 <div style={{width: '96%', marginLeft: '2%', borderRadius: 8, padding: '5%'}} id='range_displayer'>
@@ -91,8 +112,14 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
                     />
                     <br/>
                     <br/>
-                    <div style={{textAlign: 'center'}}>
-                        <Typography.Text style={{fontSize: 18, fontWeight: 400}}>{this.props.t(text)}</Typography.Text>
+                    <style>{`
+                        #event_progress .ant-progress-success-bg, .ant-progress-bg {
+                        background-color: ${theme.primary};
+                    }
+                    `}</style>
+                    <div style={{textAlign: 'center'}} id='event_progress'>
+                        <Typography.Text style={{fontSize: 18, fontWeight: 400, color: theme.dark2}}>{this.props.t(text)}</Typography.Text>
+                        <br/>
                         <br/>
                         <Progress
                             percent={progress}
@@ -103,7 +130,7 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
                 </div>
                 <Divider style={{marginTop: 0}}/>
                 <div style={{textAlign: 'center', fontSize: 18}}>
-                    <Typography.Text>
+                    <Typography.Text style={{color: theme.dark2}}>
                         {this.props.t('dates_warning')}
                     </Typography.Text>
                 </div>
@@ -115,7 +142,7 @@ export default class DatesCard extends React.Component<MergedDatesCardProps> {
                 size={'small'}
             >
                 <div style={{textAlign: 'center'}}>
-                    <Typography.Text style={{fontSize: 18, fontWeight: 300}}>
+                    <Typography.Text style={{fontSize: 18, fontWeight: 300, color: theme.dark2}}>
                         {this.props.t('no_defined_dates')}
                     </Typography.Text>
                 </div>

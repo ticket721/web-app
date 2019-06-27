@@ -6,6 +6,7 @@ import LoadingTicket          from '../../web_components/ticket/LoadingTicket';
 import Ticket                 from '../../web_components/ticket';
 import PriceWidget            from './PriceWidget';
 import { NoTicketsForFilter } from '../message/no_tickets_for_filter';
+import { theme }              from '../../utils/theme';
 
 export interface SaleListProps {
     coinbase: StrapiAddress;
@@ -20,11 +21,11 @@ export default class SaleList extends React.Component<SaleListProps> {
     render_item = (ticket: any): React.ReactNode => {
         if (ticket.loader) {
             return <List.Item style={{marginTop: 62, height: 250, width: 500 + 12 + 150}}>
-                <div style={{height: 250, display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
+                <div style={{height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <LoadingTicket/>
-                    <Card style={{marginLeft: 12, height: 194, width: 150, backgroundColor: 'rgba(35, 35, 35)', borderRadius: 6, borderColor: 'rgba(35, 35, 35)', boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'}}>
+                    <Card style={{marginLeft: 12, height: 194, width: 150, backgroundColor: theme.dark2, borderRadius: 6, borderColor: theme.dark2, boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'}}>
                         <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                            <Icon type='loading' style={{ fontSize: 64, color: '#505050' }}/>
+                            <Icon type='loading' style={{ fontSize: 64, color: theme.dark7 }}/>
                         </div>
                     </Card>
                 </div>
@@ -32,7 +33,7 @@ export default class SaleList extends React.Component<SaleListProps> {
         }
 
         return <List.Item style={{marginTop: 62, height: 250, width: 500 + 12 + 150}}>
-            <div style={{height: 250, display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
+            <div style={{height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div style={{zIndex: 1}}>
                 <Ticket ticket={ticket.data} coinbase={this.props.coinbase.address} show_marketplace_link={false}/>
                 </div>

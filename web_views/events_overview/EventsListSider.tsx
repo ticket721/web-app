@@ -2,7 +2,8 @@ import { StrapiAddress } from '@utils/strapi/address';
 import * as React        from 'react';
 import {
     Layout, Menu, Icon, Skeleton
-} from 'antd';
+}                        from 'antd';
+import { theme }         from '../../utils/theme';
 
 const {
     Sider,
@@ -30,7 +31,12 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
     render(): React.ReactNode {
 
         if (this.props.coinbase === undefined) {
-            return <Sider width={280} style={{ background: '#ffffff', height: '100%', overflow: 'auto'}}>
+            return <Sider width={280} style={{ background: theme.white, height: '100%', overflow: 'auto'}}>
+                <style>{`
+                    .ant-menu-inline {
+                        border-right: none;
+                    }
+                `}</style>
                 <Menu
                     mode='inline'
                     style={{ height: '100%' }}
@@ -49,7 +55,7 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
 
         }
 
-        const create_event = <Menu.Item key='create' style={{backgroundColor: '#202020', color: '#ffffff', marginTop: 24}}>
+        const create_event = <Menu.Item key='create' style={{backgroundColor: theme.dark2, color: theme.white, marginTop: 24, border: 'none'}}>
             <Icon type='plus' />
             <span>Create event</span>
         </Menu.Item>;
@@ -61,22 +67,27 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
         if (this.props.coinbase) {
             let idx = 0;
             for (const event of this.props.coinbase.queuedevents) {
-                events.push(<Menu.Item key={idx} style={{marginTop: idx === 0 ? 24 : 0, backgroundColor: '#FFFFEE'}}>
-                    <Icon type='form'/>
-                    <span>{event.name}</span>
+                events.push(<Menu.Item key={idx} style={{marginTop: idx === 0 ? 24 : 0, backgroundColor: theme.queuedevent}}>
+                    <Icon style={{color: theme.dark2}} type='form'/>
+                    <span style={{color: theme.dark2}}>{event.name}</span>
                 </Menu.Item>);
                 ++idx;
             }
             for (const event of this.props.coinbase.events) {
-                events.push(<Menu.Item key={idx} style={{marginTop: idx === 0 ? 24 : 0}}>
-                    <Icon type='right'/>
-                    <span>{event.name}</span>
+                events.push(<Menu.Item key={idx} style={{marginTop: idx === 0 ? 24 : 0, backgroundColor: theme.white}}>
+                    <Icon style={{color: theme.dark2}} type='right'/>
+                    <span style={{color: theme.dark2}}>{event.name}</span>
                 </Menu.Item>);
                 ++idx;
             }
         }
 
-        return <Sider width={280} style={{ background: '#fff', height: '100%', overflow: 'auto'}}>
+        return <Sider width={280} style={{ background: theme.white, height: '100%', overflow: 'auto'}}>
+            <style>{`
+                    .ant-menu-inline {
+                        border-right: none;
+                    }
+                `}</style>
             <Menu
                 mode='inline'
                 selectedKeys={this.props.selection ? [this.props.selection] : undefined}

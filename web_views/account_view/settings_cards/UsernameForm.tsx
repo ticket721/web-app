@@ -4,12 +4,13 @@ import { StrapiAddress }                                  from '@utils/strapi/ad
 import { Button, Card, Input, message, Spin, Typography } from 'antd';
 import { I18N, I18NProps }                                from '@utils/misc/i18n';
 import { HandleGetter }                                   from '../misc/HandleGetter';
-import { AppState, WalletProviderType }                   from '@utils/redux/app_state';
-import { connect }                                        from 'react-redux';
-import { sign }                                           from '@utils/misc/Web3TypedSignature';
-import Strapi                                             from 'strapi-sdk-javascript';
-import { Dispatch }                                       from 'redux';
-import { StrapiHelper }                                   from '@utils/StrapiHelper';
+import { AppState, WalletProviderType } from '@utils/redux/app_state';
+import { connect }                      from 'react-redux';
+import { sign }                         from '@utils/misc/Web3TypedSignature';
+import Strapi                           from 'strapi-sdk-javascript';
+import { Dispatch }                     from 'redux';
+import { StrapiHelper }                 from '@utils/StrapiHelper';
+import { theme }                        from '../../../utils/theme';
 
 export interface UsernameFormProps {
     strapi_address: StrapiAddress;
@@ -147,20 +148,20 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
             return <div id='username'>
                 <style>{`
                     #username .ant-card-head {
-                        background-color: #303030;
+                        background-color: ${theme.dark2};
                     }
                     
                     #username .ant-card-head-title {
-                        color: white;
+                        color: ${theme.white};
                     }
                 `}</style>
                 <Card title={this.props.t('settings_username_title')}>
                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <div style={{textAlign: 'center'}}>
-                            <Typography.Text style={{fontSize: 16}}>{this.props.t(handle[1] ? 'settings_username_preview' : 'settings_username_preview_no_username')}</Typography.Text>
+                            <Typography.Text style={{fontSize: 16, color: theme.dark2}}>{this.props.t(handle[1] ? 'settings_username_preview' : 'settings_username_preview_no_username')}</Typography.Text>
                             <br/>
                             <br/>
-                            <Typography.Text style={{fontSize: 24, fontWeight: 400}}>{handle[0]}</Typography.Text>
+                            <Typography.Text style={{fontSize: 24, fontWeight: 400, color: theme.dark2}}>{handle[0]}</Typography.Text>
                             <br/>
                             <br/>
                             {
@@ -170,7 +171,7 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
                                     :
                                     <div>
                                         <Typography.Text
-                                            style={{fontSize: 16}}
+                                            style={{fontSize: 16, color: theme.dark2}}
                                         >
                                             {this.props.t('settings_username_set_new')}
                                         </Typography.Text>
@@ -196,7 +197,7 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
                                                 ?
                                                 <div>
                                                     <br/>
-                                                    <Typography.Text type='warning' style={{fontSize: 12}}>{this.props.t('settings_username_no_login_change')}</Typography.Text>
+                                                    <Typography.Text type='warning' style={{fontSize: 12, color: theme.dark2}}>{this.props.t('settings_username_no_login_change')}</Typography.Text>
                                                     <br/>
                                                 </div>
 

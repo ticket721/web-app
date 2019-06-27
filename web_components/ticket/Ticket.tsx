@@ -9,14 +9,15 @@ import { StrapiMinter }                                                       fr
 import { StrapiMarketer }                                                     from '@utils/strapi/marketer';
 import moment                                                                 from 'moment';
 import { Textfit }                                                            from 'react-textfit';
-import { TicketBuyPopover, TicketCloseSalePopover, TicketSellPopover }        from './TicketBottomPopovers';
-import OpenSaleModal                                                          from './modals/OpenSaleModal';
-import { MarketerEnabled } from '../event/misc/MarketerEnabled';
-import { I18N, I18NProps } from '../../utils/misc/i18n';
-import { routes }          from '../../utils/routing';
-import CloseSaleModal      from './modals/CloseSaleModal';
-import TagCountdown        from './TagCountdown';
-import BuyModal            from './modals/BuyModal';
+import { TicketBuyPopover, TicketCloseSalePopover, TicketSellPopover } from './TicketBottomPopovers';
+import OpenSaleModal                                                   from './modals/OpenSaleModal';
+import { MarketerEnabled }                                             from '../event/misc/MarketerEnabled';
+import { I18N, I18NProps }                                             from '../../utils/misc/i18n';
+import { routes }                                                      from '../../utils/routing';
+import CloseSaleModal                                                  from './modals/CloseSaleModal';
+import TagCountdown                                                    from './TagCountdown';
+import BuyModal                                                        from './modals/BuyModal';
+import { theme }                                                       from '../../utils/theme';
 
 export interface TicketProps {
     ticket: StrapiTicket;
@@ -131,10 +132,10 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
 
         const pattern = GeoPattern.generate(this.props.event.address.address).toDataUrl();
 
-        const tags = [<Tag style={{color: '#202020'}} color='#f0f2f5' key={0}>🎫 {this.props.ticket.ticket_id}</Tag> as React.ReactNode].concat(
+        const tags = [<Tag style={{color: theme.dark2}} color={theme.bwhite} key={0}>🎫 {this.props.ticket.ticket_id}</Tag> as React.ReactNode].concat(
             this.props.ticket_infos
                 ?
-                this.props.ticket_infos.map((info: string, idx: number): React.ReactNode => <Tag style={{color: '#202020'}} color='#f0f2f5' key={idx + 1}>{info}</Tag>)
+                this.props.ticket_infos.map((info: string, idx: number): React.ReactNode => <Tag style={{color: theme.dark2}} color={theme.bwhite} key={idx + 1}>{info}</Tag>)
                 :
                 []
         );
@@ -297,7 +298,7 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
                 style={{
                     height: 194,
                     width: 500,
-                    background: 'linear-gradient(to right, #353550, #232323)',
+                    background: `linear-gradient(to right, ${theme.primarydark0}, ${theme.dark2})`,
                     border: '0px',
                     borderTopLeftRadius: 6,
                     borderBottomLeftRadius: 6,
@@ -337,7 +338,7 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
                         }
                     />
                 </div>
-                <div id='crans' style={{width: 2, height: 194, marginTop: -12, background: 'linear-gradient(#f0f2f5 60%, rgba(255,255,255,0) 0%)', backgroundSize: '2px 21px', float: 'left', marginLeft: 12}}/>
+                <div id='crans' style={{width: 2, height: 194, marginTop: -12, background: `linear-gradient(${theme.bwhite} 60%, rgba(255,255,255,0) 0%)`, backgroundSize: '2px 21px', float: 'left', marginLeft: 12}}/>
                 <div
                     style={{
                         height: 170,
@@ -354,7 +355,7 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
                                 max={30}
                                 forceSingleModeWidth={true}
                                 style={{
-                                    color: '#ffffff',
+                                    color: theme.white,
                                     fontWeigth: 300
                                 }}
                             >
@@ -365,7 +366,7 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
                             {
                                 date
                                     ?
-                                    <Typography.Text style={{fontSize: 40, color: '#ffffff', fontWeight: 100}}>{date}</Typography.Text>
+                                    <Typography.Text style={{fontSize: 40, color: theme.white, fontWeight: 100}}>{date}</Typography.Text>
                                     :
                                     null
                             }

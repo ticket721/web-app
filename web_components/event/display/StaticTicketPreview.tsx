@@ -4,6 +4,7 @@ import { Card, Tag, Typography } from 'antd';
 import * as GeoPattern           from 'geopattern';
 import moment                    from 'moment';
 import { Textfit }               from 'react-textfit';
+import { theme }                 from '../../../utils/theme';
 
 export interface StaticTicketPreviewProps {
     image: StrapiUpload;
@@ -64,7 +65,7 @@ export default class StaticTicketPreview extends React.Component<MergedStaticTic
                 style={{
                     height: 194,
                     width: 500,
-                    background: 'linear-gradient(to right, #353550, #232323)',
+                    background: `linear-gradient(to right, ${theme.primarydark0}, ${theme.dark2})`,
                     border: '0px',
                     borderTopLeftRadius: 6,
                     borderBottomLeftRadius: 6,
@@ -102,7 +103,7 @@ export default class StaticTicketPreview extends React.Component<MergedStaticTic
                         }
                     />
                 </div>
-                <div id='crans' style={{width: 2, height: 194, marginTop: -12, background: 'linear-gradient(#f0f2f5 60%, rgba(255,255,255,0) 0%)', backgroundSize: '2px 21px', float: 'left', marginLeft: 12}}/>
+                <div id='crans' style={{width: 2, height: 194, marginTop: -12, background: `linear-gradient(${theme.bwhite} 60%, rgba(255,255,255,0) 0%)`, backgroundSize: '2px 21px', float: 'left', marginLeft: 12}}/>
                 <div
                     style={{
                         height: 170,
@@ -111,7 +112,7 @@ export default class StaticTicketPreview extends React.Component<MergedStaticTic
                         float: 'left',
                     }}
                 >
-                    <Tag style={{color: '#202020'}} color='#f0f2f5' key={0}>🎫 {this.props.id !== null ? this.props.id : '???'}</Tag>
+                    <Tag style={{color: theme.dark2}} color={theme.bwhite} key={0}>🎫 {this.props.id !== null ? this.props.id : '???'}</Tag>
                     {tags}
                     <div style={{height: '70%', marginTop: '5%'}}>
                         <div className='parent' style={{width: 265, textAlign: 'center', height: '50%', paddingTop: '6.25%'}}>
@@ -120,7 +121,7 @@ export default class StaticTicketPreview extends React.Component<MergedStaticTic
                                 max={30}
                                 forceSingleModeWidth={true}
                                 style={{
-                                    color: '#ffffff',
+                                    color: theme.white,
                                     fontWeigth: 300
                                 }}
                             >
@@ -131,7 +132,7 @@ export default class StaticTicketPreview extends React.Component<MergedStaticTic
                             {
                                 date
                                     ?
-                                    <Typography.Text style={{fontSize: 40, color: '#ffffff', fontWeight: 100}}>{date}</Typography.Text>
+                                    <Typography.Text style={{fontSize: 40, color: theme.white, fontWeight: 100}}>{date}</Typography.Text>
                                     :
                                     null
                             }

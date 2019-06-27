@@ -3,6 +3,7 @@ import { TicketCategory }                                          from '../../.
 import { Card, Col, Progress, Row, Select, Statistic, Typography } from 'antd';
 import { FullPageLoader }                                          from '../../loaders/FullPageLoader';
 import { I18NProps }                                               from '../../../utils/misc/i18n';
+import { theme }                                                   from '../../../utils/theme';
 
 const Countdown = Statistic.Countdown;
 const Option = Select.Option;
@@ -92,7 +93,7 @@ export default class TicketCategoryStats extends React.Component<MergedTicketCat
         >
             <div style={{width: '100%', textAlign: 'center'}}>
                 <br/>
-                <Typography.Text style={{fontSize: 18}}>
+                <Typography.Text style={{fontSize: 18, color: theme.dark2}}>
                     {this.props.t('select_ticket_category')}
                 </Typography.Text>
                 <br/>
@@ -141,10 +142,10 @@ export default class TicketCategoryStats extends React.Component<MergedTicketCat
                         </Col>
                     </Row>
                     <br/>
-                    <Row gutter={16}>
+                    <Row gutter={16} id='sale_stats'>
                         <Col span={12}>
                             <Progress
-                                strokeColor={sale_progress >= 100 || progress >= 100 ? '#000000' : '#188ae2'}
+                                strokeColor={sale_progress >= 100 || progress >= 100 ? theme.dark2 : theme.primary}
                                 strokeWidth={9}
                                 strokeLinecap='square'
                                 percent={parseFloat(sale_progress.toFixed(2))}
@@ -154,7 +155,7 @@ export default class TicketCategoryStats extends React.Component<MergedTicketCat
                         </Col>
                         <Col span={12}>
                             <Progress
-                                strokeColor={sale_progress >= 100 || progress >= 100 ? '#000000' : '#188ae2'}
+                                strokeColor={sale_progress >= 100 || progress >= 100 ? theme.dark2 : theme.primary}
                                 strokeWidth={9}
                                 strokeLinecap='square'
                                 percent={parseFloat(progress.toFixed(2))}

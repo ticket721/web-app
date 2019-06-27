@@ -7,6 +7,7 @@ import dynamic                                  from 'next/dynamic';
 import { EventCreationDeployProps }             from './EventCreationSummaryModalPages/EventCreationDeploy';
 import { EventDeployProcess, EventDeployProps } from './EventCreationSummaryModalPages/EventDeployProps';
 import { EventCreationExplicationsProps }       from './EventCreationSummaryModalPages/EventCreationExplications';
+import { theme }                                from '../../../utils/theme';
 
 // Dynamic Components
 
@@ -112,15 +113,15 @@ class EventCreationSummaryModal extends React.Component<MergedEventCreationSumma
         {`
         
             .event_creation .ant-modal-header {
-            background-color: #131313;
+                background-color: ${theme.dark0};
             }
             
             .event_creation .ant-modal-title {
-            color: white;
+                color: ${theme.white};
             }
             
             .event_creation .ant-modal-close {
-            color: white;
+                color: ${theme.white};
             }
             
         `}

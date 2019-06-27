@@ -2,6 +2,7 @@ import * as React     from 'react';
 import { I18N }       from '@utils/misc/i18n';
 import { Typography } from 'antd';
 import image          from './image.svg';
+import { theme }      from '../../../utils/theme';
 
 // Props
 
@@ -24,7 +25,7 @@ class EventManagementContainer extends React.Component<EventManagementProps> {
                 <img src={image} style={{width: '75px', marginBottom: '75px'}}/>
                 <br/>
                 <Typography.Text
-                    style={{fontSize: 28, marginLeft: 24}}
+                    style={{fontSize: 28, marginLeft: 24, color: theme.primary}}
                 >
                     {this.props.t('event_management')}
                 </Typography.Text>

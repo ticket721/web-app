@@ -2,7 +2,8 @@ import { StrapiEvent }        from '@utils/strapi/event';
 import * as React             from 'react';
 import { Select, Typography } from 'antd';
 import { I18N, I18NProps }    from '../../utils/misc/i18n';
-import FuzzySearch from 'fuzzy-search';
+import FuzzySearch            from 'fuzzy-search';
+import { theme }              from '../../utils/theme';
 
 const Option = Select.Option;
 
@@ -63,8 +64,8 @@ class FilterForm extends React.Component<MergedFilterFormProps, FilterFormState>
                         .search(this.state.search)
                         .map((event: StrapiEvent, idx: number): React.ReactNode =>
                             <Option key={idx} value={event.id}>
-                                <Typography.Text>{event.name}</Typography.Text>
-                                <Typography.Text style={{marginLeft: 12, color: '#aaaaaa'}}>#{event.id}</Typography.Text>
+                                <Typography.Text style={{color: theme.dark2}}>{event.name}</Typography.Text>
+                                <Typography.Text style={{marginLeft: 12, color: theme.lightgrey}}>#{event.id}</Typography.Text>
 
                             </Option>)
 
@@ -72,9 +73,8 @@ class FilterForm extends React.Component<MergedFilterFormProps, FilterFormState>
                     this.props.events
                         .map((event: StrapiEvent, idx: number): React.ReactNode =>
                             <Option key={idx} value={event.id}>
-                                <Typography.Text>{event.name}</Typography.Text>
-                                <Typography.Text style={{marginLeft: 12, color: '#aaaaaa'}}>#{event.id}</Typography.Text>
-
+                                <Typography.Text style={{color: theme.dark2}}>{event.name}</Typography.Text>
+                                <Typography.Text style={{marginLeft: 12, color: theme.lightgrey}}>#{event.id}</Typography.Text>
                             </Option>)
 
             )
@@ -83,7 +83,7 @@ class FilterForm extends React.Component<MergedFilterFormProps, FilterFormState>
 
         return <div>
             <div style={{width: '33%'}}>
-                <Typography.Text style={{fontSize: 18}}>
+                <Typography.Text style={{fontSize: 18, color: theme.dark2}}>
                     {this.props.t('list_filter_event_title')}
                 </Typography.Text>
                 <br/>

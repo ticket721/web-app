@@ -7,6 +7,7 @@ import { EventDeployProps }         from '../EventDeployProps';
 import { DatePicker }               from 'antd';
 const RangePicker: any = DatePicker.RangePicker;
 import moment                       from 'moment';
+import { theme }                    from '../../../../../utils/theme';
 
 interface EventCreationSummaryOwnProps {
 
@@ -21,7 +22,8 @@ export default class IEventCreationSummary extends React.Component<MergedEventCr
 
             <style>{`
                 .ant-divider-inner-text {
-                    color: #188ae2;
+                    color: ${theme.primary};
+                    font-weight: 300;
                 }    
             `}</style>
             <div>

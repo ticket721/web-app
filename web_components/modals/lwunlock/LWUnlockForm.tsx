@@ -1,6 +1,7 @@
 import { Form, Input, Modal, Typography } from 'antd';
 import * as React                         from 'react';
 import * as GeoPattern                    from 'geopattern';
+import { theme }                          from '../../../utils/theme';
 
 export const LWUnlockForm = Form.create({name: 'lwunlock_form'})(
     class extends React.Component<any, any> {
@@ -46,10 +47,10 @@ export const LWUnlockForm = Form.create({name: 'lwunlock_form'})(
                             background-image: ${pattern};
                         }
                         .lw_unlock .ant-modal-title {
-                            color: white;
+                            color: ${theme.white};
                         }
                         .lw_unlock .ant-modal-close {
-                            color: white;
+                            color: ${theme.white};
                         }
                     `}</style>
                     <Modal

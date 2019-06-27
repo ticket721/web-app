@@ -6,6 +6,7 @@ import { StrapiEvent }     from '../../../utils/strapi/event';
 import { StrapiMinter }    from '../../../utils/strapi/minter';
 import SaleManager         from './SaleManager';
 import { I18N, I18NProps } from '../../../utils/misc/i18n';
+import { theme }           from '../../../utils/theme';
 
 export interface OpenSaleModalProps {
     ticket: StrapiTicket;
@@ -75,15 +76,15 @@ class OpenSaleModal extends React.Component<MergedOpenSaleModalProps, OpenSaleMo
         return <div>
             <style>{`
                 .sale_modal .ant-modal-header {
-                    background-color: #202020;
+                    background-color: ${theme.dark2};
                 }
                 
                 .sale_modal .ant-modal-title {
-                    color: white;
+                    color: ${theme.white};
                 }
                 
                 .sale_modal .ant-modal-close-x {
-                    color: white;
+                    color: ${theme.white};
                 }
             `}</style>
             <Modal

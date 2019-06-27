@@ -1,7 +1,8 @@
 import { StrapiEvent }               from '../../../utils/strapi/event';
 import * as React                    from 'react';
 import { Divider, Icon, Typography } from 'antd';
-import moment from 'moment';
+import moment                        from 'moment';
+import { theme }                     from '../../../utils/theme';
 
 export interface EventCardDatesProps {
     event: StrapiEvent;
@@ -29,9 +30,9 @@ export default class EventCardDates extends React.Component<MergedEventCardDates
 
         if (!this.props.event.end) {
             return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Divider style={{width: '60%', minWidth: '60%', marginLeft: '20%', backgroundColor: '#707070'}}/>
+                <Divider style={{width: '60%', minWidth: '60%', marginLeft: '20%', backgroundColor: theme.dark7}}/>
                 <div style={{width: '100%', height: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    <Typography.Text style={{color: '#ffffff', fontWeight: 100, fontSize: 32}}>{start}</Typography.Text>
+                    <Typography.Text style={{color: theme.white, fontWeight: 100, fontSize: 32}}>{start}</Typography.Text>
                 </div>
             </div>;
         }
@@ -45,7 +46,7 @@ export default class EventCardDates extends React.Component<MergedEventCardDates
                         width: '60%',
                         minWidth: '60%',
                         marginLeft: '20%',
-                        backgroundColor: '#707070',
+                        backgroundColor: theme.dark7,
                         marginBottom: 0
                     }}
                 />
@@ -59,7 +60,7 @@ export default class EventCardDates extends React.Component<MergedEventCardDates
                     }}
                 >
                     <Typography.Text
-                        style={{color: '#ffffff', fontWeight: 100, fontSize: 32}}
+                        style={{color: theme.white, fontWeight: 100, fontSize: 32}}
                     >
                         {start} <Icon style={{fontSize: 22}} type='right'/> {end}
                     </Typography.Text>
@@ -76,7 +77,7 @@ export default class EventCardDates extends React.Component<MergedEventCardDates
                         width: '60%',
                         minWidth: '60%',
                         marginLeft: '20%',
-                        backgroundColor: '#707070',
+                        backgroundColor: theme.dark7,
                         marginBottom: 0
                     }}
                 />
@@ -90,7 +91,7 @@ export default class EventCardDates extends React.Component<MergedEventCardDates
                     }}
                 >
                     <Typography.Text
-                        style={{color: '#ffffff', fontWeight: 100, fontSize: 32}}
+                        style={{color: theme.white, fontWeight: 100, fontSize: 32}}
                     >
                         {start} <span style={{marginLeft: 24}}>{start_time} <Icon style={{fontSize: 22}} type='right'/> {end_time}</span>
                     </Typography.Text>

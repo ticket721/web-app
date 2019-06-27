@@ -7,6 +7,7 @@ import { Typography }           from 'antd';
 import { DatesCardProps }       from '@web_components/event/display/DatesCard';
 import { I18N, I18NProps }      from '@utils/misc/i18n';
 import { MapCardProps }         from '@web_components/event/display/MapCard';
+import { theme }                from '../../../utils/theme';
 
 // Dynamic Components
 
@@ -34,7 +35,7 @@ class QueuedEventInformationGrid extends React.Component<MergedQueuedEventInform
     render(): React.ReactNode {
         return <div>
             <br/>
-            <Typography.Text style={{fontSize: 42}}>{this.props.t('general_informations_title')}</Typography.Text>
+            <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('general_informations_title')}</Typography.Text>
             <Grid
                 style={{marginTop: 24}}
                 fill={'horizontal'}

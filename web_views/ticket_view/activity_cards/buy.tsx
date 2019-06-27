@@ -5,8 +5,9 @@ import Address                    from '@components/address';
 import StrapiCall                 from '@components/strapi';
 import { StrapiHelper }           from '../../../utils/StrapiHelper';
 import { StrapiAddress }          from '../../../utils/strapi/address';
-import moment from 'moment';
-import currencies                           from '@utils/currencies';
+import moment                     from 'moment';
+import currencies                 from '@utils/currencies';
+import { theme }                  from '../../../utils/theme';
 
 const filter_strapi = (entities: any[]): any[] => {
 
@@ -47,8 +48,8 @@ export const buy = (action: any, ticket: StrapiTicket, tx_explorer: string, t: a
                     const content = [
                         <List.Item.Meta
                             key={0}
-                            title={<Typography.Text style={{fontSize: 14, color: '#ffffff', fontWeight: 100}}>{t('ticket_activity_card_owner')}</Typography.Text>}
-                            description={<Address address={from && from.length ? from[0] : undefined} size={16} color={'#ffffff'}/>}
+                            title={<Typography.Text style={{fontSize: 14, color: theme.white, fontWeight: 100}}>{t('ticket_activity_card_owner')}</Typography.Text>}
+                            description={<Address address={from && from.length ? from[0] : undefined} size={16} color={theme.white}/>}
                         />
                     ];
 
@@ -57,8 +58,8 @@ export const buy = (action: any, ticket: StrapiTicket, tx_explorer: string, t: a
                         content.push(
                             <List.Item.Meta
                                 key={1}
-                                title={<Typography.Text style={{fontSize: 14, color: '#ffffff', fontWeight: 100}}>{t('ticket_activity_card_price')}</Typography.Text>}
-                                description={<Typography.Text style={{fontSize: 16, color: '#ffffff'}}>{currencies[name].toFixed(action.infos.price)} {currencies[name].symbol({color: '#ffffff'})}</Typography.Text>}
+                                title={<Typography.Text style={{fontSize: 14, color: theme.white, fontWeight: 100}}>{t('ticket_activity_card_price')}</Typography.Text>}
+                                description={<Typography.Text style={{fontSize: 16, color: theme.white}}>{currencies[name].toFixed(action.infos.price)} {currencies[name].symbol({color: theme.white})}</Typography.Text>}
                             />
                         );
                     }
@@ -66,8 +67,8 @@ export const buy = (action: any, ticket: StrapiTicket, tx_explorer: string, t: a
                     content.push(
                         <List.Item.Meta
                             key={2}
-                            title={<Typography.Text style={{fontSize: 14, color: '#ffffff', fontWeight: 100}}>{t('ticket_activity_card_date')}</Typography.Text>}
-                            description={<Typography.Text style={{fontSize: 16, color: '#ffffff'}}>{moment(action.action_timestamp).format('DD MMM YYYY HH:mm')}</Typography.Text>}
+                            title={<Typography.Text style={{fontSize: 14, color: theme.white, fontWeight: 100}}>{t('ticket_activity_card_date')}</Typography.Text>}
+                            description={<Typography.Text style={{fontSize: 16, color: theme.white}}>{moment(action.action_timestamp).format('DD MMM YYYY HH:mm')}</Typography.Text>}
                         />
                     );
 
