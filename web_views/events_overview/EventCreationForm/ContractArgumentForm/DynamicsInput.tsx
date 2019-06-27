@@ -16,6 +16,7 @@ export interface DynamicsInputProps {
     overrides: Overrides;
     extras: Extras;
     t: any;
+    options?: any;
 }
 
 interface IDynamicsInputState {

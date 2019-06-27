@@ -9,6 +9,7 @@ import { NamespacesConsumer } from 'react-i18next';
 export interface Argument {
     name: string;
     type: string;
+    options?: any;
 }
 
 export interface Overrides {
@@ -68,6 +69,7 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
                                         plugin_name={this.props.name}
                                         value={this.props.argument_values[argument.name]}
                                         on_change={this.props.on_change}
+                                        options={argument.options}
                                     />
                                 }
                             </NamespacesConsumer>
@@ -86,6 +88,7 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
                                         value={this.props.argument_values[argument.name]}
                                         on_change={this.props.on_change}
                                         t={t}
+                                        options={argument.options}
                                     />
                                 }
                             </NamespacesConsumer>
@@ -104,6 +107,7 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
                                         name={argument.name}
                                         value={this.props.argument_values[argument.name]}
                                         on_change={this.props.on_change}
+                                        options={argument.options}
                                     />
                                 }
                             </NamespacesConsumer>
@@ -122,6 +126,7 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
                                         value={this.props.argument_values[argument.name]}
                                         on_change={this.props.on_change}
                                         t={t}
+                                        options={argument.options}
                                     />
                                 }
                             </NamespacesConsumer>
@@ -152,6 +157,7 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
                                         overrides={this.props.overrides}
                                         extras={this.props.extras}
                                         t={t}
+                                        options={argument.options}
                                     />
                                 }
                             </NamespacesConsumer>
@@ -163,8 +169,10 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
             }
         }
 
-        return <div>
-            {form}
+        return <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <div style={{width: '70%'}}>
+                {form}
+            </div>
         </div>;
     }
 

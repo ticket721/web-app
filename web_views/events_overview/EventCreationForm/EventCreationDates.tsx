@@ -21,6 +21,9 @@ export default class EventCreationDates extends React.Component<EventCreationDat
         });
     }
 
+    disabledDate = (current: Moment): boolean =>
+        current && current.valueOf() < moment().valueOf()
+
     render(): React.ReactNode {
         return <div>
             <br/>
@@ -32,9 +35,11 @@ export default class EventCreationDates extends React.Component<EventCreationDat
                 <br/>
                 <br/>
                 <RangePicker
-                    showTime={{format: 'HH:mm', defaultValue: [moment('12:00', 'HH:mm'), moment('14:00', 'HH:mm')]}}
+                    showTime={{format: 'HH:mm', defaultValue: [moment('18:00', 'HH:mm'), moment('21:00', 'HH:mm')]}}
+                    disabledDate={this.disabledDate}
                     format='YYYY/MM/DD HH:mm'
                     onChange={this.on_change}
+                    value={this.props.form_data.dates ? [moment(this.props.form_data.dates.start), moment(this.props.form_data.dates.end)] : undefined}
                     style={{width: '50%'}}
                 />
             </div>

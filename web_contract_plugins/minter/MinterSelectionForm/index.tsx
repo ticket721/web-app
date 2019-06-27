@@ -1,13 +1,14 @@
 import { EventCreationTabBaseProps } from '@web_views/events_overview/EventCreationForm/EventCreationData';
 import * as React                    from 'react';
-import { Typography, Select, Card }  from 'antd';
-import { StrapiMinter }              from '@utils/strapi/minter';
-import ContractArgumentForm          from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
-import { extras, overrides }         from './overrides';
-import { MinterIgnored }             from './ignored';
-import { compatible }                from '@web_contract_plugins/compatible';
-import { I18N }                      from '@utils/misc/i18n';
-import _                             from 'lodash-core';
+import { Typography, Select, Card }         from 'antd';
+import { StrapiMinter }                     from '@utils/strapi/minter';
+import ContractArgumentForm                 from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
+import { extras, overrides }                from './overrides';
+import { MinterIgnored }                    from './ignored';
+import { compatible }                       from '@web_contract_plugins/compatible';
+import { I18N }                             from '@utils/misc/i18n';
+import _                                    from 'lodash-core';
+import { minterBuildArgumentsConfigurator } from '../minterBuildArgumentsConfigurator';
 
 const {Option}: any = Select;
 
@@ -103,38 +104,46 @@ class MinterSelectionForm extends React.Component<MergedMinterSelectionFormProps
             <br/>
             <br/>
             <br/>
-            <Select
-                placeholder={this.props.t('sell_strategy_placeholder')}
-                value={this.state.selected !== null ? this.props.minters[this.state.selected].name : undefined}
-                style={{width: '50%'}}
-                onChange={this.handle_selection}
-            >
-                {options}
-            </Select>
-            <br/>
-            <br/>
-            {
-                this.state.selected !== null && this.props.minters[this.state.selected].build_arguments.length > 0
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                <Select
+                    placeholder={this.props.t('sell_strategy_placeholder')}
+                    value={this.state.selected !== null ? this.props.minters[this.state.selected].name : undefined}
+                    style={{width: '50%'}}
+                    onChange={this.handle_selection}
+                >
+                    {options}
+                </Select>
+                <br/>
+                <br/>
+                {
+                    this.state.selected !== null && this.props.minters[this.state.selected].build_arguments.length > 0
 
-                    ?
+                        ?
 
-                    <Card style={{width: '100%', backgroundColor: '#f0f2f5'}}>
-                        <ContractArgumentForm
-                            name={this.props.minters[this.state.selected].name}
-                            arguments={this.props.minters[this.state.selected].build_arguments}
-                            argument_values={this.props.form_data.minter_args}
-                            on_change={this.handle_argument_value}
-                            plugin_type='minters'
-                            extras={extras}
-                            overrides={overrides}
-                        />
-                    </Card>
+                        <Card style={{width: '80%', backgroundColor: '#f0f2f5'}}>
+                            <ContractArgumentForm
+                                name={this.props.minters[this.state.selected].name}
+                                arguments={
+                                    minterBuildArgumentsConfigurator(
+                                        this.props.minters[this.state.selected].name,
+                                        this.props.minters[this.state.selected].build_arguments,
+                                        this.props.form_data
+                                    )
+                                }
+                                argument_values={this.props.form_data.minter_args}
+                                on_change={this.handle_argument_value}
+                                plugin_type='minters'
+                                extras={extras}
+                                overrides={overrides}
+                            />
+                        </Card>
 
-                    :
+                        :
 
-                    null
+                        null
 
-            }
+                }
+            </div>
         </div>;
 
     }

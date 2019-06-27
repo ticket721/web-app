@@ -11,6 +11,7 @@ export interface Bytes32InputProps {
     value: string;
     on_change: (field: string, value: any) => void;
     t: any;
+    options?: any;
 }
 
 export class Bytes32Input extends React.Component<Bytes32InputProps> {
