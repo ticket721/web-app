@@ -102,38 +102,40 @@ class MarketerSelectionForm extends React.Component<MergedMarketerSelectionFormP
             <br/>
             <br/>
             <br/>
-            <Select
-                placeholder={this.props.t('marketplace_strategy_placeholder')}
-                value={this.state.selected !== null ? this.props.marketers[this.state.selected].name : undefined}
-                style={{width: '50%'}}
-                onChange={this.handle_selection}
-            >
-                {options}
-            </Select>
-            <br/>
-            <br/>
-            {
-                this.state.selected !== null && this.props.marketers[this.state.selected].build_arguments.length > 0
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+                <Select
+                    placeholder={this.props.t('marketplace_strategy_placeholder')}
+                    value={this.state.selected !== null ? this.props.marketers[this.state.selected].name : undefined}
+                    style={{width: '50%'}}
+                    onChange={this.handle_selection}
+                >
+                    {options}
+                </Select>
+                <br/>
+                <br/>
+                {
+                    this.state.selected !== null && this.props.marketers[this.state.selected].build_arguments.length > 0
 
-                    ?
+                        ?
 
-                    <Card style={{width: '100%', backgroundColor: '#f0f2f5'}}>
-                        <ContractArgumentForm
-                            name={this.props.marketers[this.state.selected].name}
-                            arguments={this.props.marketers[this.state.selected].build_arguments}
-                            argument_values={this.props.form_data.marketer_args}
-                            on_change={this.handle_argument_value}
-                            plugin_type={'marketers'}
-                            overrides={{}}
-                            extras={{}}
-                        />
-                    </Card>
+                        <Card style={{width: '80%', backgroundColor: '#f0f2f5'}}>
+                            <ContractArgumentForm
+                                name={this.props.marketers[this.state.selected].name}
+                                arguments={this.props.marketers[this.state.selected].build_arguments}
+                                argument_values={this.props.form_data.marketer_args}
+                                on_change={this.handle_argument_value}
+                                plugin_type={'marketers'}
+                                overrides={{}}
+                                extras={{}}
+                            />
+                        </Card>
 
-                    :
+                        :
 
-                    null
+                        null
 
-            }
+                }
+            </div>
         </div>;
 
     }

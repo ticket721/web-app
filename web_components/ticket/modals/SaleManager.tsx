@@ -17,11 +17,12 @@ import { Button, message, Typography }            from 'antd';
 import { SaleData }                               from './OpenSaleModal';
 import ContractArgumentForm
                                                   from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
-import { sale }                                   from '@web_contract_plugins/marketer/SaleMarketerController';
-import { extras, overrides }                      from '@web_contract_plugins/marketer/MarketerSaleOverrides';
-import { Tx }                                     from 'ethvtx/lib/state/txs';
-import { getTransactionById }                     from 'ethvtx/lib/txs/helpers/getters';
-import TxProgress                                 from '@web_components/tx/TxProgress';
+import { sale }                               from '@web_contract_plugins/marketer/SaleMarketerController';
+import { extras, overrides }                  from '@web_contract_plugins/marketer/MarketerSaleOverrides';
+import { Tx }                                 from 'ethvtx/lib/state/txs';
+import { getTransactionById }                 from 'ethvtx/lib/txs/helpers/getters';
+import TxProgress                             from '@web_components/tx/TxProgress';
+import { marketerBuildArgumentsConfigurator } from '../../../web_contract_plugins/marketer/marketerBuildArgumentsConfigurator';
 
 export interface SaleManagerProps {
     ticket: StrapiTicket;
@@ -217,7 +218,17 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
                         <div style={{paddingLeft: '5%', width: '90%', height: '84%', overflow: 'auto'}}>
                             <div style={{backgroundColor: '#e0e0e9', padding: 24, borderRadius: 6}}>
                                 <ContractArgumentForm
-                                    arguments={current_args}
+                                    arguments={
+                                        this.props.contract_plugins.minter && this.props.contract
+
+                                            ?
+                                            marketerBuildArgumentsConfigurator(this.props.contract_plugins.marketer.name, current_args, {
+                                                minter_name: this.props.contract_plugins.minter.name,
+                                                minter: this.props.contract
+                                            })
+                                            :
+                                            current_args
+                                    }
                                     argument_values={this.props.args.args}
                                     overrides={overrides}
                                     extras={extras}

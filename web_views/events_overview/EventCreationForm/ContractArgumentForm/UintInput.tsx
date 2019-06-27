@@ -8,6 +8,7 @@ export interface UintInputProps {
     on_change: (field: string, value: any) => void;
     value: number;
     t: any;
+    options?: any;
 }
 
 export class UintInput extends React.Component<UintInputProps> {

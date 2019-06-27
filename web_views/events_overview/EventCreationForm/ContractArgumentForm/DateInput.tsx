@@ -10,6 +10,7 @@ export interface DateInputProps {
     value: number;
     on_change: (field: string, value: any) => void;
     t: any;
+    options?: any;
 }
 
 export class DateInput extends React.Component<DateInputProps> {
@@ -18,8 +19,19 @@ export class DateInput extends React.Component<DateInputProps> {
         this.props.on_change(this.props.name, val.valueOf() / 1000);
     }
 
-    private readonly disable_past = (val: Moment): boolean =>
-        (val.valueOf() < Date.now())
+    private readonly disable_dates = (val: Moment): boolean => {
+        if (val.valueOf() < Date.now()) return true;
+
+        if (this.props.options && this.props.options.limit) {
+
+            const event_start = moment(this.props.options.limit);
+
+            if (val.valueOf() >= event_start.valueOf()) return true;
+
+        }
+
+        return false;
+    }
 
     render(): React.ReactNode {
 
@@ -41,7 +53,7 @@ export class DateInput extends React.Component<DateInputProps> {
                 showTime={{format: 'HH:mm', defaultValue: moment('12:00:00', 'HH:mm')}}
                 value={this.props.value ? moment(this.props.value * 1000) : undefined}
                 placeholder={placeholder}
-                disabledDate={this.disable_past}
+                disabledDate={this.disable_dates}
                 onOk={this.inner_on_change}
                 onChange={this.inner_on_change}
             />
