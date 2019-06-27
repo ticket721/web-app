@@ -2,12 +2,13 @@ import { StrapiAddress }                          from '@utils/strapi/address';
 import * as React                                 from 'react';
 import { StrapiTicket }                           from '@utils/strapi/ticket';
 import { Button, List, Select, Typography } from 'antd';
-import Ticket                                     from '@web_components/ticket';
-import { StrapiEvent }                            from '@utils/strapi/event';
-import FilterForm, { FilterOptions }              from './FilterForm';
-import LoadingTicket                              from '@web_components/ticket/LoadingTicket';
-import { NoTickets }                              from '../message/no_tickets';
-import { I18N, I18NProps }                        from '../../utils/misc/i18n';
+import Ticket                               from '@web_components/ticket';
+import { StrapiEvent }                      from '@utils/strapi/event';
+import FilterForm, { FilterOptions }        from './FilterForm';
+import LoadingTicket                        from '@web_components/ticket/LoadingTicket';
+import { NoTickets }                        from '../message/no_tickets';
+import { I18N, I18NProps }                  from '../../utils/misc/i18n';
+import { theme }                            from '../../utils/theme';
 
 const Option = Select.Option;
 
@@ -55,13 +56,13 @@ class TicketList extends React.Component<MergedTicketListProps, TicketListState>
     render_item = (ticket: any): React.ReactNode => {
         if (ticket.loader) {
             return <List.Item style={{marginTop: 62, height: 250}}>
-                <div style={{height: 250, display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
+                <div style={{height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <LoadingTicket/>
                 </div>
             </List.Item>;
         }
         return <List.Item style={{marginTop: 62, height: 250}}>
-            <div style={{height: 250, display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
+            <div style={{height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <Ticket ticket={ticket.data} coinbase={this.props.coinbase} show_marketplace_link={true}/>
             </div>
         </List.Item>;
@@ -140,7 +141,7 @@ class TicketList extends React.Component<MergedTicketListProps, TicketListState>
                     overflow: 'hidden',
                     marginTop: 12,
                     marginBottom: this.state.filter ? 12 : 0,
-                    backgroundColor: '#f0f2f5',
+                    backgroundColor: theme.bwhite,
                     boxShadow: 'inset 0 1px 2px 1px rgba(0,0,0,0.16)'
                 }}
             >
@@ -155,7 +156,7 @@ class TicketList extends React.Component<MergedTicketListProps, TicketListState>
             </div>
             <div style={{margin: 24, marginTop: 24}}>
                 <div style={{textAlign: 'center'}}>
-                    <Typography.Text style={{fontSize: 16, color: '#aaaaaa'}}>
+                    <Typography.Text style={{fontSize: 16, color: theme.lightgrey}}>
                         {this.props.ticket_count} {this.props.t('list_results')}
                     </Typography.Text>
                 </div>

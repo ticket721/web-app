@@ -3,7 +3,8 @@ import { TicketCategory }                                               from '..
 import { Carousel, Col, Divider, Progress, Row, Statistic, Typography } from 'antd';
 import { I18N, I18NProps }                                              from '../../../utils/misc/i18n';
 const Countdown = Statistic.Countdown;
-import currencies from '@utils/currencies';
+import currencies                                                       from '@utils/currencies';
+import { theme }                                                        from '../../../utils/theme';
 
 export interface EventCardStatsCarouselProps {
     categories: TicketCategory[];
@@ -36,9 +37,9 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                         />
                     </Col>
                     <Col span={8} style={{textAlign: 'center'}}>
-                        <Typography.Text style={{fontSize: 25, color: '#188ae2'}}>{category.name} <span style={{fontSize: 21, color: '#ffffff'}}>{this.props.t('event_card_category')}</span></Typography.Text>
+                        <Typography.Text style={{fontSize: 25, color: theme.primary}}>{category.name} <span style={{fontSize: 21, color: theme.white}}>{this.props.t('event_card_category')}</span></Typography.Text>
                         <br/>
-                        <Typography.Text style={{fontSize: 22, color: '#ffffff'}}>{currencies['ether'].toFixed(category.price.ether)}</Typography.Text> {currencies['ether'].symbol({fontSize: 22, color: '#ffffff'})}
+                        <Typography.Text style={{fontSize: 22, color: theme.white}}>{currencies['ether'].toFixed(category.price.ether)}</Typography.Text> {currencies['ether'].symbol({fontSize: 22, color: theme.white})}
 
                     </Col>
                     <Col span={8}>
@@ -69,9 +70,9 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                                 ?
                                 <Progress
                                     style={{
-                                        color: 'white',
+                                        color: theme.white,
                                     }}
-                                    strokeColor={'#188ae2'}
+                                    strokeColor={theme.primary}
                                     strokeWidth={6}
                                     strokeLinecap='square'
                                     percent={parseFloat(progress.toFixed(2))}
@@ -104,16 +105,16 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                     } 
                     
                     #event_stats_carousel .ant-carousel .slick-slide h3 {
-                        color: #fff;
+                        color: ${theme.white};
                     }
                     
                     #event_stats_carousel .ant-progress-inner {
                         border-radius: 0px;
-                        background-color: #303030;
+                        background-color: ${theme.dark3};
                     }
                     
                     #event_stats_carousel .ant-statistic {
-                        color: #fff;
+                        color: ${theme.white};
                     }
                 `}</style>
                 <Divider
@@ -121,7 +122,7 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                         width: '60%',
                         minWidth: '60%',
                         marginLeft: '20%',
-                        backgroundColor: '#707070',
+                        backgroundColor: theme.dark7,
                         marginBottom: 24,
                         marginTop: 0
                     }}

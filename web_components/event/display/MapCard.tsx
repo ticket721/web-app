@@ -1,13 +1,14 @@
 import * as React           from 'react';
 import { Card, Typography } from 'antd';
 import MapComponent         from './MapComponent';
-import { I18NProps }        from '@utils/misc/i18n';
+import { theme }            from '../../../utils/theme';
 
 export interface MapCardProps {
     location: any;
+    t: any;
 }
 
-type MergedMapCardProps = MapCardProps & I18NProps;
+type MergedMapCardProps = MapCardProps;
 
 export default class MapCard extends React.Component<MergedMapCardProps> {
     render(): React.ReactNode {
@@ -21,7 +22,7 @@ export default class MapCard extends React.Component<MergedMapCardProps> {
                 <br/>
                 <br/>
                 <div style={{textAlign: 'center'}}>
-                    <Typography.Text style={{fontSize: 18}}>
+                    <Typography.Text style={{fontSize: 18, color: theme.dark2}}>
                         {this.props.t('no_location')}
                     </Typography.Text>
                 </div>

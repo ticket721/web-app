@@ -13,6 +13,7 @@ import Strapi                                            from 'strapi-sdk-javasc
 import { StrapiCoinbaseContext, StrapiCoinbaseConsumer } from '@components/context/StrapiCoinbase';
 import { routes }                                        from '@utils/routing';
 import { StrapiHelper }                                  from '../../../../../utils/StrapiHelper';
+import { theme }                                         from '../../../../../utils/theme';
 
 // Props
 
@@ -205,7 +206,12 @@ class EventCreationDeploy extends React.Component<MergedEventCreationDeployProps
 
         const {progress, text, type}: { progress: number; text: string; type: string } = this.get_progress();
 
-        return <div style={{textAlign: 'center'}}>
+        return <div style={{textAlign: 'center'}} id={'event_deploy_progress'}>
+            <style>{`
+            #event_deploy_progress .ant-progress-success-bg, .ant-progress-bg {
+                background-color: ${theme.primary};
+            }
+            `}</style>
             <Typography.Text style={{fontSize: 32}}>
                 {this.props.t(this.state.deploy_tx_id === null ? 'start_deploy' : 'started_deploying')}
             </Typography.Text>

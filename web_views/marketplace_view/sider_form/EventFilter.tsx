@@ -6,6 +6,7 @@ import { SyntheticEvent }         from 'react';
 import StrapiCall                 from '@components/strapi';
 import { StrapiHelper }           from '@utils/StrapiHelper';
 import { StrapiEvent }            from '@utils/strapi/event';
+import { theme }                  from '../../../utils/theme';
 
 export interface EventFilterProps {
     events: Partial<StrapiEvent>[];
@@ -87,7 +88,7 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
 
     propositions_render_item = (item: StrapiEvent): React.ReactNode => {
         if ((item as any).loader === true) {
-            return <List.Item style={{backgroundColor: '#ffffff', width: '100%', height: 32, padding: 0}}>
+            return <List.Item style={{backgroundColor: theme.white, width: '100%', height: 32, padding: 0}}>
                 <div
                     style={{
                         width: '100%',
@@ -104,7 +105,7 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
         }
 
         if ((item as any).empty === true) {
-            return <List.Item style={{backgroundColor: '#ffffff', width: '100%', height: 32, padding: 0}}>
+            return <List.Item style={{backgroundColor: theme.white, width: '100%', height: 32, padding: 0}}>
                 <div
                     style={{
                         width: '100%',
@@ -145,7 +146,7 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
             className={disabled ? 'disabled_selectable' : 'selectable'}
             onClick={disabled ? undefined : this.add_event.bind(this, item)}
             style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: theme.white,
                 width: '100%',
                 height: 32,
                 padding: 0,
@@ -156,11 +157,11 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
                 <Typography.Text style={{fontSize: 8}}>{disabled ?  '' : '➕'}</Typography.Text>
             </div>
             <div style={{width: '60%', float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography.Text style={{fontSize: 12, color: disabled ? '#dddddd' : undefined}}>{item.name}</Typography.Text>
+                <Typography.Text style={{fontSize: 12, color: disabled ? theme.lightgrey : undefined}}>{item.name}</Typography.Text>
             </div>
-            <div style={{width: 1, height: '100%', backgroundColor: '#E8E8E9', float: 'left'}}/>
+            <div style={{width: 1, height: '100%', backgroundColor: theme.event_filter_divider, float: 'left'}}/>
             <div style={{width: '29%', float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Typography.Text style={{fontSize: 12, color: disabled ? '#dddddd' : undefined}}>{item.id}</Typography.Text>
+                <Typography.Text style={{fontSize: 12, color: disabled ? theme.lightgrey : undefined}}>{item.id}</Typography.Text>
             </div>
 
         </List.Item>;
@@ -215,11 +216,11 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
             onClick={this.rm_event.bind(this, idx)}
             className='selectable_selection'
             style={{
-                backgroundColor: '#202020',
                 width: '100%',
                 height: 32,
                 padding: 0,
-                cursor: 'pointer'
+                cursor: 'pointer',
+
             }}
         >
             <StrapiCall
@@ -243,15 +244,15 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
 
                     const event_data = event[0];
 
-                    return <div style={{width: '100%', height: 32, paddingTop: 7}}>
-                        <div style={{width: '10%', height: 18, float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    return <div style={{width: '100%', height: 32}}>
+                        <div style={{width: '10%', height: 32, float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Typography.Text style={{fontSize: 8}}>❌</Typography.Text>
                         </div>
-                        <div style={{width: '60%', float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <div style={{width: '60%', height: 32, float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Typography.Text style={{fontSize: 12}}>{event_data.name}</Typography.Text>
                         </div>
-                        <div style={{width: 1, height: '100%', backgroundColor: '#404040', float: 'left'}}/>
-                        <div style={{width: '29%', float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <div style={{width: 1, height: '100%', backgroundColor: theme.dark5, float: 'left'}}/>
+                        <div style={{width: '29%', height: 32, float: 'left', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Typography.Text style={{fontSize: 12}}>{event_data.id}</Typography.Text>
                         </div>
                     </div>;
@@ -266,7 +267,7 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
         <div>
             <br/>
             <Typography.Text
-                style={{color: '#202020', fontSize: 12}}
+                style={{color: theme.white, fontSize: 16}}
             >
                 {this.props.t('filter_event_selec_desc')}
             </Typography.Text>
@@ -276,7 +277,7 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
                 size={'small'}
                 bordered={true}
                 style={{
-                    borderColor: '#404040',
+                    borderColor: theme.dark5,
                     marginTop: 12
                 }}
                 dataSource={this.props.events}
@@ -291,31 +292,31 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
         return <div>
             <style>{`
                 .selectable .ant-typography {
-                    color: #131313;
+                    color: ${theme.dark2};
                 }
                 
                 .selectable:hover .ant-typography {
-                    color: #188ae2;
+                    color: ${theme.primary};
                 }
                 
                 .selectable_selection .ant-typography {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 .selectable_selection:hover .ant-typography {
-                    color: red;
+                    color: ${theme.danger};
                 }
                 .selections_list .ant-list-item {
-                    border-bottom: 1px solid #505050;
+                    border-bottom: 1px solid ${theme.dark7};
                 }
             `}</style>
             <Typography.Text
-                style={{color: '#ffffff', fontSize: 28}}
+                style={{color: theme.white, fontSize: 28}}
             >
                 {this.props.t('filter_event_title')}
             </Typography.Text>
             <br/>
             <Typography.Text
-                style={{color: '#ffffff', fontSize: 12}}
+                style={{color: theme.white, fontSize: 16}}
             >
                 {this.props.t('filter_event_desc')}
             </Typography.Text>

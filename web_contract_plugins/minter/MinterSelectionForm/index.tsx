@@ -9,6 +9,7 @@ import { compatible }                       from '@web_contract_plugins/compatib
 import { I18N }                             from '@utils/misc/i18n';
 import _                                    from 'lodash-core';
 import { minterBuildArgumentsConfigurator } from '../minterBuildArgumentsConfigurator';
+import { theme }                            from '../../../utils/theme';
 
 const {Option}: any = Select;
 
@@ -94,11 +95,11 @@ class MinterSelectionForm extends React.Component<MergedMinterSelectionFormProps
             }) : [];
 
         return <div>
-            <Typography.Text style={{fontSize: 42}}>
+            <Typography.Text style={{fontSize: 42, color: theme.primary}}>
                 {this.props.t('sell_strategy')}
             </Typography.Text>
             <br/>
-            <Typography.Text style={{fontSize: 21}}>
+            <Typography.Text style={{fontSize: 21, color: theme.dark2}}>
                 {this.props.t('sell_strategy_description')}
             </Typography.Text>
             <br/>
@@ -120,7 +121,7 @@ class MinterSelectionForm extends React.Component<MergedMinterSelectionFormProps
 
                         ?
 
-                        <Card style={{width: '80%', backgroundColor: '#f0f2f5'}}>
+                        <Card style={{width: '100%', backgroundColor: theme.bwhite}}>
                             <ContractArgumentForm
                                 name={this.props.minters[this.state.selected].name}
                                 arguments={

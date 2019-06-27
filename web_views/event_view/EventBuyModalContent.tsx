@@ -7,6 +7,7 @@ import { List, Typography } from 'antd';
 import CurrencyConverter    from '@web_components/event/display/CurrencyConverter';
 import TxProgress           from '@web_components/tx/TxProgress';
 import { Tx }               from 'ethvtx/lib/state/txs';
+import { theme }            from '../../utils/theme';
 
 // Props
 
@@ -41,9 +42,9 @@ const content = [
 export default class EventBuyModalContent extends React.Component<EventBuyModalContentProps> {
 
     fill_content = (): any[] => {
-        content[0].content = <Typography.Text style={{fontSize: 30}}>{this.props.event.name}</Typography.Text>;
+        content[0].content = <Typography.Text style={{fontSize: 30, color: theme.dark2}}>{this.props.event.name}</Typography.Text>;
 
-        content[1].content = <Typography.Text style={{textAlign: 'center', fontSize: 30}}>{this.props.category.name}</Typography.Text>;
+        content[1].content = <Typography.Text style={{textAlign: 'center', fontSize: 30, color: theme.dark2}}>{this.props.category.name}</Typography.Text>;
 
         content[2].content = CurrencyConverter[this.props.price_selection] ? CurrencyConverter[this.props.price_selection](this.props.category.price[this.props.price_selection], 30) : '???';
 
@@ -63,8 +64,8 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
         const filled_content = this.fill_content();
 
         return <div style={{width: '100%', height: 600}}>
-            <div style={{width: '50%', height: '100%', float: 'left', borderRight: '1px solid #e8e8e8'}}>
-                <Typography.Text style={{fontSize: 42}}>{this.props.t('buy_modal_first_title')}</Typography.Text>
+            <div style={{width: '50%', height: '100%', float: 'left', borderRight: `1px solid ${theme.event_filter_divider}`}}>
+                <Typography.Text style={{fontSize: 42, color: theme.dark2}}>{this.props.t('buy_modal_first_title')}</Typography.Text>
                 <div style={{height: '90%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <StaticTicketPreview
                         image={this.props.event.image}
@@ -85,7 +86,7 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
                         ?
                         <div style={{width: '50%', height: '100%', float: 'left', paddingRight: 24, paddingLeft: 24, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Typography.Text
-                                style={{fontSize: 32}}
+                                style={{fontSize: 32, color: theme.dark2}}
                             >
                                 {this.props.t(`buy_modal_second_title_${this.props.ended ? 'sale_ended' : 'sale_sold_out'}`)}
                             </Typography.Text>
@@ -94,7 +95,7 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
                         :
                         <div style={{width: '50%', height: '100%', float: 'left', paddingRight: 24, paddingLeft: 24}}>
                             <Typography.Text
-                                style={{fontSize: 42}}
+                                style={{fontSize: 42, color: theme.dark2}}
                             >
                                 {this.props.t('buy_modal_second_title')}
                             </Typography.Text>

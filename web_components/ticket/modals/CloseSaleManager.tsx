@@ -13,12 +13,13 @@ import { loadContractInstance, loadContractSpec } from 'ethvtx/lib/contracts/hel
 import { connect }                                from 'react-redux';
 import StaticTicketPreview                        from '@web_components/event/display/StaticTicketPreview';
 import { to_ascii }                               from '@utils/misc/ascii';
-import { Button, message, Typography }            from 'antd';
-import { SaleData }                               from './OpenSaleModal';
-import { close }                                   from '@web_contract_plugins/marketer/CloseSaleMarketerController';
-import { Tx }                                     from 'ethvtx/lib/state/txs';
-import { getTransactionById }                     from 'ethvtx/lib/txs/helpers/getters';
-import TxProgress                                 from '@web_components/tx/TxProgress';
+import { Button, message, Typography } from 'antd';
+import { SaleData }                    from './OpenSaleModal';
+import { close }                       from '@web_contract_plugins/marketer/CloseSaleMarketerController';
+import { Tx }                          from 'ethvtx/lib/state/txs';
+import { getTransactionById }          from 'ethvtx/lib/txs/helpers/getters';
+import TxProgress                      from '@web_components/tx/TxProgress';
+import { theme }                       from '../../../utils/theme';
 
 export interface CloseSaleManagerProps {
     ticket: StrapiTicket;
@@ -201,9 +202,9 @@ export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManage
 
                     ?
                     <div style={{width: 1400, height: 600}}>
-                        <div style={{width: '50%', height: '100%', float: 'left', borderRight: '1px solid #e8e8e8'}}>
+                        <div style={{width: '50%', height: '100%', float: 'left', borderRight: `1px solid ${theme.lightergrey}`}}>
                             <div style={{height: '10%'}}>
-                                <Typography.Text style={{fontSize: 42}}>{this.props.t('close_sale_modal_first_title')}</Typography.Text>
+                                <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('close_sale_modal_first_title')}</Typography.Text>
                             </div>
                             <div style={{height: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                 <StaticTicketPreview
@@ -219,7 +220,7 @@ export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManage
                         </div>
                         <div style={{width: '50%', height: '100%', float: 'left'}}>
                             <div style={{height: '85%', width: '95%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                <Typography.Text style={{fontSize: 26, width: '70%'}}>{this.props.t('close_sale_modal_warning')}</Typography.Text>
+                                <Typography.Text style={{fontSize: 26, width: '70%', color: theme.dark2}}>{this.props.t('close_sale_modal_warning')}</Typography.Text>
                             </div>
                             <div
                                 style={{

@@ -6,6 +6,7 @@ import { StrapiEvent }     from '../../../utils/strapi/event';
 import { StrapiMinter }    from '../../../utils/strapi/minter';
 import { I18N, I18NProps } from '../../../utils/misc/i18n';
 import CloseSaleManager    from './CloseSaleManager';
+import { theme }           from '../../../utils/theme';
 
 export interface CloseSaleModalProps {
     ticket: StrapiTicket;
@@ -75,15 +76,15 @@ class CloseSaleModal extends React.Component<MergedCloseSaleModalProps, OpenSale
         return <div>
             <style>{`
                 .close_sale_modal .ant-modal-header {
-                    background-color: #202020;
+                    background-color: ${theme.dark2};
                 }
                 
                 .close_sale_modal .ant-modal-title {
-                    color: white;
+                    color: ${theme.white};
                 }
                 
                 .close_sale_modal .ant-modal-close-x {
-                    color: white;
+                    color: ${theme.white};
                 }
             `}</style>
             <Modal

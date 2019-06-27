@@ -3,6 +3,7 @@ import { FullDiv }       from '@components/html/FullDiv';
 import t721_auth_logo    from '@static/assets/ticket721/light.svg';
 import dynamic           from 'next/dynamic';
 import { Card, Divider } from 'antd';
+import { theme }         from '../../utils/theme';
 
 // Dyanmic Components
 
@@ -27,7 +28,7 @@ export default class LoginView extends React.Component<LoginViewProps> {
                     padding: 48,
                     paddingBottom: 0,
                     borderRadius: 6,
-                    backgroundColor: '#202020',
+                    backgroundColor: theme.dark0,
                     boxShadow: '0 3px 5px rgba(0,0,0,0.16)'
                 }}
             >
@@ -40,7 +41,7 @@ export default class LoginView extends React.Component<LoginViewProps> {
                             marginBottom: 24
                         }}
                     />
-                    <Divider style={{backgroundColor: '#505050'}}/>
+                    <Divider style={{backgroundColor: theme.dark3}}/>
                     <LoginViewForm switch={this.props.switch}/>
                 </div>
             </Card>

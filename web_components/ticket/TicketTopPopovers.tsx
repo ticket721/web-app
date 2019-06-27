@@ -2,6 +2,7 @@ import { message, Spin, Typography } from 'antd';
 import posed                         from 'react-pose';
 import * as React                    from 'react';
 import { routes }                    from '../../utils/routing';
+import { theme }                     from '../../utils/theme';
 
 const Popover = posed.div({
     hoverable: true,
@@ -18,9 +19,7 @@ const Popover = posed.div({
         scale: 1,
         opacity: 1,
         transition: {
-            type: 'spring',
-            stiffness: 50,
-            mass: 0.5,
+            delay: 75
         },
         boxShadow: '0px 4px 8px rgba(0,0,0,0.50)',
         y: 0
@@ -59,7 +58,7 @@ export class TicketEventPopover extends React.Component<ITicketEventPopoverProps
                         justifyContent: 'center'
                     }}
                 >
-                    <Typography.Text style={{fontSize: 18, color: '#ffffff'}}>{this.props.t('top_popover_event_title')}</Typography.Text>
+                    <Typography.Text style={{fontSize: 18, color: theme.white}}>{this.props.t('top_popover_event_title')}</Typography.Text>
                 </div>
             </routes.Link>
         </Popover>;
@@ -95,7 +94,7 @@ export class TicketMarketplacePopover extends React.Component<ITicketMarketplace
             pose={this.props.hover ? 'visible' : 'hidden'}
             onMouseEnter={this.props.on_enter}
             onMouseLeave={this.props.on_leave}
-            style={{borderRadius: 5, float: 'left', marginLeft: 12, background: '#303030', cursor: this.props.market ? 'pointer' : 'not-allowed'}}
+            style={{borderRadius: 5, float: 'left', marginLeft: 12, background: theme.dark2, cursor: this.props.market ? 'pointer' : 'not-allowed'}}
         >
             {this.props.market
                 ?
@@ -113,7 +112,7 @@ export class TicketMarketplacePopover extends React.Component<ITicketMarketplace
                         <Typography.Text
                             style={{
                                 fontSize: 18,
-                                color: '#ffffff'
+                                color: theme.white
                             }}
                         >
                             {this.props.t('top_popover_marketplace_title')}
@@ -135,7 +134,7 @@ export class TicketMarketplacePopover extends React.Component<ITicketMarketplace
                     <Typography.Text
                         style={{
                             fontSize: 18,
-                            color: '#505050'
+                            color: theme.dark7
                         }}
                     >
                         {this.props.market !== null ? this.props.t('top_popover_marketplace_title') : <Spin/>}
@@ -163,7 +162,7 @@ export class TicketDetailsPopover extends React.Component<TicketDetailsPopoverPr
             pose={this.props.hover ? 'visible' : 'hidden'}
             onMouseEnter={this.props.on_enter}
             onMouseLeave={this.props.on_leave}
-            style={{borderRadius: 5, float: 'left', marginLeft: 12, background: '#303030', cursor: 'pointer'}}
+            style={{borderRadius: 5, float: 'left', marginLeft: 12, background: theme.dark2, cursor: 'pointer'}}
         >
             <routes.Link route='ticket' params={{id: this.props.ticket_id.toString()}}>
                 <div
@@ -176,7 +175,7 @@ export class TicketDetailsPopover extends React.Component<TicketDetailsPopoverPr
                         justifyContent: 'center'
                     }}
                 >
-                    <Typography.Text style={{fontSize: 18, color: '#ffffff'}}>{this.props.t('top_popover_details_title')}</Typography.Text>
+                    <Typography.Text style={{fontSize: 18, color: theme.white}}>{this.props.t('top_popover_details_title')}</Typography.Text>
                 </div>
             </routes.Link>
         </Popover>;

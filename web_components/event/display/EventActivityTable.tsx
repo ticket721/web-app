@@ -8,6 +8,7 @@ import moment                                  from 'moment';
 import { Moment }                              from 'moment';
 import Address                                 from '@components/address';
 import Ticket                                  from '@components/ticket';
+import { theme }                               from '../../../utils/theme';
 
 export interface EventActivityTableProps {
     event: StrapiEvent;
@@ -18,11 +19,11 @@ export interface EventActivityTableProps {
 export default class EventActivityTable extends React.Component<EventActivityTableProps> {
 
     action_render = (action_type: any, elem: any): React.ReactNode =>
-        <Typography.Text style={{fontSize: 20}}>{this.props.t(`action_type_title_${action_type}`)}</Typography.Text>
+        <Typography.Text style={{fontSize: 20, color: theme.dark2}}>{this.props.t(`action_type_title_${action_type}`)}</Typography.Text>
 
     to_render = (to: any, elem: any): React.ReactNode => {
         if (to === this.props.event.address.id) {
-            return <Typography.Text style={{fontSize: 18}}>{this.props.event.name}</Typography.Text>;
+            return <Typography.Text style={{fontSize: 18, color: theme.dark2}}>{this.props.event.name}</Typography.Text>;
         }
         return <StrapiCall
             calls={{
@@ -34,7 +35,7 @@ export default class EventActivityTable extends React.Component<EventActivityTab
                     return <Spin/>;
                 } else {
                     if (action.length && action[0].data) {
-                        return <Address address={action[0].data.to} size={18}/>;
+                        return <Address address={action[0].data.to} size={18} color={theme.dark2}/>;
                     } else {
                         return <Icon type='warning'/>;
                     }
@@ -45,7 +46,7 @@ export default class EventActivityTable extends React.Component<EventActivityTab
 
     by_render = (by: any, elem: any): React.ReactNode => {
         if (by === this.props.event.address.id) {
-            return <Typography.Text style={{fontSize: 18}}>{this.props.event.name}</Typography.Text>;
+            return <Typography.Text style={{fontSize: 18, color: theme.dark2}}>{this.props.event.name}</Typography.Text>;
         }
         return <StrapiCall
             calls={{
@@ -57,7 +58,7 @@ export default class EventActivityTable extends React.Component<EventActivityTab
                     return <Spin/>;
                 } else {
                     if (action.length && action[0].data) {
-                        return <Address address={action[0].data.by} size={18}/>;
+                        return <Address address={action[0].data.by} size={18} color={theme.dark2}/>;
                     } else {
                         return <Icon type='warning'/>;
                     }
@@ -68,7 +69,7 @@ export default class EventActivityTable extends React.Component<EventActivityTab
 
     ticket_render = (ticket: any, elem: any): React.ReactNode => {
         if (ticket) {
-            return <Ticket ticket={ticket} size={18}/>;
+            return <Ticket ticket={ticket} size={18} color={theme.dark2}/>;
         } else {
             return null;
         }
@@ -76,7 +77,7 @@ export default class EventActivityTable extends React.Component<EventActivityTab
     }
 
     date_render = (date: Moment, elem: any): React.ReactNode =>
-        <Typography.Text style={{fontSize: 18}}>{date.format('MM/DD/YYYY HH:mm')}</Typography.Text>
+        <Typography.Text style={{fontSize: 18, color: theme.dark2}}>{date.format('MM/DD/YYYY HH:mm')}</Typography.Text>
 
     render(): React.ReactNode {
 
@@ -130,7 +131,12 @@ export default class EventActivityTable extends React.Component<EventActivityTab
                 text-align: center;
             }
             #activity_table .ant-table-tbody tr td {
-                background-color: white;
+                background-color: ${theme.white};
+            }
+            #activity_table .ant-table-column-title {
+                color: ${theme.primary};
+                font-weight: 300;
+                font-size: 20px;
             }
             `}</style>
             <div id={'activity_table'}>

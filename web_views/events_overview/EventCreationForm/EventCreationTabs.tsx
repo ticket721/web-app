@@ -177,7 +177,13 @@ class EventCreationTabs extends React.Component<MergedEventCreationTabsProps, Ev
                 set_data={this.set_data}
                 event_contracts={this.props.event_contracts}
             />
-            <Steps current={current} style={{height: '10%'}}>
+            <style>{`
+                #creation_steps .ant-steps-item-process .ant-steps-item-title {
+                    font-weight: 300;
+                }
+            `}
+            </style>
+            <Steps current={current} style={{height: '10%'}} id='creation_steps'>
                 {steps.map((item: any): any => <Step title={this.props.t(item.title)} key={item.title}/>)}
             </Steps>
             <div className='steps-content' style={{minHeight: '82%'}}>

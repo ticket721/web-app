@@ -1,6 +1,7 @@
 import { Typography } from 'antd';
-import posed                  from 'react-pose';
-import * as React             from 'react';
+import posed          from 'react-pose';
+import * as React     from 'react';
+import { theme }      from '../../utils/theme';
 
 const Popover = posed.div({
     hoverable: true,
@@ -17,9 +18,7 @@ const Popover = posed.div({
         scale: 1,
         opacity: 1,
         transition: {
-            type: 'spring',
-            stiffness: 50,
-            mass: 0.5,
+            delay: 75
         },
         boxShadow: '0px 4px 8px rgba(0,0,0,0.50)',
         y: 0
@@ -43,7 +42,7 @@ export class TicketSellPopover extends React.Component<TicketSellPopoverProps> {
             pose={this.props.hover ? 'visible' : 'hidden'}
             onMouseEnter={this.props.on_enter}
             onMouseLeave={this.props.on_leave}
-            style={{borderRadius: 5, float: 'left', marginLeft: 62, background: '#303030', cursor: 'pointer'}}
+            style={{borderRadius: 5, float: 'left', marginLeft: 62, background: theme.dark2, cursor: 'pointer'}}
         >
             <div
                 style={{
@@ -56,7 +55,7 @@ export class TicketSellPopover extends React.Component<TicketSellPopoverProps> {
                 }}
                 onClick={this.props.on_click}
             >
-                <Typography.Text style={{fontSize: 18, color: '#ffffff'}}>{this.props.t('bottom_popover_sell_title')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.white}}>{this.props.t('bottom_popover_sell_title')}</Typography.Text>
             </div>
         </Popover>;
 
@@ -78,7 +77,7 @@ export class TicketCloseSalePopover extends React.Component<TicketCloseSalePopov
             pose={this.props.hover ? 'visible' : 'hidden'}
             onMouseEnter={this.props.on_enter}
             onMouseLeave={this.props.on_leave}
-            style={{borderRadius: 5, float: 'left', marginLeft: 12, background: '#f5222d', cursor: 'pointer'}}
+            style={{borderRadius: 5, float: 'left', marginLeft: 12, background: theme.danger, cursor: 'pointer'}}
         >
             <div
                 style={{
@@ -91,7 +90,7 @@ export class TicketCloseSalePopover extends React.Component<TicketCloseSalePopov
                 }}
                 onClick={this.props.on_click}
             >
-                <Typography.Text style={{fontSize: 18, color: '#ffffff'}}>❕ {this.props.t('bottom_popover_close_sale_title')} ❕</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.white}}>❕ {this.props.t('bottom_popover_close_sale_title')} ❕</Typography.Text>
             </div>
         </Popover>;
 
@@ -113,7 +112,7 @@ export class TicketBuyPopover extends React.Component<TicketBuyPopoverProps> {
             pose={this.props.hover ? 'visible' : 'hidden'}
             onMouseEnter={this.props.on_enter}
             onMouseLeave={this.props.on_leave}
-            style={{borderRadius: 5, float: 'left', marginLeft: 62, background: '#303030', cursor: 'pointer'}}
+            style={{borderRadius: 5, float: 'left', marginLeft: 62, background: theme.dark2, cursor: 'pointer'}}
         >
             <div
                 style={{
@@ -126,7 +125,7 @@ export class TicketBuyPopover extends React.Component<TicketBuyPopoverProps> {
                 }}
                 onClick={this.props.on_click}
             >
-                <Typography.Text style={{fontSize: 18, color: '#ffffff'}}>{this.props.t('bottom_popover_buy_title')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.white}}>{this.props.t('bottom_popover_buy_title')}</Typography.Text>
             </div>
         </Popover>;
 

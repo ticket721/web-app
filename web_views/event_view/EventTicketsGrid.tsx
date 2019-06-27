@@ -10,13 +10,14 @@ import { AppState }                               from '@utils/redux/app_state';
 import { connect }                  from 'react-redux';
 import { TicketCategoryStatsProps } from '@web_components/event/display/TicketCategoryStats';
 import { TicketCharacsProps }       from '@web_components/event/display/TicketCharacs';
-import { StrapiMarketer }           from '@utils/strapi/marketer';
-import { StrapiApprover }           from '@utils/strapi/approver';
-import { PriceDisplayerProps }      from '@web_components/event/display/PriceDisplayer';
-import { TicketPreviewProps }       from '@web_components/event/display/TicketPreview';
-import { StrapiEvent }              from '@utils/strapi/event';
-import { StrapiAddress }            from '@utils/strapi/address';
-import { EventBuyModalProps }       from './EventBuyModal';
+import { StrapiMarketer }      from '@utils/strapi/marketer';
+import { StrapiApprover }      from '@utils/strapi/approver';
+import { PriceDisplayerProps } from '@web_components/event/display/PriceDisplayer';
+import { TicketPreviewProps }  from '@web_components/event/display/TicketPreview';
+import { StrapiEvent }         from '@utils/strapi/event';
+import { StrapiAddress }       from '@utils/strapi/address';
+import { EventBuyModalProps }  from './EventBuyModal';
+import { theme }               from '../../utils/theme';
 
 // Dyanmic Components
 
@@ -100,7 +101,7 @@ class QueuedEventTicketsGrid extends React.Component<MergedEventTicketsGridProps
         return <div>
             <br/>
             <Typography.Text
-                style={{fontSize: 42}}
+                style={{fontSize: 42, color: theme.primary}}
             >
                 {this.props.t('ticket_informations_title')}{extra_title !== null ? ` | ${extra_title}` : undefined}
             </Typography.Text>

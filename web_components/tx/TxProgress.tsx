@@ -4,6 +4,7 @@ import { AppState }                     from '@utils/redux/app_state';
 import { routes }                       from '@utils/routing';
 import { connect }                      from 'react-redux';
 import { Button, Progress, Typography } from 'antd';
+import { theme }                        from '../../utils/theme';
 
 export interface TxProgressProps {
     tx: Tx;
@@ -73,11 +74,16 @@ class TxProgress extends React.Component<MergedTxProgressProps> {
         const status = this.status_builder();
 
         return <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <div style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center'}} id='tx_progress'>
                 <Typography.Text style={{fontSize: 22}}>{this.props.t(status.message)}</Typography.Text>
                 <br/>
                 <br/>
-                <Progress type='circle' percent={status.progress} status={status.error ? 'exception' : 'active'} strokeLinecap='square'/>
+                <style>{`
+                    #tx_progress .ant-progress-success-bg, .ant-progress-bg {
+                        background-color: ${theme.primary};
+                    }
+                `}</style>
+                <Progress strokeColor={theme.primary} type='circle' percent={status.progress} status={status.error ? 'exception' : 'active'} strokeLinecap='square'/>
                 <br/>
                 <br/>
                 {

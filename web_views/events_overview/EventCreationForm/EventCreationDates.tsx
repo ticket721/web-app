@@ -3,6 +3,7 @@ import * as React                                  from 'react';
 import { DatePicker, Typography }                  from 'antd';
 import { RangePickerProps }                        from 'antd/lib/date-picker/interface';
 import moment, { Moment }                          from 'moment';
+import { theme }                                   from '../../../utils/theme';
 
 const RangePicker: React.ComponentType<RangePickerProps> = DatePicker.RangePicker;
 
@@ -27,11 +28,11 @@ export default class EventCreationDates extends React.Component<EventCreationDat
     render(): React.ReactNode {
         return <div>
             <br/>
-            <Typography.Text style={{fontSize: 32}}>{this.props.t('dates_title')}</Typography.Text>
+            <Typography.Text style={{fontSize: 32, color: theme.dark2}}>{this.props.t('dates_title')}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 10}}>
-                <Typography.Text style={{fontSize: 18}}>{this.props.t('dates_description')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark3}}>{this.props.t('dates_description')}</Typography.Text>
                 <br/>
                 <br/>
                 <RangePicker

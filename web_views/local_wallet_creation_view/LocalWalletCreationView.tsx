@@ -7,6 +7,7 @@ import { WalletCardProps }         from './WalletCard';
 import { I18NProps }               from '../../utils/misc/i18n';
 import { Typography }              from 'antd';
 import { HorizontalLockFormProps } from './HorizontalLockForm';
+import { theme }                   from '../../utils/theme';
 
 // Dynamic Components
 
@@ -77,16 +78,16 @@ export default class LocalWalletCreationView extends React.Component<MergedLocal
             >
 
                 <Box alignContent='center' alignSelf='center' align='center' gridArea='title'>
-                    <Typography.Text style={{fontSize: 56, fontWeight: 100}}>{this.props.t('title')}</Typography.Text>
+                    <Typography.Text style={{fontSize: 56, fontWeight: 300, color: theme.primary}}>{this.props.t('title')}</Typography.Text>
                 </Box>
                 <Box alignContent='center' alignSelf='center' align='center' style={{padding: '5%'}} gridArea='description'>
-                    <Typography.Text style={{lineHeight: 1.5, fontSize: 20}}>{this.props.t('desc')}</Typography.Text>
+                    <Typography.Text style={{lineHeight: 1.5, fontSize: 20, color: theme.dark2}}>{this.props.t('desc')}</Typography.Text>
                 </Box>
                 <Box style={{padding: '5%'}} gridArea='generator'>
                     <WalletCard reset_wallet={this.onReloadWallet} wallet_infos={this.state.wallet}/>
                 </Box>
                 <Box align='center' style={{padding: '5%', paddingTop: '0%'}} gridArea='input'>
-                    <Typography.Text style={{fontSize: 20}}>{this.props.t('secure_wallet')}</Typography.Text>
+                    <Typography.Text style={{fontSize: 20, color: theme.dark2}}>{this.props.t('secure_wallet')}</Typography.Text>
                     <br/>
                     <HorizontalLockForm wallet_infos={this.state.wallet}/>
                 </Box>

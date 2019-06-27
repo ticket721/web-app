@@ -10,6 +10,7 @@ import { StrapiHelper }                from '@utils/StrapiHelper';
 import { FullPageLoader }              from '@web_components/loaders/FullPageLoader';
 import { EventManagement }             from '../message/event_management';
 import { FetchError }                  from '../message/fetch_error';
+import { theme }                       from '../../utils/theme';
 
 const {Content}: any = Layout;
 
@@ -38,13 +39,13 @@ export default class EventsContentDisplayer extends React.Component<EventsConten
     render(): React.ReactNode {
 
         if (this.props.coinbase === undefined) {
-            return <Content style={{marginLeft: 24, background: '#fff', padding: 24, minHeight: 280}}>
+            return <Content style={{marginLeft: 24, background: theme.white, padding: 24, minHeight: 280}}>
                 <Skeleton active={true}/>
             </Content>;
         }
 
         if (this.props.selection === 'create') {
-            return <Content style={{marginLeft: 24, background: '#fff', padding: 24, minHeight: 280}}>
+            return <Content style={{marginLeft: 24, background: theme.white, padding: 24, minHeight: 280}}>
                 <EventCreationForm/>
             </Content>;
         }

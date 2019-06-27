@@ -1,6 +1,7 @@
 import * as React       from 'react';
 import { Carousel }     from 'antd';
 import { StrapiUpload } from '@utils/strapi/strapiupload';
+import { theme }        from '../../../utils/theme';
 
 export interface BannersCarouselProps {
     banners: StrapiUpload[];
@@ -26,25 +27,25 @@ export default class BannersCarousel extends React.Component<BannersCarouselProp
             <style>{`
             
                     #banners_carousel_${this.props.address} .ant-carousel {
-                    width: 100%;
+                        width: 100%;
                     }
                     
                     #banners_carousel_${this.props.address} .ant-carousel .slick-slide {
-                    display: flex;
-                    align-items: center; 
-                    justify-content: center;
-                    text-align: center;
-                    height: 400px;
-                    background: #131313;
-                    overflow: hidden;
+                        display: flex;
+                        align-items: center; 
+                        justify-content: center;
+                        text-align: center;
+                        height: 400px;
+                        background: ${theme.dark0};
+                        overflow: hidden;
                     }
 
                     #banners_carousel_${this.props.address} .ant-carousel .slick-slide h3 {
-                    color: #fff;
+                        color: ${theme.white};
                     }
                     
                     #banners_carousel_${this.props.address} .ant-carousel .slick-dots li button {
-                    background-color: #188ae2;
+                        background-color: ${theme.primary};
                     }
             
             `}</style>

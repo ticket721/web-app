@@ -1,6 +1,7 @@
 import * as React                               from 'react';
 import { Button, Card, Tag, Typography }        from 'antd';
 import BuildArgumentForm, { Extras, Overrides } from './index';
+import { theme }                                from '../../../../utils/theme';
 
 // Props
 
@@ -111,11 +112,11 @@ export class DynamicsInput extends React.Component<DynamicsInputProps, IDynamics
         const description = this.props.t(`${this.props.plugin_name}_${this.props.name}_description`);
 
         return <div style={{margin: 30, width: '90%'}}>
-            <Typography.Text style={{fontSize: 26}}>{title}</Typography.Text>
+            <Typography.Text style={{fontSize: 26, color: theme.dark2}}>{title}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 30}}>
-                <Typography.Text style={{fontSize: 18}}>{description}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark3}}>{description}</Typography.Text>
             </div>
             <br/>
             {forms}

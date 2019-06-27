@@ -1,12 +1,13 @@
 import { EventCreationTabBaseProps } from '@web_views/events_overview/EventCreationForm/EventCreationData';
-import * as React                    from 'react';
-import { Typography, Select, Card }  from 'antd';
-import { StrapiApprover }            from '@utils/strapi/approver';
-import ContractArgumentForm             from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
-import { ApproverIgnored }           from './ignored';
-import { compatible }                from '@web_contract_plugins/compatible';
-import { I18N }                      from '@utils/misc/i18n';
-import _                             from 'lodash-core';
+import * as React                   from 'react';
+import { Typography, Select, Card } from 'antd';
+import { StrapiApprover }           from '@utils/strapi/approver';
+import ContractArgumentForm         from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
+import { ApproverIgnored }          from './ignored';
+import { compatible }               from '@web_contract_plugins/compatible';
+import { I18N }                     from '@utils/misc/i18n';
+import _                            from 'lodash-core';
+import { theme }                    from '../../../utils/theme';
 
 const {Option}: any = Select;
 
@@ -92,11 +93,11 @@ class ApproverSelectionForm extends React.Component<MergedApproverSelectionFormP
             }) : [];
 
         return <div>
-            <Typography.Text style={{fontSize: 42}}>
+            <Typography.Text style={{fontSize: 42, color: theme.primary}}>
                 {this.props.t('transfer_strategy')}
             </Typography.Text>
             <br/>
-            <Typography.Text style={{fontSize: 21}}>
+            <Typography.Text style={{fontSize: 21, color: theme.dark2}}>
                 {this.props.t('transfer_strategy_description')}
             </Typography.Text>
             <br/>
@@ -118,7 +119,7 @@ class ApproverSelectionForm extends React.Component<MergedApproverSelectionFormP
 
                         ?
 
-                        <Card style={{width: '80%', backgroundColor: '#f0f2f5'}}>
+                        <Card style={{width: '100%', backgroundColor: theme.bwhite}}>
                             <ContractArgumentForm
                                 name={this.props.approvers[this.state.selected].name}
                                 arguments={this.props.approvers[this.state.selected].build_arguments}
