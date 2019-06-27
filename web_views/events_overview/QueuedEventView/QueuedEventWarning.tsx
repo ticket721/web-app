@@ -1,6 +1,7 @@
 import * as React                 from 'react';
 import { Icon, Spin, Typography } from 'antd';
 import { I18N, I18NProps }        from '../../../utils/misc/i18n';
+import { theme }                  from '../../../utils/theme';
 
 export interface QueuedEventWarningProps {
     edit: () => void;
@@ -29,15 +30,15 @@ class QueuedEventWarning extends React.Component<MergedQueuedEventWarningProps, 
     render(): React.ReactNode  {
 
         if (this.state.started) {
-            return <div style={{width: '110%', height: 52, backgroundColor: '#ffeeaa', marginLeft: -24, marginTop: -24, marginBottom: 24, padding: 8, fontSize: 24, textAlign: 'center'}}>
+            return <div style={{width: '110%', height: 52, backgroundColor: theme.queuedevent_warning, marginLeft: -24, marginTop: -24, marginBottom: 24, padding: 8, fontSize: 24, textAlign: 'center'}}>
                 <Spin/>
             </div>;
         }
 
-        return <div style={{width: '110%', height: 52, backgroundColor: '#ffeeaa', marginLeft: -24, marginTop: -24, marginBottom: 24, padding: 8, fontSize: 24, textAlign: 'center'}}>
+        return <div style={{width: '110%', height: 52, backgroundColor: theme.queuedevent_warning, marginLeft: -24, marginTop: -24, marginBottom: 24, padding: 8, fontSize: 24, textAlign: 'center'}}>
             <Icon type='warning'/>
             <Typography.Text
-                style={{fontSize: 24, marginLeft: 24}}
+                style={{fontSize: 24, marginLeft: 24, color: theme.dark2}}
             >
                 {this.props.t('preview_warning_message_1')}
                 <span

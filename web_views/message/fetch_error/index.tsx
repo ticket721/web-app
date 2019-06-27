@@ -2,6 +2,7 @@ import * as React     from 'react';
 import { I18N }       from '@utils/misc/i18n';
 import { Typography } from 'antd';
 import image          from './image.svg';
+import { theme }      from '../../../utils/theme';
 
 export interface FetchErrorProps {
     t: any;
@@ -21,8 +22,8 @@ class FetchErrorContainer extends React.Component<FetchErrorProps> {
             <div style={{textAlign: 'center'}}>
                 <img src={image} style={{width: '50px', marginBottom: '75px'}}/>
                 <br/>
-                <Typography.Text style={{fontSize: 28, fontWeight: 500}}>{this.props.t('error')}</Typography.Text>
-                <Typography.Text style={{fontSize: 28, marginLeft: 24}}>{this.props.t('fetch_error')}</Typography.Text>
+                <Typography.Text style={{fontSize: 28, fontWeight: 500, color: theme.primary}}>{this.props.t('error')}</Typography.Text>
+                <Typography.Text style={{fontSize: 28, marginLeft: 24, color: theme.dark2}}>{this.props.t('fetch_error')}</Typography.Text>
             </div>
 
         </div>;

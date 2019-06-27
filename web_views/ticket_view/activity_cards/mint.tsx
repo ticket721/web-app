@@ -5,7 +5,8 @@ import Address                    from '@components/address';
 import StrapiCall                 from '@components/strapi';
 import { StrapiHelper }           from '../../../utils/StrapiHelper';
 import { StrapiAddress }          from '../../../utils/strapi/address';
-import moment from 'moment';
+import moment                     from 'moment';
+import { theme }                  from '../../../utils/theme';
 
 const filter_strapi = (entities: any[]): any[] => {
 
@@ -48,18 +49,18 @@ export const mint = (action: any, ticket: StrapiTicket, tx_explorer: string, t: 
                     const content = [
                         <List.Item.Meta
                             key={0}
-                            title={<Typography.Text style={{fontSize: 14, color: '#ffffff', fontWeight: 100}}>{t('ticket_activity_card_owner')}</Typography.Text>}
-                            description={<Address address={owner && owner.length ? owner[0] : undefined} size={16} color={'#ffffff'}/>}
+                            title={<Typography.Text style={{fontSize: 14, color: theme.white, fontWeight: 100}}>{t('ticket_activity_card_owner')}</Typography.Text>}
+                            description={<Address address={owner && owner.length ? owner[0] : undefined} size={16} color={theme.white}/>}
                         />,
                         <List.Item.Meta
                             key={1}
-                            title={<Typography.Text style={{fontSize: 14, color: '#ffffff', fontWeight: 100}}>{t('ticket_activity_card_event')}</Typography.Text>}
-                            description={<Address address={event && event.length ? event[0] : undefined} size={16} color={'#ffffff'}/>}
+                            title={<Typography.Text style={{fontSize: 14, color: theme.white, fontWeight: 100}}>{t('ticket_activity_card_event')}</Typography.Text>}
+                            description={<Address address={event && event.length ? event[0] : undefined} size={16} color={theme.white}/>}
                         />,
                         <List.Item.Meta
                             key={2}
-                            title={<Typography.Text style={{fontSize: 14, color: '#ffffff', fontWeight: 100}}>{t('ticket_activity_card_date')}</Typography.Text>}
-                            description={<Typography.Text style={{fontSize: 16, color: '#ffffff'}}>{moment(ticket.creation).format('DD MMM YYYY HH:mm')}</Typography.Text>}
+                            title={<Typography.Text style={{fontSize: 14, color: theme.white, fontWeight: 100}}>{t('ticket_activity_card_date')}</Typography.Text>}
+                            description={<Typography.Text style={{fontSize: 16, color: theme.white}}>{moment(ticket.creation).format('DD MMM YYYY HH:mm')}</Typography.Text>}
                         />,
 
                     ];

@@ -170,7 +170,7 @@ export default class ContractArgumentForm extends React.Component<BuildArgumentF
         }
 
         return <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-            <div style={{width: '70%'}}>
+            <div style={{width: '80%'}}>
                 {form}
             </div>
         </div>;

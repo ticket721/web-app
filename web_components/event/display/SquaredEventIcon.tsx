@@ -17,7 +17,7 @@ export default class QuaredEventIcon extends React.Component<SquaredEventIconPro
         return <div id={`squared_event_icon_${this.props.address}`}>
             <style>{`
                     #squared_event_icon_${this.props.address} .ant-card {
-                    background-image: ${pattern}
+                        background-image: ${pattern}
                     }
                     
                     #squared_event_icon_${this.props.address} .ant-card-bordered {

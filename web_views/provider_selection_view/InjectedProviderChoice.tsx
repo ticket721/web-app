@@ -6,6 +6,7 @@ import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
 import { SetWalletProvider }            from '@utils/redux/app/actions';
 import { connect }                      from 'react-redux';
+import { theme }                        from '../../utils/theme';
 
 export interface InjectedProviderChoiceProps {
 }
@@ -42,7 +43,7 @@ class InjectedProviderChoice extends React.Component<MergedInjectedProviderChoic
             return <Card
                 style={{width: '100%'}}
                 hoverable={true}
-                cover={<img alt='injected' style={{width: '100%', backgroundColor: '#ffffff', padding: '15%'}} src={injected_provider_image}/>}
+                cover={<img alt='injected' style={{width: '100%', backgroundColor: theme.white, padding: '15%'}} src={injected_provider_image}/>}
                 actions={[<Icon type='double-right' key={0}/>]}
                 onClick={this.onClick}
 

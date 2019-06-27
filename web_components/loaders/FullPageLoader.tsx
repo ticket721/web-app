@@ -1,8 +1,9 @@
-import * as React     from 'react';
-import { Typography } from 'antd';
-import Lottie         from 'react-lottie';
-import BarLoader      from './animations/bar_loader.json';
+import * as React             from 'react';
+import { Typography }         from 'antd';
+import Lottie                 from 'react-lottie';
+import BarLoader              from './animations/bar_loader.json';
 import { NamespacesConsumer } from 'react-i18next';
+import { theme }              from '../../utils/theme';
 
 interface FullPageLoaderProps {
     message?: string;
@@ -37,7 +38,7 @@ export class FullPageLoader extends React.Component<FullPageLoaderProps> {
                     <NamespacesConsumer ns={['messages']}>
                         {
                             (t: any): React.ReactNode =>
-                                <Typography.Text style={{fontSize: 32}}>{t(this.props.message)}</Typography.Text>
+                                <Typography.Text style={{fontSize: 32, color: theme.primary}}>{t(this.props.message)}</Typography.Text>
                         }
                     </NamespacesConsumer>
                     :

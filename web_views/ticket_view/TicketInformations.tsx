@@ -1,11 +1,12 @@
-import { I18N, I18NProps }                  from '../../utils/misc/i18n';
-import * as React                           from 'react';
+import { I18N, I18NProps }        from '../../utils/misc/i18n';
+import * as React                 from 'react';
 import { Card, List, Typography } from 'antd';
-import Address                              from '@components/address';
-import { StrapiTicket }                     from '../../utils/strapi/ticket';
-import moment                               from 'moment';
-import currencies                           from '@utils/currencies';
-import BigNumber                            from 'bignumber.js';
+import Address                    from '@components/address';
+import { StrapiTicket }           from '../../utils/strapi/ticket';
+import moment                     from 'moment';
+import currencies                 from '@utils/currencies';
+import BigNumber                  from 'bignumber.js';
+import { theme }                  from '../../utils/theme';
 
 export interface TicketInformationsProps {
     ticket: StrapiTicket;
@@ -28,10 +29,10 @@ class TicketInformations extends React.Component<MergedTicketInformationsProps> 
         if (this.props.ticket) {
             content.push(
                 <List.Item.Meta
-                    title={<Typography.Text style={{fontSize: 18, color: '#ffffff'}}>📜 {this.props.t('ticket_page_info_owner')}</Typography.Text>}
+                    title={<Typography.Text style={{fontSize: 18, color: theme.white}}>📜 {this.props.t('ticket_page_info_owner')}</Typography.Text>}
                     description={
                         <div style={{marginLeft: 24, marginTop: 12}}>
-                            <Address address={this.props.ticket.owner} size={22} color={'#ffffff'}/>
+                            <Address address={this.props.ticket.owner} size={22} color={theme.white}/>
                         </div>
                     }
                 />
@@ -39,10 +40,10 @@ class TicketInformations extends React.Component<MergedTicketInformationsProps> 
 
             content.push(
                 <List.Item.Meta
-                    title={<Typography.Text style={{fontSize: 18, color: '#ffffff'}}>📅 {this.props.t('ticket_page_info_creation')}</Typography.Text>}
+                    title={<Typography.Text style={{fontSize: 18, color: theme.white}}>📅 {this.props.t('ticket_page_info_creation')}</Typography.Text>}
                     description={
                         <div style={{marginLeft: 24, marginTop: 12}}>
-                            <Typography.Text style={{fontSize: 22, color: '#ffffff'}}>{moment(this.props.ticket.creation).format('DD MMM YYYY hh:mm')}</Typography.Text>
+                            <Typography.Text style={{fontSize: 22, color: theme.white}}>{moment(this.props.ticket.creation).format('DD MMM YYYY hh:mm')}</Typography.Text>
                         </div>
                     }
                 />
@@ -52,10 +53,10 @@ class TicketInformations extends React.Component<MergedTicketInformationsProps> 
                 const currency = currencies.address_to_name[this.props.ticket.mint_currency];
                 content.push(
                     <List.Item.Meta
-                        title={<Typography.Text style={{color: '#ffffff', fontSize: 18}}>💰 {this.props.t('ticket_page_info_initial_price')}</Typography.Text>}
+                        title={<Typography.Text style={{color: theme.white, fontSize: 18}}>💰 {this.props.t('ticket_page_info_initial_price')}</Typography.Text>}
                         description={
                             <div style={{marginLeft: 24, marginTop: 12}}>
-                                <Typography.Text style={{fontSize: 22, color: '#ffffff'}}>{currencies[currency].toFixed(new BigNumber(this.props.ticket.mint_price).toString())} {currencies[currency].symbol({color: '#ffffff'})}</Typography.Text>
+                                <Typography.Text style={{fontSize: 22, color: theme.white}}>{currencies[currency].toFixed(new BigNumber(this.props.ticket.mint_price).toString())} {currencies[currency].symbol({color: theme.white})}</Typography.Text>
                             </div>
                         }
                     />
@@ -64,10 +65,10 @@ class TicketInformations extends React.Component<MergedTicketInformationsProps> 
 
             content.push(
                 <List.Item.Meta
-                    title={<Typography.Text style={{color: '#ffffff', fontSize: 18}}>#️⃣ {this.props.t('ticket_page_info_identifier')}</Typography.Text>}
+                    title={<Typography.Text style={{color: theme.white, fontSize: 18}}>#️⃣ {this.props.t('ticket_page_info_identifier')}</Typography.Text>}
                     description={
                         <div style={{marginLeft: 24, marginTop: 12}}>
-                            <Typography.Text style={{fontSize: 22, color: '#ffffff'}}># {this.props.ticket.ticket_id}</Typography.Text>
+                            <Typography.Text style={{fontSize: 22, color: theme.white}}># {this.props.ticket.ticket_id}</Typography.Text>
                         </div>
                     }
                 />
@@ -89,7 +90,7 @@ class TicketInformations extends React.Component<MergedTicketInformationsProps> 
                 style={{
                     borderRadius: 6,
                     boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-                    backgroundColor: '#202020'
+                    backgroundColor: theme.dark2
                 }}
             >
                 <List

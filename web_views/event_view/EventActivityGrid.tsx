@@ -6,6 +6,7 @@ import { StrapiEvent }             from '@utils/strapi/event';
 import dynamic                     from 'next/dynamic';
 import { EventActivityTableProps } from '@web_components/event/display/EventActivityTable';
 import { StrapiAddress }           from '@utils/strapi/address';
+import { theme }                   from '../../utils/theme';
 
 // Dynamic Components
 
@@ -31,7 +32,7 @@ class QueuedEventTicketsGrid extends React.Component<MergedEventActivityGridProp
         >
             <br/>
             <Typography.Text
-                style={{fontSize: 42}}
+                style={{fontSize: 42, color: theme.primary}}
             >
                 {this.props.t('ticket_activity_title')}
             </Typography.Text>

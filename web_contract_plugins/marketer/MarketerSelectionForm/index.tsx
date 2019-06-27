@@ -1,12 +1,13 @@
 import { EventCreationTabBaseProps } from '@web_views/events_overview/EventCreationForm/EventCreationData';
-import * as React                    from 'react';
-import { Typography, Select, Card }  from 'antd';
-import { StrapiMarketer }            from '@utils/strapi/marketer';
-import ContractArgumentForm          from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
-import { MarketerIgnored }           from './ignored';
-import { compatible }                from '@web_contract_plugins/compatible';
-import { I18N }                      from '@utils/misc/i18n';
-import _                             from 'lodash-core';
+import * as React                   from 'react';
+import { Typography, Select, Card } from 'antd';
+import { StrapiMarketer }           from '@utils/strapi/marketer';
+import ContractArgumentForm         from '@web_views/events_overview/EventCreationForm/ContractArgumentForm';
+import { MarketerIgnored }          from './ignored';
+import { compatible }               from '@web_contract_plugins/compatible';
+import { I18N }                     from '@utils/misc/i18n';
+import _                            from 'lodash-core';
+import { theme }                    from '../../../utils/theme';
 
 const {Option}: any = Select;
 
@@ -92,11 +93,11 @@ class MarketerSelectionForm extends React.Component<MergedMarketerSelectionFormP
             }) : [];
 
         return <div>
-            <Typography.Text style={{fontSize: 42}}>
+            <Typography.Text style={{fontSize: 42, color: theme.primary}}>
                 {this.props.t('marketplace_strategy')}
             </Typography.Text>
             <br/>
-            <Typography.Text style={{fontSize: 21}}>
+            <Typography.Text style={{fontSize: 21, color: theme.dark2}}>
                 {this.props.t('marketplace_strategy_description')}
             </Typography.Text>
             <br/>
@@ -118,7 +119,7 @@ class MarketerSelectionForm extends React.Component<MergedMarketerSelectionFormP
 
                         ?
 
-                        <Card style={{width: '80%', backgroundColor: '#f0f2f5'}}>
+                        <Card style={{width: '100%', backgroundColor: theme.bwhite}}>
                             <ContractArgumentForm
                                 name={this.props.marketers[this.state.selected].name}
                                 arguments={this.props.marketers[this.state.selected].build_arguments}

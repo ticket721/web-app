@@ -5,8 +5,9 @@ import { StrapiMarketer }           from '@utils/strapi/marketer';
 import { StrapiApprover }           from '@utils/strapi/approver';
 import { FullPageLoader }           from '../../loaders/FullPageLoader';
 import { MarketerEnabled }          from '../misc/MarketerEnabled';
-import { routes }                     from '../../../utils/routing';
+import { routes }                   from '../../../utils/routing';
 import { StrapiEvent }              from '../../../utils/strapi/event';
+import { theme }                    from '../../../utils/theme';
 
 export interface TicketCharacsProps {
     event?: StrapiEvent;
@@ -20,11 +21,11 @@ type MergedTicketCharacsProps = TicketCharacsProps;
 const MarketerDisplayer = I18N.withNamespaces(['marketers'])(({t, marketer, event}: any): React.ReactNode =>
         <div style={{textAlign: 'center'}}>
             <br/>
-            <Typography.Text style={{fontSize: 20}}>{t('marketplace_strategy')}</Typography.Text>
+            <Typography.Text style={{fontSize: 20, color: theme.dark2}}>{t('marketplace_strategy')}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 16}}>
-                <Typography.Text style={{fontSize: 16}}>{t(`${marketer}_concise_description`)}</Typography.Text>
+                <Typography.Text style={{fontSize: 16, color: theme.dark3}}>{t(`${marketer}_concise_description`)}</Typography.Text>
                 {
                     MarketerEnabled[marketer] === true && event
                         ?
@@ -46,11 +47,11 @@ const MarketerDisplayer = I18N.withNamespaces(['marketers'])(({t, marketer, even
 const ApproverDisplayer = I18N.withNamespaces(['approvers'])(({t, approver}: any): React.ReactNode =>
     <div style={{textAlign: 'center'}}>
         <br/>
-        <Typography.Text style={{fontSize: 20}}>{t('transfer_strategy')}</Typography.Text>
+        <Typography.Text style={{fontSize: 20, color: theme.dark2}}>{t('transfer_strategy')}</Typography.Text>
         <br/>
         <br/>
         <div style={{marginLeft: 16}}>
-            <Typography.Text style={{fontSize: 16}}>{t(`${approver}_concise_description`)}</Typography.Text>
+            <Typography.Text style={{fontSize: 16, color: theme.dark3}}>{t(`${approver}_concise_description`)}</Typography.Text>
         </div>
     </div>
 );

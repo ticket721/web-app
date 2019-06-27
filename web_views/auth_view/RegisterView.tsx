@@ -4,6 +4,7 @@ import { Box, Grid }     from 'grommet';
 import t721_auth_logo    from '@static/assets/ticket721/dark.svg';
 import dynamic           from 'next/dynamic';
 import { Card, Divider } from 'antd';
+import { theme }         from '../../utils/theme';
 
 // Dynamic Components
 
@@ -29,7 +30,8 @@ export default class RegisterView extends React.Component<RegisterViewProps> {
                                 padding: 48,
                                 paddingBottom: 0,
                                 borderRadius: 6,
-                                boxShadow: '0 3px 5px rgba(0,0,0,0.16)'
+                                boxShadow: '0 3px 5px rgba(0,0,0,0.16)',
+                                backgroundColor: theme.white
                             }}
                         >
                             <img

@@ -2,6 +2,7 @@ import * as React            from 'react';
 import { Input, Typography } from 'antd';
 import { SyntheticEvent }    from 'react';
 import { BigNumber }         from 'bignumber.js';
+import { theme }             from '../../../../utils/theme';
 
 export interface PriceInputProps {
     plugin_name: string;
@@ -31,11 +32,11 @@ export class PriceInput extends React.Component<PriceInputProps> {
         const placeholder = this.props.t(`${this.props.plugin_name}_${this.props.name}_placeholder`);
 
         return <div style={{margin: 30}}>
-            <Typography.Text style={{fontSize: 26}}>{title}</Typography.Text>
+            <Typography.Text style={{fontSize: 26, color: theme.dark2}}>{title}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 30}}>
-                <Typography.Text style={{fontSize: 18}}>{description}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark3}}>{description}</Typography.Text>
             </div>
             <br/>
             <Input

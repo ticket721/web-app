@@ -2,6 +2,7 @@ import * as React                                  from 'react';
 import { EventCreationData, EventCreationSetData } from './EventCreationData';
 import { Icon, Input, Tooltip, Typography }        from 'antd';
 import { SyntheticEvent }                          from 'react';
+import { theme }                                   from '../../../utils/theme';
 
 const { TextArea }: any = Input;
 
@@ -52,11 +53,11 @@ export default class EventCreationNameDesc extends React.Component<EventCreation
 
     render(): React.ReactNode {
         return <div style={{marginTop: 30}}>
-            <Typography.Text style={{fontSize: 32}}>{this.props.t('name_title')}</Typography.Text>
+            <Typography.Text style={{fontSize: 32, color: theme.dark2}}>{this.props.t('name_title')}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 10}}>
-                <Typography.Text style={{fontSize: 18}}>{this.props.t('name_description')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark3}}>{this.props.t('name_description')}</Typography.Text>
                 <br/>
                 <br/>
                 <Input
@@ -67,17 +68,17 @@ export default class EventCreationNameDesc extends React.Component<EventCreation
                     onChange={this.inner_name_set_data}
                     suffix={this.state.name && this.state.name.length >= NAME_MAX_LENGTH ? (
                         <Tooltip title={this.props.t('name_length_limit')}>
-                            <Icon type='info-circle' style={{ color: 'red' }} />
+                            <Icon type='info-circle' style={{ color: theme.danger }} />
                         </Tooltip>
                     ) : undefined}
                 />
             </div>
             <br/>
-            <Typography.Text style={{fontSize: 32}}>{this.props.t('description_title')}</Typography.Text>
+            <Typography.Text style={{fontSize: 32, color: theme.dark2}}>{this.props.t('description_title')}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 10}}>
-                <Typography.Text style={{fontSize: 18}}>{this.props.t('description_description')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark2}}>{this.props.t('description_description')}</Typography.Text>
                 <br/>
                 <br/>
                 <TextArea
@@ -94,9 +95,9 @@ export default class EventCreationNameDesc extends React.Component<EventCreation
                             <br/>
                             <Typography.Text
                                 style={{
-                                    fontSize: 18
+                                    fontSize: 18,
+                                    color: theme.danger
                                 }}
-                                type='danger'
                             >
                                 {this.props.t('description_length_limit')}
                             </Typography.Text>

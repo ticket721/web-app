@@ -1,3 +1,5 @@
+import { theme } from '../../../utils/theme';
+
 declare global {
     const google: any;
 }
@@ -67,16 +69,16 @@ export default class EventCreationLocation extends React.Component<EventCreation
         return <div id='gmaps_suggest'>
             <style>{`
                 #gmaps_suggest .ant-list-item:hover {
-                    background-color: #e8f9ff;
+                    background-color: ${theme.gmaps_suggest};
                     cursor: pointer;
                 }
             `}</style>
             <br/>
-            <Typography.Text style={{fontSize: 32}}>{this.props.t('location_title')}</Typography.Text>
+            <Typography.Text style={{fontSize: 32, color: theme.dark2}}>{this.props.t('location_title')}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 10}}>
-                <Typography.Text style={{fontSize: 18}}>{this.props.t('location_description')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark3}}>{this.props.t('location_description')}</Typography.Text>
                 <br/>
                 <br/>
                 <Geosuggest

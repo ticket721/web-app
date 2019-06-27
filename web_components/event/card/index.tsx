@@ -19,7 +19,8 @@ import {
 import { connect }            from 'react-redux';
 import EventCardStatsCarousel from './EventCardStatsCarousel';
 import { I18N, I18NProps }    from '../../../utils/misc/i18n';
-import { routes }               from '../../../utils/routing';
+import { routes }             from '../../../utils/routing';
+import { theme }              from '../../../utils/theme';
 
 export interface EventCardProps {
     event: StrapiEvent;
@@ -75,7 +76,7 @@ class EventCard extends React.Component<MergedEventCardProps> {
         return <div id='event_card'>
             <style>{`
                 #event_card .ant-card-body {
-                    background: linear-gradient(to right, #353550, #232323);
+                    background: linear-gradient(to right, ${theme.primarydark0}, ${theme.dark1});
                     padding: 0;
                     border-top-right-radius: 6px;
                     border-top-left-radius: 6px;
@@ -83,7 +84,7 @@ class EventCard extends React.Component<MergedEventCardProps> {
                 
                 #event_card .ant-card-actions {
                     border-top: 0px black;
-                    background-color: #202020;
+                    background-color: ${theme.dark2};
                     border-bottom-right-radius: 6px;
                     border-bottom-left-radius: 6px;
                 }
@@ -93,17 +94,17 @@ class EventCard extends React.Component<MergedEventCardProps> {
                 }
                 
                 #event_card .ant-card-actions > li:not(:last-child) {
-                    border-right: 1px solid #353535;
+                    border-right: 1px solid ${theme.dark4};
                 }
                 
                 #event_card .anticon {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 
                 
                 #event_card .ant-card {
                     border-radius: 6px;
-                    background-color: #202020;
+                    background-color: ${theme.dark2};
                 }
                 
             `}</style>
@@ -115,17 +116,17 @@ class EventCard extends React.Component<MergedEventCardProps> {
                     this.props.event
                         ?
                         <routes.Link key={'event'} route={'event'} params={{address: this.props.event.address.address}}>
-                            <Typography.Text style={{fontSize: 16, color: '#ffffff'}}>{this.props.t('event_card_event')}</Typography.Text>
+                            <Typography.Text style={{fontSize: 16, color: theme.white}}>{this.props.t('event_card_event')}</Typography.Text>
                         </routes.Link>
 
                         :
-                        <Typography.Text style={{fontSize: 16, color: '#ffffff'}}>{this.props.t('event_card_event')}</Typography.Text>,
+                        <Typography.Text style={{fontSize: 16, color: theme.white}}>{this.props.t('event_card_event')}</Typography.Text>,
 
                     <routes.Link key={'marketplace'} route={'marketplace'} params={{event: this.props.event ? this.props.event.address.address : undefined}}>
-                        <Typography.Text style={{fontSize: 16, color: '#ffffff'}}>{this.props.t('event_card_marketplace')}</Typography.Text>
+                        <Typography.Text style={{fontSize: 16, color: theme.white}}>{this.props.t('event_card_marketplace')}</Typography.Text>
                     </routes.Link>,
 
-                    <Typography.Text key={'tmp'} style={{fontSize: 16, color: '#ffffff'}}>{this.props.t('event_card_website')}</Typography.Text>
+                    <Typography.Text key={'tmp'} style={{fontSize: 16, color: theme.white}}>{this.props.t('event_card_website')}</Typography.Text>
                 ]}
             >
                 <EventCardBannerCarousel event={this.props.event}/>

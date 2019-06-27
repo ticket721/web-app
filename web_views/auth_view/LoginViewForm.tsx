@@ -6,6 +6,7 @@ import { Dispatch }                                        from 'redux';
 import { Auth }                                            from '@utils/redux/app/actions';
 import { connect }                                         from 'react-redux';
 import { FormComponentProps }                              from 'antd/lib/form';
+import { theme }                                           from '../../utils/theme';
 
 // Props
 
@@ -44,7 +45,7 @@ class LoginForm extends React.Component<MergedLoginFormProps> {
 
         switch (this.props.status) {
             case AuthStatus.AuthInvalidIdentifierOrPassword:
-                warning = <Typography.Text type='danger'>{this.props.t('login_invalid_identifier_or_password')}</Typography.Text>;
+                warning = <Typography.Text type='danger' style={{color: theme.danger}}>{this.props.t('login_invalid_identifier_or_password')}</Typography.Text>;
                 break;
         }
 
@@ -87,15 +88,15 @@ class LoginForm extends React.Component<MergedLoginFormProps> {
                         valuePropName: 'checked',
                         initialValue: true,
                     })(
-                        <Checkbox style={{color: '#ffffff'}}>{this.props.t('remember_me')}</Checkbox>
+                        <Checkbox style={{color: theme.white}}>{this.props.t('remember_me')}</Checkbox>
                     )}
-                    <a className='login-form-forgot' href='' style={{color: '#ffffff'}}>{this.props.t('forgot_password')}</a>
+                    <a className='login-form-forgot' href='' style={{color: theme.white}}>{this.props.t('forgot_password')}</a>
                     {warning !== null ? <br/> : null}
                     {warning}
                     <Button loading={this.props.status === AuthStatus.AuthStarted} type='primary' htmlType='submit' className='login-form-button'>
                         {this.props.t('log_in')}
                     </Button>
-                    <a onClick={this.handleRegister} style={{color: '#ffffff'}}>{this.props.t('register_now')}</a>
+                    <a onClick={this.handleRegister} style={{color: theme.white}}>{this.props.t('register_now')}</a>
                 </Form.Item>
             </Form>
         </div>;

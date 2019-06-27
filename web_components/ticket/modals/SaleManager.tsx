@@ -23,6 +23,7 @@ import { Tx }                                 from 'ethvtx/lib/state/txs';
 import { getTransactionById }                 from 'ethvtx/lib/txs/helpers/getters';
 import TxProgress                             from '@web_components/tx/TxProgress';
 import { marketerBuildArgumentsConfigurator } from '../../../web_contract_plugins/marketer/marketerBuildArgumentsConfigurator';
+import { theme }                              from '../../../utils/theme';
 
 export interface SaleManagerProps {
     ticket: StrapiTicket;
@@ -191,9 +192,9 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
         const buttons = this.get_buttons();
 
         return <div style={{width: 1400, height: 600}}>
-            <div style={{width: '50%', height: '100%', float: 'left', borderRight: '1px solid #e8e8e8'}}>
+            <div style={{width: '50%', height: '100%', float: 'left', borderRight: `1px solid ${theme.lightergrey}`}}>
                 <div style={{height: '10%'}}>
-                    <Typography.Text style={{fontSize: 42}}>{this.props.t('sale_modal_first_title')}</Typography.Text>
+                    <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('sale_modal_first_title')}</Typography.Text>
                 </div>
                 <div style={{height: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <StaticTicketPreview
@@ -213,10 +214,10 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
                     ?
                     <div style={{width: '50%', height: '100%', float: 'left'}}>
                         <div style={{width: '90%', height: '10%', marginLeft: 24, marginBottom: '1%'}}>
-                            <Typography.Text style={{fontSize: 42}}>{this.props.t('sale_modal_sell_form_title')}</Typography.Text>
+                            <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('sale_modal_sell_form_title')}</Typography.Text>
                         </div>
                         <div style={{paddingLeft: '5%', width: '90%', height: '84%', overflow: 'auto'}}>
-                            <div style={{backgroundColor: '#e0e0e9', padding: 24, borderRadius: 6}}>
+                            <div style={{backgroundColor: theme.event_filter_divider, padding: 24, borderRadius: 6}}>
                                 <ContractArgumentForm
                                     arguments={
                                         this.props.contract_plugins.minter && this.props.contract

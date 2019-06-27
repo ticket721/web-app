@@ -1,15 +1,16 @@
 import * as React                                  from 'react';
 import { EventCreationData, EventCreationSetData } from './EventCreationData';
 import { Typography }                              from 'antd';
-import Uppy                                        from '@uppy/core';
-import { Dashboard }                               from '@uppy/react';
-import Url                                         from '@uppy/url';
-import GDrive                                      from '@uppy/google-drive';
-import { Store }                                   from 'redux';
-import * as ReduxStore                             from '@uppy/store-redux';
+import Uppy            from '@uppy/core';
+import { Dashboard }   from '@uppy/react';
+import Url             from '@uppy/url';
+import GDrive          from '@uppy/google-drive';
+import { Store }       from 'redux';
+import * as ReduxStore from '@uppy/store-redux';
 
 import '@uppy/core/dist/style.css';
 import '@uppy/dashboard/dist/style.css';
+import { theme }       from '../../../utils/theme';
 
 // Props
 
@@ -73,18 +74,18 @@ export default class EventCreationImage extends React.Component<EventCreationIma
 
     render(): React.ReactNode {
         return <div style={{marginTop: 30}}>
-            <Typography.Text style={{fontSize: 32}}>{this.props.t('image_title')}</Typography.Text>
+            <Typography.Text style={{fontSize: 32, color: theme.dark2}}>{this.props.t('image_title')}</Typography.Text>
             <br/>
             <br/>
             <div style={{marginLeft: 10}}>
-                <Typography.Text style={{fontSize: 18}}>{this.props.t('image_description')}</Typography.Text>
+                <Typography.Text style={{fontSize: 18, color: theme.dark3}}>{this.props.t('image_description')}</Typography.Text>
                 <br/>
                 <br/>
                 <Dashboard
                     uppy={this.uppy}
                     hideUploadButton={true}
                     height={400}
-                    plugins={['GoogleDrive', 'Url']}
+                    //plugins={['GoogleDrive', 'Url']}
 
                 />
             </div>

@@ -6,6 +6,7 @@ import { I18N, I18NProps }  from '../../utils/misc/i18n';
 export interface TicketProps {
     ticket: number;
     size: number;
+    color?: string;
 }
 
 type MergedTicketProps = TicketProps & I18NProps;
@@ -17,7 +18,7 @@ class Ticket extends React.Component<MergedTicketProps> {
         }
 
         return <routes.Link route={'ticket'} params={{id: this.props.ticket}}>
-            <Typography.Text style={{fontSize: this.props.size, cursor: 'pointer'}}>
+            <Typography.Text style={{fontSize: this.props.size, cursor: 'pointer', color: this.props.color}}>
                 {this.props.t('ticket')} #{this.props.ticket}
             </Typography.Text>
         </routes.Link>;

@@ -5,6 +5,7 @@ import * as GeoPattern                           from 'geopattern';
 import { I18NProps }                             from '../../../utils/misc/i18n';
 import ILWTxAttempt                              from './LWTxAttempt';
 import ILWSignAttempt                            from './LWSignAttempt';
+import { theme }                                 from '../../../utils/theme';
 
 export interface LWAttemptProps {
 }
@@ -84,10 +85,10 @@ export default class LWAttempt extends React.Component<MergedLWAttemptProps, LWA
                             background-image: ${pattern};
                         }
                         .lw_attempt .ant-modal-title {
-                            color: white;
+                            color: ${theme.white};
                         }
                         .lw_attempt .ant-modal-close {
-                            color: white;
+                            color: ${theme.white};
                         }
                     `}</style>
                 <Modal

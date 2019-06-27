@@ -1,7 +1,8 @@
 import * as React           from 'react';
 import { Card, Icon, Spin } from 'antd';
+import { theme }            from '../../utils/theme';
 
-const antIcon = <Icon type='loading' style={{fontSize: 64, color: '#505050'}} spin={true}/>;
+const antIcon = <Icon type='loading' style={{fontSize: 64, color: theme.dark7}} spin={true}/>;
 
 export default class LoadingTicket extends React.Component {
     render(): React.ReactNode {
@@ -17,7 +18,7 @@ export default class LoadingTicket extends React.Component {
                 style={{
                     height: 194,
                     width: 500,
-                    background: 'linear-gradient(to right, #353550, #232323)',
+                    background: `linear-gradient(to right, ${theme.primarydark0}, ${theme.dark2})`,
                     border: '0px',
                     borderTopLeftRadius: 6,
                     borderBottomLeftRadius: 6,
@@ -29,7 +30,7 @@ export default class LoadingTicket extends React.Component {
             >
                 <style>{`
                     #loading_ticket_body .ant-card {
-                        background-color: #404040;
+                        background-color: ${theme.dark4};
                         border: none; 
                     }
                 `}</style>
@@ -48,7 +49,7 @@ export default class LoadingTicket extends React.Component {
                         }}
                     />
                 </div>
-                <div id='crans' style={{width: 2, height: 194, marginTop: -12, background: 'linear-gradient(#404040 60%, rgba(255,255,255,0) 0%)', backgroundSize: '2px 21px', float: 'left', marginLeft: 12}}/>
+                <div id='crans' style={{width: 2, height: 194, marginTop: -12, background: `linear-gradient(${theme.dark4} 60%, rgba(255,255,255,0) 0%)`, backgroundSize: '2px 21px', float: 'left', marginLeft: 12}}/>
                 <div
                     style={{
                         height: 170,

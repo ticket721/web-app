@@ -14,13 +14,14 @@ import { connect }                                      from 'react-redux';
 import StaticTicketPreview                              from '@web_components/event/display/StaticTicketPreview';
 import { to_ascii }                                     from '@utils/misc/ascii';
 import { Button, Divider, message, Select, Typography } from 'antd';
-import { SaleData }           from './OpenSaleModal';
-import { buy }                from '@web_contract_plugins/marketer/BuyMarketerController';
-import { Tx }                 from 'ethvtx/lib/state/txs';
-import { getTransactionById } from 'ethvtx/lib/txs/helpers/getters';
-import TxProgress             from '@web_components/tx/TxProgress';
-import Address                from '@components/address';
-import currencies             from '@utils/currencies';
+import { SaleData }                                     from './OpenSaleModal';
+import { buy }                                          from '@web_contract_plugins/marketer/BuyMarketerController';
+import { Tx }                                           from 'ethvtx/lib/state/txs';
+import { getTransactionById }                           from 'ethvtx/lib/txs/helpers/getters';
+import TxProgress                                       from '@web_components/tx/TxProgress';
+import Address                                          from '@components/address';
+import currencies                                       from '@utils/currencies';
+import { theme }                                        from '../../../utils/theme';
 
 const Option = Select.Option;
 
@@ -188,9 +189,9 @@ export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyM
 
                     ?
                     <div style={{width: '100%', height: '100%'}}>
-                        <div style={{width: '50%', height: '100%', float: 'left', borderRight: '1px solid #e8e8e8'}}>
+                        <div style={{width: '50%', height: '100%', float: 'left', borderRight: `1px solid ${theme.lightergrey}`}}>
                             <div style={{height: '10%'}}>
-                                <Typography.Text style={{fontSize: 42}}>{this.props.t('buy_modal_first_title')}</Typography.Text>
+                                <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('buy_modal_first_title')}</Typography.Text>
                             </div>
                             <div style={{height: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                 <StaticTicketPreview
@@ -206,21 +207,21 @@ export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyM
                         </div>
                         <div style={{width: '50%', height: '100%', float: 'left'}}>
                             <div style={{width: '90%', height: '10%', marginLeft: 24, marginBottom: '1%'}}>
-                                <Typography.Text style={{fontSize: 42}}>{this.props.t('buy_modal_buy_title')}</Typography.Text>
+                                <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('buy_modal_buy_title')}</Typography.Text>
                             </div>
                             <br/>
                             <Divider style={{width: '90%', minWidth: '90%', marginLeft: 12}}/>
                             <div style={{width: '90%', height: '30%', marginLeft: 48}}>
-                                <Typography.Text style={{fontSize: 26}}>{this.props.t('buy_modal_seller')}</Typography.Text>
+                                <Typography.Text style={{fontSize: 26, color: theme.dark2}}>{this.props.t('buy_modal_seller')}</Typography.Text>
                                 <br/>
                                 <div style={{marginLeft: 24}}>
-                                    <Address address={this.props.ticket.owner} size={18}/>
+                                    <Address address={this.props.ticket.owner} size={18} color={theme.dark2}/>
                                 </div>
                                 <br/>
-                                <Typography.Text style={{fontSize: 26}}>{this.props.t('buy_modal_event')}</Typography.Text>
+                                <Typography.Text style={{fontSize: 26, color: theme.dark2}}>{this.props.t('buy_modal_event')}</Typography.Text>
                                 <br/>
                                 <div style={{marginLeft: 24}}>
-                                    <Typography.Text style={{fontSize: 18}}>{this.props.ticket.event.name}</Typography.Text>
+                                    <Typography.Text style={{fontSize: 18, color: theme.dark2}}>{this.props.ticket.event.name}</Typography.Text>
                                 </div>
                             </div>
                             <Divider style={{width: '90%', minWidth: '90%', marginLeft: 12}}/>

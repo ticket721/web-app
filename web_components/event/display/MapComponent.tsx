@@ -1,7 +1,8 @@
 import * as React                  from 'react';
 import { Map, InfoWindow, Marker } from 'google-maps-react';
-import { Icon, Typography }  from 'antd';
-import styles from './MapStyles.json';
+import { Icon, Typography }        from 'antd';
+import styles                      from './MapStyles.json';
+import { theme }                   from '../../../utils/theme';
 
 export interface MapComponentProps {
     location: any;
@@ -52,7 +53,7 @@ export default class MapComponent extends React.Component<MapComponentProps, Map
                 <div style={{padding: 12}}>
                     <style>{`
                 #tooltip_label:hover {
-                    color: #188ae2;
+                    color: ${theme.primary};
                 }
                 `}</style>
                     <a href={'https://maps.google.com/?q=' + encodeURIComponent(this.props.location.label)} target='_blank'>

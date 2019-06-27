@@ -11,6 +11,7 @@ import { Tx }                 from 'ethvtx/lib/state/txs';
 import { AppState }           from '@utils/redux/app_state';
 import { getTransactionById } from 'ethvtx/lib/txs/helpers/getters';
 import { connect }            from 'react-redux';
+import { theme }              from '../../utils/theme';
 
 // Props
 
@@ -128,13 +129,21 @@ class EventBuyModal extends React.Component<MergedEventBuyModalProps, EventBuyMo
                     height: 100%;
                 }
                 .buy_modal .ant-modal-header {
-                    background-color: #121212;
+                    background-color: ${theme.dark0};
                 }
                 .buy_modal .ant-modal-close-x {
-                    color: white;
+                    color: ${theme.white};
                 }
                 .buy_modal .ant-modal-title {
-                    color: white;
+                    color: ${theme.white};
+                }
+                .buy_modal .ant-list-item-meta-description .ant-typography {
+                    color: ${theme.dark2};
+                }
+                .buy_modal .ant-list-item-meta-title {
+                    color: ${theme.primary};
+                    font-weigth: 300;
+                    font-size: 16px;
                 }
                 .buy_modal .ant-list-item-meta-description {
                     text-align: center;

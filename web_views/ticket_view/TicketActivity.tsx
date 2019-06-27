@@ -5,6 +5,7 @@ import activity_cards      from './activity_cards';
 import { AppState }        from '../../utils/redux/app_state';
 import { connect }         from 'react-redux';
 import { I18N, I18NProps } from '../../utils/misc/i18n';
+import { theme }           from '../../utils/theme';
 
 export interface TicketActivityProps {
     ticket: StrapiTicket;
@@ -48,8 +49,8 @@ class TicketActivity extends React.Component<MergedTicketActivityProps> {
         return <div id='activity_ticket'>
             <style>{`
                 #activity_ticket .ant-card-body {
-                    background-color: #202020;
-                    color: #ffffff;
+                    background-color: ${theme.dark2};
+                    color: ${theme.white};
                     border-bottom-left-radius: 6px;
                     border-bottom-right-radius: 6px;
                 }
@@ -60,68 +61,68 @@ class TicketActivity extends React.Component<MergedTicketActivityProps> {
                 } 
                 
                 .activity_mint .ant-card-head {
-                    background-color: #475887;
-                    color: #232c44;
+                    background-color: ${theme.primary};
+                    color: ${theme.primarydark0};
                 }
                 
                 .mint_link {
-                    color: #232c44;
+                    color: ${theme.primarydark0};
                 }
                 
                 .mint_link:hover {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 
                 .transfer_link {
-                    color: #232c44;
+                    color: ${theme.primarydark0};
                 }
                 
                 .transfer_link:hover {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 
                 .sale_link {
-                    color: #164429;
+                    color: ${theme.green};
                 }
                 
                 .sale_link:hover {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 
                 .buy_link {
-                    color: #164429;
+                    color: ${theme.greendarker0};
                 }
                 
                 .buy_link:hover {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 
                 .sale_close_link {
-                    color: #121212;
+                    color: ${theme.dark0};
                 }
                 
                 .sale_close_link:hover {
-                    color: #ffffff;
+                    color: ${theme.white};
                 }
                 
                 .activity_transfer .ant-card-head {
-                    background-color: #475887;
-                    color: #232c44;
+                    background-color: ${theme.primary};
+                    color: ${theme.primarydark0};
                 }
                 
                 .activity_sale .ant-card-head {
-                    background-color: #319058;
-                    color: #164429;
+                    background-color: ${theme.green};
+                    color: ${theme.greendarker0};
                 }
                 
                 .activity_buy .ant-card-head {
-                    background-color: #319058;
-                    color: #164429;
+                    background-color: ${theme.green};
+                    color: ${theme.greendarker0};
                 }
                 
                 .activity_sale_close .ant-card-head {
-                    background-color: #505050;
-                    color: #121212;
+                    background-color: ${theme.dark7};
+                    color: ${theme.dark0};
                 }
             `}</style>
             <List

@@ -6,6 +6,7 @@ import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { Dispatch }                     from 'redux';
 import { SetWalletProvider }            from '@utils/redux/app/actions';
 import { connect }                      from 'react-redux';
+import { theme }                        from '../../utils/theme';
 
 export interface T721ProviderChoiceProps {
 
@@ -31,7 +32,7 @@ class T721ProviderChoice extends React.Component<MergedT721ProviderChoiceProps> 
         return <Card
             style={{width: '100%'}}
             hoverable={true}
-            cover={<img alt='t721' style={{width: '100%', backgroundColor: '#202020', padding: '15%'}} src={t721_provider_image}/>}
+            cover={<img alt='t721' style={{width: '100%', backgroundColor: theme.dark2, padding: '15%'}} src={t721_provider_image}/>}
             actions={[<Icon type='double-right' key={0}/>]}
             onClick={this.onClick}
         >
