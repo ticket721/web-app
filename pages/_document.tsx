@@ -14,6 +14,8 @@ export default class T721Document extends Document {
             <html>
             <Head>
                 <script src={'https://maps.googleapis.com/maps/api/js?key=' + process.env.google_api_token + '&libraries=places'}/>
+                <title>T721</title>
+                <link rel='icon' type='image/x-icon' href='/static/assets/misc/favicon.ico' />
             </Head>
             <style>{`
                 #__next {
