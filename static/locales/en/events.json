@@ -67,5 +67,16 @@
     "preview_warning_message_2": "edit it",
     "preview_warning_message_3": " or ",
     "preview_warning_message_4": "start the sale",
-    "preview_warning_message_5": " !"
+    "preview_warning_message_5": " !",
+
+    "event_edit_informations_title": "ℹ️ Edit General Informations",
+    "event_edit_cancel_button": "Cancel",
+    "edit_name_title": "Event Name",
+    "edit_name_edit_warning": "Name will be modified",
+    "edit_description_title": "Event Description",
+    "edit_dates_title": "Event Dates",
+    "edit_location_title": "Event Location",
+    "event_edit_informations_save": "Save",
+    "event_edit_informations_upload_error": "Uploading Error",
+    "event_edit_informations_upload_success": "Successful Upload"
 }

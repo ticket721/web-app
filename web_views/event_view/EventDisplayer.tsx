@@ -11,15 +11,19 @@ import {
     loadContractSpec,
     removeContractInstance
 }                              from 'ethvtx/lib/contracts/helpers/dispatchers';
-import { connect }             from 'react-redux';
-import * as React              from 'react';
-import EventImages             from './EventImages';
-import EventInformationGrid    from './EventInformationGrid';
-import EventTicketsGrid        from './EventTicketsGrid';
-import { StrapiMinter }        from '@utils/strapi/minter';
-import { StrapiMarketer }      from '@utils/strapi/marketer';
-import { StrapiApprover }      from '@utils/strapi/approver';
-import EventActivityGrid       from './EventActivityGrid';
+import { connect }          from 'react-redux';
+import * as React           from 'react';
+import EventImages           from './EventImages';
+import EventInformationGrid  from './EventInformationGrid';
+import EventTicketsGrid      from './EventTicketsGrid';
+import { StrapiMinter }      from '@utils/strapi/minter';
+import { StrapiMarketer }    from '@utils/strapi/marketer';
+import { StrapiApprover }    from '@utils/strapi/approver';
+import EventActivityGrid     from './EventActivityGrid';
+import { theme }             from '../../utils/theme';
+import EventEditInformations from './EventEditInformations';
+import EventEditCancel       from './EventEditCancel';
+import { Divider }           from 'antd';
 
 // Props
 
@@ -42,9 +46,17 @@ interface EventDisplayerRDispatch {
     removeInstance: (name: string, address: string) => void;
 }
 
+interface EventDisplayerState {
+    edit: boolean;
+}
+
 type MergedEventDisplayerProps = EventDisplayerProps & EventDisplayerRState & EventDisplayerRDispatch;
 
-class EventDisplayer extends React.Component<MergedEventDisplayerProps> {
+class EventDisplayer extends React.Component<MergedEventDisplayerProps, EventDisplayerState> {
+
+    state: EventDisplayerState = {
+        edit: false
+    };
 
     componentDidMount(): void {
 
@@ -80,12 +92,26 @@ class EventDisplayer extends React.Component<MergedEventDisplayerProps> {
         }
     }
 
+    edit = (): void => {
+        this.setState({
+            edit: !this.state.edit
+        });
+    }
+
     render(): React.ReactNode {
+        if (this.state.edit) {
+            return <div style={{width: '100%', height: '100%', backgroundColor: theme.white, padding: 24}}>
+                <EventEditCancel cancel={this.edit}/>
+                <Divider/>
+                <EventEditInformations event={this.props.event} cancel={this.edit}/>
+            </div>;
+        }
         return <div style={{width: '100%', height: '100%'}}>
             <EventImages
                 event={this.props.event}
                 strapi_url={this.props.strapi_url}
                 user_address={this.props.coinbase ? this.props.coinbase.address : null}
+                edit_trigger={this.edit}
             />
             <EventInformationGrid event={this.props.event}/>
             <EventTicketsGrid

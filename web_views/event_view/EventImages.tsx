@@ -27,6 +27,7 @@ export interface EventImagesProps {
     event: StrapiEvent;
     user_address: string;
     strapi_url: string;
+    edit_trigger: () => void;
 }
 
 type MergedEventImagesProps = EventImagesProps & I18NProps;
@@ -81,7 +82,7 @@ class EventImages extends React.Component<MergedEventImagesProps> {
                         {
                             this.props.user_address && this.props.event.owner.address === this.props.user_address
                                 ?
-                                <Button icon='edit'>{this.props.t('edit_button')}</Button>
+                                <Button icon='edit' onClick={this.props.edit_trigger}>{this.props.t('edit_button')}</Button>
                                 :
                                 null
                         }
