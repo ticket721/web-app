@@ -20,6 +20,13 @@ export type StrapiCallFn = (state: AppState, dispatch: Dispatch, static_call?: b
  */
 export class StrapiHelper {
 
+    public static resetEntry(dispatch: Dispatch, name: string, id: string): void {
+
+        const hash: string = StrapiHelper.getEntry_signature(name, id);
+
+        dispatch(StrapiCacheResetCall(hash));
+    }
+
     /**
      * Registers the call on the strapi api on the redux store.
      * The request is refreshed only when block height is also updated.
