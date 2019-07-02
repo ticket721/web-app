@@ -5,14 +5,16 @@ import { Button, message, Typography } from 'antd';
 import { I18N, I18NProps } from '../../utils/misc/i18n';
 import { theme }           from '../../utils/theme';
 import Strapi           from 'strapi-sdk-javascript';
-import { AppState }     from '../../utils/redux/app_state';
-import { connect }      from 'react-redux';
-import { sign }         from '../../utils/misc/Web3TypedSignature';
-import { Dispatch }     from 'redux';
-import { StrapiHelper } from '../../utils/StrapiHelper';
-import EditDescription  from '../../web_components/event/display/EditDescription';
-import EditDates        from '../../web_components/event/display/EditDates';
-import EditLocation     from '../../web_components/event/display/EditLocation';
+import { AppState }              from '../../utils/redux/app_state';
+import { connect }               from 'react-redux';
+import { sign }                  from '../../utils/misc/Web3TypedSignature';
+import { Dispatch }              from 'redux';
+import { StrapiHelper }          from '../../utils/StrapiHelper';
+import EditDescription           from '../../web_components/event/display/EditDescription';
+import EditDates                 from '../../web_components/event/display/EditDates';
+import EditLocation              from '../../web_components/event/display/EditLocation';
+import EditImageC, { EditImage } from '../../web_components/event/display/EditImage';
+import EditBannersC, { EditBanners }           from '../../web_components/event/display/EditBanners';
 
 export interface EventEditInformationsProps {
     event: StrapiEvent;
@@ -35,13 +37,17 @@ type MergedEventEditInformationsProps = EventEditInformationsProps & I18NProps &
 interface EventEditInformationsState {
     values: any;
     saving: boolean;
+    image_ref: EditImage;
+    banners_ref: EditBanners;
 }
 
 class EventEditInformations extends React.Component<MergedEventEditInformationsProps, EventEditInformationsState> {
 
     state: EventEditInformationsState = {
-        values: null,
-        saving: false
+        values: {},
+        saving: false,
+        image_ref: null,
+        banners_ref: null
     };
 
     set_values = (field: string, value: any): void => {
@@ -53,7 +59,7 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
         });
     }
 
-    on_save = (): void => {
+    on_save = async (): Promise<void> => {
         this.setState({
             saving: true
         });
@@ -78,6 +84,9 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
         if (this.state.values.location) {
             location = JSON.stringify(this.state.values.location);
         }
+
+        const image = await this.state.image_ref.get_image(message);
+        const banners = await this.state.banners_ref.get_banners(message);
 
         sign(this.props.web3, this.props.coinbase, [
                 {
@@ -104,6 +113,16 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
                     type: 'string',
                     name: 'location',
                     value: location
+                },
+                {
+                    type: 'string',
+                    name: 'image',
+                    value: image !== null ? image.toString() : null
+                },
+                {
+                    type: 'string',
+                    name: 'banners',
+                    value: JSON.stringify(banners)
                 }
             ]
         ).then(async (res: any): Promise<void> => {
@@ -153,11 +172,23 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
 
     }
 
+    set_image_ref = (ref: EditImage): void => {
+        this.setState({
+            image_ref: ref
+        });
+    }
+
+    set_banners_ref = (ref: EditBanners): void => {
+        this.setState({
+            banners_ref: ref
+        });
+    }
+
     render(): React.ReactNode {
 
         return <div>
             <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('event_edit_informations_title')}</Typography.Text>
-            <div style={{width: '50%', marginTop: 24}}>
+            <div style={{width: '50%', marginTop: 24, marginBottom: 24}}>
                 <EditName
                     event={this.props.event}
                     on_change={this.set_values.bind(this, 'name')}
@@ -177,9 +208,20 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
                     event={this.props.event}
                     on_change={this.set_values.bind(this, 'location')}
                 />
-                <Button type='primary' style={{marginTop: 24}} onClick={this.on_save}>{this.props.t('event_edit_informations_save')}</Button>
             </div>
-
+            <Typography.Text style={{fontSize: 42, color: theme.primary}}>{this.props.t('event_edit_images_title')}</Typography.Text>
+            <div style={{width: '50%', marginTop: 24}}>
+                <EditImageC
+                    event={this.props.event}
+                    get_ref={this.set_image_ref}
+                />
+                <EditBannersC
+                    event={this.props.event}
+                    get_ref={this.set_banners_ref}
+                />
+            </div>
+            <br/>
+            <Button type='primary' style={{marginTop: 24}} onClick={this.on_save}>{this.props.t('event_edit_informations_save')}</Button>
         </div>;
     }
 }

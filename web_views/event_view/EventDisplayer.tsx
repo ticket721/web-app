@@ -100,10 +100,12 @@ class EventDisplayer extends React.Component<MergedEventDisplayerProps, EventDis
 
     render(): React.ReactNode {
         if (this.state.edit) {
-            return <div style={{width: '100%', height: '100%', backgroundColor: theme.white, padding: 24}}>
-                <EventEditCancel cancel={this.edit}/>
-                <Divider/>
-                <EventEditInformations event={this.props.event} cancel={this.edit}/>
+            return <div style={{width: '100%', height: '100%', marginTop: -24, marginBottom: -24, paddingTop: 24, paddingBottom: 24}}>
+                <div style={{width: '100%', backgroundColor: theme.white, padding: 24, borderRadius: 5}}>
+                    <EventEditCancel cancel={this.edit}/>
+                    <Divider/>
+                    <EventEditInformations event={this.props.event} cancel={this.edit}/>
+                </div>
             </div>;
         }
         return <div style={{width: '100%', height: '100%'}}>
