@@ -14,4 +14,5 @@ export interface StrapiQueuedEvent {
     end: string;
     location: any;
     creation: string;
+    id: number;
 }
