@@ -15,11 +15,15 @@ import {
     removeContractInstance
 }                                 from 'ethvtx/lib/contracts/helpers/dispatchers';
 import { getContract }            from 'ethvtx/lib/contracts/helpers/getters';
-import { FullPageLoader }         from '@web_components/loaders/FullPageLoader';
-import QueuedEventImages          from './QueuedEventImages';
-import QueuedEventWarning         from './QueuedEventWarning';
-import QueuedEventInformationGrid from './QueuedEventInformationGrid';
-import QueuedEventTicketsGrid     from './QueuedEventTicketsGrid';
+import { FullPageLoader }          from '@web_components/loaders/FullPageLoader';
+import QueuedEventImages           from './QueuedEventImages';
+import QueuedEventWarning          from './QueuedEventWarning';
+import QueuedEventInformationGrid  from './QueuedEventInformationGrid';
+import QueuedEventTicketsGrid      from './QueuedEventTicketsGrid';
+import { Divider }                 from 'antd';
+import { theme }                   from '../../../utils/theme';
+import QueuedEventEditCancel       from './QueuedEventEditCancel';
+import QueuedEventEditInformations from './QueuedEventEditInformations';
 
 // Props
 
@@ -140,8 +144,12 @@ class QueuedEventView extends React.Component<MergedQueuedEventViewProps, Queued
 
                 </div>;
             } else {
-                return <div>
-                    Edit mode
+                return <div style={{width: '100%', height: '100%', marginTop: -24, marginBottom: -24, paddingTop: 24, paddingBottom: 24}}>
+                    <div style={{width: '100%', backgroundColor: theme.white, padding: 24, borderRadius: 5}}>
+                        <QueuedEventEditCancel cancel={this.edit_mode_off}/>
+                        <Divider/>
+                        <QueuedEventEditInformations event={this.props.queued_event} cancel={this.edit_mode_off}/>
+                    </div>
                 </div>;
             }
         }
