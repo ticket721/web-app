@@ -70,7 +70,13 @@
     "preview_warning_message_5": " !",
 
     "event_edit_informations_title": "ℹ️ Edit General Informations",
+    "event_edit_images_title": "\uD83D\uDDBC Edit Images",
     "event_edit_cancel_button": "Cancel",
+    "edit_image_upload_button": "Upload",
+    "edit_banners_upload_button": "Upload",
+    "edit_banners_upload_limit_button": "Upload Limit Reached",
+    "edit_banners_title": "Event Banners",
+    "edit_image_title": "Event Image",
     "edit_name_title": "Event Name",
     "edit_name_edit_warning": "Name will be modified",
     "edit_description_title": "Event Description",
