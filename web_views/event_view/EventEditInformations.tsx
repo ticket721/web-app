@@ -88,16 +88,18 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
         const image = await this.state.image_ref.get_image(message);
         const banners = await this.state.banners_ref.get_banners(message);
 
+        console.log(image, banners, location);
+
         sign(this.props.web3, this.props.coinbase, [
                 {
                     type: 'string',
                     name: 'name',
-                    value: this.state.values.name || this.props.event.name
+                    value: this.state.values.name || this.props.event.name || 'none'
                 },
                 {
                     type: 'string',
                     name: 'description',
-                    value: this.state.values.description || this.props.event.description
+                    value: this.state.values.description || this.props.event.description || 'none'
                 },
                 {
                     type: 'string',
@@ -117,7 +119,7 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
                 {
                     type: 'string',
                     name: 'image',
-                    value: image !== null ? image.toString() : null
+                    value: image !== null ? image.toString() : 'none'
                 },
                 {
                     type: 'string',

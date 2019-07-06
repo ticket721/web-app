@@ -1,15 +1,7 @@
 import * as React                                                        from 'react';
 import { Layout, Menu, Icon, Popover, Skeleton, Typography, Breadcrumb } from 'antd';
-import dynamic                                                           from 'next-server/dynamic';
 import Logo                                                              from '@static/assets/ticket721/light.svg';
 import VideoCover                                                        from 'react-video-cover';
-
-const DynamicBreadcrumb = dynamic<any>(async () => import('antd').then((antd: any): any => antd.Breadcrumb), {
-        ssr: false,
-        loading: (): React.ReactElement => <Skeleton active={true} paragraph={{rows: 0, width: 100}}/>
-    }
-);
-
 import { Account }            from 'ethvtx/lib/state/accounts';
 import * as GeoPattern        from 'geopattern';
 import Router                 from 'next/router';
@@ -80,6 +72,9 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
         let selection = null;
         const pathname = onClient((): string[] => (new UrlParse(Router.pathname)).pathname.split('/').slice(1).map((path_elem: string) => {
             switch (path_elem) {
+                case '':
+                    selection = 'home';
+                    break ;
                 case '_error':
                     return this.props.t('_error');
                 case 'account':
@@ -273,6 +268,14 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
 
                     <Menu theme='dark' defaultSelectedKeys={['events']} mode='inline' style={{position: 'relative'}} selectedKeys={[selection]}>
 
+                        <Menu.Item key='home'>
+                            <Link href='/'>
+                                <div>
+                                    <Icon type='home'/>
+                                    <span>{this.props.t('home')}</span>
+                                </div>
+                            </Link>
+                        </Menu.Item>
                         <Menu.Item key='marketplace'>
                             <Link href='/marketplace'>
                                 <div>

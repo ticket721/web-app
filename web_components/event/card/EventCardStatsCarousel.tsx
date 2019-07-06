@@ -5,6 +5,7 @@ import { I18N, I18NProps }                                              from '..
 const Countdown = Statistic.Countdown;
 import currencies                                                       from '@utils/currencies';
 import { theme }                                                        from '../../../utils/theme';
+import EventCardProgress                                                from './EventCardProgress';
 
 export interface EventCardStatsCarouselProps {
     categories: TicketCategory[];
@@ -68,17 +69,7 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                             progress < 100 && sale_progress < 100
 
                                 ?
-                                <Progress
-                                    style={{
-                                        color: theme.white,
-                                    }}
-                                    strokeColor={theme.primary}
-                                    strokeWidth={6}
-                                    strokeLinecap='square'
-                                    percent={parseFloat(progress.toFixed(2))}
-                                    showInfo={false}
-                                    status={'active'}
-                                />
+                                <EventCardProgress progress={parseFloat(progress.toFixed(2))}/>
 
                                 :
                                 null
@@ -135,7 +126,19 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                 </Carousel>
             </div>;
         } else {
-            return null;
+            return <div id={'event_stats_carousel'}>
+                <Divider
+                    style={{
+                        width: '60%',
+                        minWidth: '60%',
+                        marginLeft: '20%',
+                        backgroundColor: theme.dark7,
+                        marginBottom: 24,
+                        marginTop: 0
+                    }}
+                />
+                <div style={{height: 104}}/>
+            </div>;
         }
     }
 }

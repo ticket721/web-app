@@ -1,5 +1,11 @@
 import React           from 'react';
-import dynamic         from 'next/dynamic';
+import dynamic                          from 'next/dynamic';
+import { AppState, ClientInformations } from '../utils/redux/app_state';
+import { connect }                      from 'react-redux';
+import { SupportComingSoon }            from '../web_views/message/support_coming_soon';
+import { FullPageLoader }               from '../web_components/loaders/FullPageLoader';
+import { device_type }                  from '../utils/misc/device_type';
+import { HomeViewProps }                from '../web_views/home_view';
 
 const AppGate: React.ComponentType = dynamic<any>(async () => import('@web_components/appgate/AppGate'), {
     loading: (): React.ReactElement => null,
@@ -31,12 +37,10 @@ const ProviderGate: React.ComponentType = dynamic<any>(async () => import('@web_
     ssr: false
 });
 
-import { StrapiCoinbaseConsumer, StrapiCoinbaseProvider } from '@components/context/StrapiCoinbase';
-import { AppState, ClientInformations }                   from '../utils/redux/app_state';
-import { connect }                                        from 'react-redux';
-import { SupportComingSoon }                              from '../web_views/message/support_coming_soon';
-import { FullPageLoader }                                 from '../web_components/loaders/FullPageLoader';
-import { device_type }                                    from '../utils/misc/device_type';
+const HomeView: React.ComponentType<HomeViewProps> = dynamic<HomeViewProps>(async () => import('@web_views/home_view'), {
+    loading: (): React.ReactElement => null,
+    ssr: false
+});
 
 interface HomePageRState {
     device: ClientInformations;
@@ -64,15 +68,7 @@ class HomePage extends React.Component<MergedHomePageProps> {
                                 <AuthGate>
                                     <LocalWalletGate>
                                         <VtxGate>
-                                            <p>Hello</p>
-                                            <StrapiCoinbaseProvider>
-                                                <StrapiCoinbaseConsumer>
-                                                    {(ctx: any): any => {
-                                                        console.log(ctx);
-                                                        return <p>lol</p>;
-                                                    }}
-                                                </StrapiCoinbaseConsumer>
-                                            </StrapiCoinbaseProvider>
+                                            <HomeView/>
                                         </VtxGate>
                                     </LocalWalletGate>
                                 </AuthGate>
