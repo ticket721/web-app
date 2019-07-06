@@ -23,7 +23,7 @@ import ReduxStore from '@uppy/store-redux';
  */
 export function configureStore(): Store<State> {
 
-    const initial_state: AppState = configureVtx(getInitialState<AppState>(InitialAppState), {
+    const initial_state: AppState = configureVtx<AppState>(getInitialState<AppState>(InitialAppState), {
         confirmation_threshold: 2,
         poll_timer: 300
     });

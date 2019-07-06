@@ -3,9 +3,8 @@ import { StrapiTicket }        from '../../utils/strapi/ticket';
 import * as React              from 'react';
 import Ticket                  from '../../web_components/ticket';
 import { StrapiEvent }         from '../../utils/strapi/event';
-import EventCard               from '../../web_components/event/card';
+import EventCardFetcher               from '../../web_components/event/card';
 import { Typography }          from 'antd';
-import { StrapiEventContract } from '../../utils/strapi/eventcontract';
 import { I18N, I18NProps }     from '../../utils/misc/i18n';
 import TicketInformations      from './TicketInformations';
 import TicketActivity          from './TicketActivity';
@@ -15,7 +14,6 @@ export interface TicketLayoutProps {
     coinbase: StrapiAddress;
     ticket: StrapiTicket;
     event: StrapiEvent;
-    event_contract: StrapiEventContract;
     coinbase_string: string;
 }
 
@@ -39,7 +37,7 @@ class TicketLayout extends React.Component<MergedTicketLayoutProps> {
                     <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
                         <Typography.Text style={{position: 'relative', fontSize: 32, zIndex: 3, marginRight: 12, color: theme.primary}}>{this.props.t('ticket_page_event_title')}</Typography.Text>
                     </div>
-                    <EventCard event={this.props.event} event_contract={this.props.event_contract}/>
+                    <EventCardFetcher event={this.props.event}/>
                     <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end', marginTop: 24}}>
                         <Typography.Text style={{position: 'relative', fontSize: 32, zIndex: 3, marginRight: 12, color: theme.primary}}>{this.props.t('ticket_page_info_title')}</Typography.Text>
                     </div>

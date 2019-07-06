@@ -48,7 +48,8 @@ export default class EventCreationLocation extends React.Component<EventCreation
                 location: item.location
             });
             this.setState({
-                selected: true
+                selected: true,
+                suggests: []
             });
         }
     }
@@ -58,10 +59,6 @@ export default class EventCreationLocation extends React.Component<EventCreation
             this.setState({
                 selected: false
             });
-        }
-
-        if (this.props.form_data.location !== null) {
-            this.props.set_data('location', null);
         }
     }
 

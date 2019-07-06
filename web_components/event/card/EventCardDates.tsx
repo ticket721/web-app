@@ -29,8 +29,8 @@ export default class EventCardDates extends React.Component<MergedEventCardDates
         const start = moment(this.props.event.start).format('DD MMM YYYY');
 
         if (!this.props.event.end) {
-            return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <Divider style={{width: '60%', minWidth: '60%', marginLeft: '20%', backgroundColor: theme.dark7}}/>
+            return <div style={{width: '100%'}}>
+                <Divider style={{width: '60%', minWidth: '60%', marginLeft: '20%', backgroundColor: theme.dark7, marginBottom: 0}}/>
                 <div style={{width: '100%', height: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <Typography.Text style={{color: theme.white, fontWeight: 100, fontSize: 32}}>{start}</Typography.Text>
                 </div>

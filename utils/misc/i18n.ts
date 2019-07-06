@@ -12,7 +12,7 @@ export const I18N = new NextI18Next({
 const base = ['navbar', 'provider_selection', 'auth', 'local_wallet_creation', 'lwmodals', 'address', 'messages'];
 
 export const namespaces = {
-    '/': base,
+    '/': base.concat(['home']),
     '/marketplace': base.concat(['marketplace']),
     '/account': base.concat(['account', 'tickets']),
     '/_error': base,

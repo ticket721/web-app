@@ -61,29 +61,17 @@ class TicketView extends React.Component<MergedTicketViewProps, TicketViewState>
                         }
                         return null;
                     }
-                },
-                event_contract: {
-                    call: (arg: any): StrapiCallFn => StrapiHelper.getEntry('eventcontracts', arg),
-                    requires: 'ticket',
-                    converter: (arg: any): any => {
-                        if (arg.length && arg[0].data && arg[0].data.event) {
-                            return arg[0].data.event.eventcontract;
-                        }
-                        return null;
-                    }
-
                 }
             }}
         >
-            {({ticket, event, event_contract}: any): React.ReactNode => {
+            {({ticket, event}: any): React.ReactNode => {
 
                 ticket = filter_strapi(ticket) as StrapiTicket[];
                 event = filter_strapi(event) as StrapiEvent[];
-                event_contract = filter_strapi(event_contract) as StrapiEventContract[];
 
                 if (ticket && this.props.coinbase_string) {
                     if (ticket.length) {
-                        return <TicketLayout coinbase={this.props.coinbase} ticket={ticket[0]} coinbase_string={this.props.coinbase_string} event={event && event.length ? event[0] : undefined} event_contract={event_contract && event_contract.length ? event_contract[0] : undefined}/>;
+                        return <TicketLayout coinbase={this.props.coinbase} ticket={ticket[0]} coinbase_string={this.props.coinbase_string} event={event && event.length ? event[0] : undefined}/>;
                     } else {
                         return <NoTicketId/>;
                     }
