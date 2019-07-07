@@ -12,6 +12,7 @@ export interface TxProgressProps {
     scope: string;
     route?: string;
     params?: any;
+    end_call?: () => void;
 }
 
 interface TxProgressRState {
@@ -89,11 +90,19 @@ class TxProgress extends React.Component<MergedTxProgressProps> {
                 {
                     status.progress === 100
                         ?
-                        <routes.Link route={this.props.route} params={this.props.params}>
-                            <Button>
+                        (this.props.end_call
+
+                            ?
+                            <Button onClick={this.props.end_call}>
                                 {this.props.t(`${this.props.scope}_final_button`)}
                             </Button>
-                        </routes.Link>
+
+                            :
+                            <routes.Link route={this.props.route} params={this.props.params}>
+                                <Button>
+                                    {this.props.t(`${this.props.scope}_final_button`)}
+                                </Button>
+                            </routes.Link>)
                         :
                         <Button
                             disabled={true}
@@ -112,4 +121,4 @@ const mapStateToProps = (state: AppState): TxProgressRState => ({
     threshold: state.vtxconfig.confirmation_threshold
 });
 
-export default connect(mapStateToProps)(TxProgress);
+export default connect(mapStateToProps)(TxProgress) as React.ComponentType<TxProgressProps>;
