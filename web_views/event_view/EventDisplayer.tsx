@@ -24,6 +24,7 @@ import { theme }             from '../../utils/theme';
 import EventEditInformations from './EventEditInformations';
 import EventEditCancel       from './EventEditCancel';
 import { Divider }           from 'antd';
+import EventFundsGrid        from './EventFundsGrid';
 
 // Props
 
@@ -124,6 +125,11 @@ class EventDisplayer extends React.Component<MergedEventDisplayerProps, EventDis
                 event={this.props.event}
                 contract={this.props.contract}
                 strapi_url={this.props.strapi_url}
+            />
+            <EventFundsGrid
+                event={this.props.event}
+                coinbase={this.props.coinbase}
+                contract={this.props.contract}
             />
             <EventActivityGrid
                 event={this.props.event}
