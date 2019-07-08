@@ -1,5 +1,5 @@
 {
-    "sell_strategy": "\uD83D\uDCB0 Sell Strategy",
+    "sell_strategy": "Sell Strategy",
     "sell_strategy_description": "Select how the tickets are going to be initially sold. You cannot change this after the event is deployed.",
     "sell_strategy_placeholder": "Select a Sell Strategy",
 

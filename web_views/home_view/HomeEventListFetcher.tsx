@@ -8,6 +8,7 @@ import { FullPageLoader }       from '../../web_components/loaders/FullPageLoade
 import { theme }                from '../../utils/theme';
 import { keccak256 }            from 'ethereumjs-util';
 import { HomeEventListFilters } from './HomeEventListDrawerContent';
+import { I18N, I18NProps }      from '../../utils/misc/i18n';
 
 export interface HomeEventListFetcherProps {
     name: string;
@@ -16,7 +17,7 @@ export interface HomeEventListFetcherProps {
 
 const EVENT_PER_PAGE = 6;
 
-type MergedHomeEventListFetcherProps = HomeEventListFetcherProps;
+type MergedHomeEventListFetcherProps = HomeEventListFetcherProps & I18NProps;
 
 interface HomeEventListFetcherState {
     page: number;
@@ -41,7 +42,7 @@ const filter_strapi = (entities: any[]): any[] => {
     return real_entities;
 };
 
-export default class HomeEventListFetcher extends React.Component<MergedHomeEventListFetcherProps, HomeEventListFetcherState> {
+class HomeEventListFetcher extends React.Component<MergedHomeEventListFetcherProps, HomeEventListFetcherState> {
 
     constructor(props: MergedHomeEventListFetcherProps) {
         super(props);
@@ -160,7 +161,7 @@ export default class HomeEventListFetcher extends React.Component<MergedHomeEven
                     count = filter_strapi(count);
                     if (events && events.length && count && count.length) {
                         return <div style={{padding: 12}}>
-                            <Typography.Text style={{color: theme.dark2, fontSize: 42, fontWeight: 100}}>{count[0]} Results Found</Typography.Text>
+                            <Typography.Text style={{color: theme.dark2, fontSize: 42, fontWeight: 100}}>{count[0]} {this.props.t('homepage_results')}</Typography.Text>
                             <List
                                 style={{marginTop: 12}}
                                 grid={{
@@ -186,7 +187,7 @@ export default class HomeEventListFetcher extends React.Component<MergedHomeEven
                             if (count[0] > 0) {
                                 const empty = this.gen_empty_events(count[0]);
                                 return <div style={{padding: 12}}>
-                                    <Typography.Text style={{color: theme.dark2, fontSize: 42, fontWeight: 100}}>{count[0]} Results Found</Typography.Text>
+                                    <Typography.Text style={{color: theme.dark2, fontSize: 42, fontWeight: 100}}>{count[0]} {this.props.t('homepage_results')}</Typography.Text>
                                     <List
                                         style={{marginTop: 12}}
                                         grid={{
@@ -220,3 +221,5 @@ export default class HomeEventListFetcher extends React.Component<MergedHomeEven
         </StrapiCall>;
     }
 }
+
+export default I18N.withNamespaces(['home'])(HomeEventListFetcher) as React.ComponentType<HomeEventListFetcherProps>;

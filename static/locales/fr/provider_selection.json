@@ -1,8 +1,8 @@
 {
-    "injected_title": "Manager de Wallet injecte",
-    "injected_desc": "Utilisez votre propre wallet via votre manager de wallet favori",
-    "injected_unavailable": "Aucun Wallet provider injecte",
-    "t721_title": "Compte T721",
-    "t721_desc": "Utilisez votre Compte T721 pour gerer vos transactions",
-    "title": "Choisissez votre manager de wallet"
+    "injected_title": "Wallet Injecté",
+    "injected_desc": "Utilisez votre propre gestionnaire de Wallet",
+    "injected_unavailable": "Aucun Wallet externe détecté",
+    "t721_title": "Wallet Ticket721",
+    "t721_desc": "Utilisez un compte Ticket721 pour gérer votre Wallet",
+    "title": "Sélectionnez un Wallet"
 }
