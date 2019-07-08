@@ -8,6 +8,7 @@ import { I18N, I18NProps }       from '@utils/misc/i18n';
 import { message }               from 'antd';
 import UrlParse                  from 'url-parse';
 import { Textfit }               from 'react-textfit';
+import { RGA }                   from '../../utils/misc/ga';
 
 const ButtonGroup = Button.Group;
 
@@ -44,6 +45,7 @@ class EventImages extends React.Component<MergedEventImagesProps> {
                 maxCount: 3,
             });
             message.success(this.props.t('copied_to_clipboard'));
+            RGA.event({category: 'User', action: 'Share Button'});
         }
     }
 

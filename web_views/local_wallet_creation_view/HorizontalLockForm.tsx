@@ -10,6 +10,7 @@ import { SubmitEncryptedWallet } from '@utils/redux/app/actions';
 import { connect }               from 'react-redux';
 import { I18N, I18NProps }       from '@utils/misc/i18n';
 import { FormComponentProps }    from 'antd/lib/form';
+import { RGA }                   from '../../utils/misc/ga';
 
 const PasswordSchema = new PasswordValidator();
 
@@ -102,6 +103,7 @@ class HorizontalLockForm extends React.Component<MergedHorizontalLockFormProps, 
                     }
                     const encrypted_wallet = this.props.wallet_infos.wallet.toV3(values.password);
                     this.props.submit(JSON.stringify(encrypted_wallet));
+                    RGA.event({category: 'T721 Wallet', action: 'New Wallet Submitted'});
                     this.setState({
                         status: WalletCreationStatus.Sent
                     });

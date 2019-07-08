@@ -7,6 +7,7 @@ import MarketplaceContent              from './MarketplaceContent';
 import { withRouter, WithRouterProps } from 'next/router';
 import { StrapiEvent }                 from '../../utils/strapi/event';
 import { FullPageLoader }              from '../../web_components/loaders/FullPageLoader';
+import { RGA }                         from '../../utils/misc/ga';
 
 export interface MarketplaceViewProps {
     coinbase: StrapiAddress;
@@ -29,6 +30,10 @@ class MarketplaceView extends React.Component<MergedMarketplaceViewProps, Market
         events: [],
         query_rm: false
     };
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + window.location.search);
+    }
 
     set_page = (page: number): void => {
         console.log(page);

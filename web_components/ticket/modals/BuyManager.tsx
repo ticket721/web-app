@@ -16,12 +16,13 @@ import { to_ascii }                                     from '@utils/misc/ascii'
 import { Button, Divider, message, Select, Typography } from 'antd';
 import { SaleData }                                     from './OpenSaleModal';
 import { buy }                                          from '@web_contract_plugins/marketer/BuyMarketerController';
-import { Tx }                                           from 'ethvtx/lib/state/txs';
-import { getTransactionById }                           from 'ethvtx/lib/txs/helpers/getters';
-import TxProgress                                       from '@web_components/tx/TxProgress';
-import Address                                          from '@components/address';
-import currencies                                       from '@utils/currencies';
-import { theme }                                        from '../../../utils/theme';
+import { Tx }                 from 'ethvtx/lib/state/txs';
+import { getTransactionById } from 'ethvtx/lib/txs/helpers/getters';
+import TxProgress             from '@web_components/tx/TxProgress';
+import Address                from '@components/address';
+import currencies             from '@utils/currencies';
+import { theme }              from '../../../utils/theme';
+import { RGA }                from '../../../utils/misc/ga';
 
 const Option = Select.Option;
 
@@ -57,13 +58,15 @@ type MergedBuyManagerProps = BuyManagerProps & BuyManagerRState & BuyManagerRDis
 interface BuyManagerState {
     argument_page: number;
     currency: string;
+    construction_id: number;
 }
 
 export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyManagerState> {
 
     state: BuyManagerState = {
         argument_page: 0,
-        currency: null
+        currency: null,
+        construction_id: null
     };
 
     // If args will be supported
@@ -115,6 +118,13 @@ export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyM
 
     componentDidMount(): void {
         this.load_contract(this.props);
+        RGA.modalview(`/ticket/${this.props.ticket.ticket_id}/buy`);
+    }
+
+    componentWillMount(): void {
+        this.setState({
+            construction_id: this.props.ticket.ticket_id
+        });
     }
 
     componentWillUnmount(): void {
@@ -151,6 +161,10 @@ export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyM
                 message.error(this.props.t(result.error.message));
             }
 
+            RGA.event({
+                category: 'Tx - Ticket Buy',
+                action: `[${this.props.ticket.ticket_id}] Broadcast`,
+            });
             this.props.set_tx(result.tx_id);
 
         }
@@ -159,6 +173,30 @@ export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyM
     currency_change = (selection: string): void => {
         this.setState({
             currency: selection
+        });
+    }
+
+    RGA_on_buy_confirming = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Ticket Buy',
+            action: `[${this.state.construction_id}] Confirming`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_buy_confirmed = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Ticket Buy',
+            action: `[${this.state.construction_id}] Confirmed`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_buy_error = (tx_hash?: string): void => {
+        RGA.event({
+            category: 'Tx - Ticket Buy',
+            action: `[${this.state.construction_id}] Error`,
+            label: tx_hash || 'none'
         });
     }
 
@@ -269,6 +307,9 @@ export class BuyManagerClass extends React.Component<MergedBuyManagerProps, BuyM
                             tx={this.props.get_tx(this.props.args.tx_id)}
                             scope='buy_modal'
                             route='account'
+                            confirmation_in_progress_call={this.RGA_on_buy_confirming}
+                            confirmed_call={this.RGA_on_buy_confirmed}
+                            error_call={this.RGA_on_buy_error}
                         />
                     </div>
             }

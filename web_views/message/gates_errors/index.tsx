@@ -3,6 +3,7 @@ import { Typography }         from 'antd';
 import image                  from './image.svg';
 import { NamespacesConsumer } from 'react-i18next';
 import { theme }              from '../../../utils/theme';
+import { RGA }                from '../../../utils/misc/ga';
 
 // Props
 
@@ -11,6 +12,11 @@ export interface GatesErrorsProps {
 }
 
 export class GatesErrors extends React.Component<GatesErrorsProps> {
+
+    componentDidMount(): void {
+        RGA.pageview('/gate/' + this.props.message);
+    }
+
     render(): React.ReactNode {
         return <div
             style={{

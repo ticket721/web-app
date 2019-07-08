@@ -1,11 +1,12 @@
-import * as React                     from 'react';
-import { AppState }                   from '@utils/redux/app_state';
-import { connect }                    from 'react-redux';
-import StrapiCall                     from '@components/strapi';
-import { StrapiHelper }               from '@utils/StrapiHelper';
-import AccountTabs                    from './AccountTabs';
-import { FullPageLoader }             from '@web_components/loaders/FullPageLoader';
-import { FilterOptions }              from './FilterForm';
+import * as React         from 'react';
+import { AppState }       from '@utils/redux/app_state';
+import { connect }        from 'react-redux';
+import StrapiCall         from '@components/strapi';
+import { StrapiHelper }   from '@utils/StrapiHelper';
+import AccountTabs        from './AccountTabs';
+import { FullPageLoader } from '@web_components/loaders/FullPageLoader';
+import { FilterOptions }  from './FilterForm';
+import { RGA }            from '../../utils/misc/ga';
 
 // Props
 
@@ -52,6 +53,10 @@ class AccountView extends React.Component<IAccountViewProps, AccountViewState> {
             event: null
         }
     };
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + window.location.search);
+    }
 
     render(): React.ReactNode {
 

@@ -2,13 +2,14 @@ import * as React                            from 'react';
 import { Button, Card, Divider, Typography } from 'antd';
 import { theme }                             from '../../../utils/theme';
 import { VtxContract }                       from 'ethvtx/lib/contracts/VtxContract';
-import currencies                            from '@utils/currencies';
-import { FullPageLoader }                    from '../../loaders/FullPageLoader';
-import { AppState }                          from '../../../utils/redux/app_state';
-import { connect }                           from 'react-redux';
-import TxProgress                            from '../../tx/TxProgress';
-import { Tx }                                from 'ethvtx/lib/state/txs';
-import { getTransactionById }                from 'ethvtx/lib/txs/helpers/getters';
+import currencies             from '@utils/currencies';
+import { FullPageLoader }     from '../../loaders/FullPageLoader';
+import { AppState }           from '../../../utils/redux/app_state';
+import { connect }            from 'react-redux';
+import TxProgress             from '../../tx/TxProgress';
+import { Tx }                 from 'ethvtx/lib/state/txs';
+import { getTransactionById } from 'ethvtx/lib/txs/helpers/getters';
+import { RGA }                from '../../../utils/misc/ga';
 
 export interface FundCardProps {
     balance: string;
@@ -40,12 +41,40 @@ class FundCard extends React.Component<MergedFundCardProps, FundCardState> {
                     from: this.props.coinbase
                 })
             });
+            RGA.event({
+                category: 'Tx - Fund Withdrawal',
+                action: `[${this.props.contract.address}] Broadcast`
+            });
         }
     }
 
     clear = (): void => {
         this.setState({
             tx_id: null
+        });
+    }
+
+    RGA_on_withdrawal_confirming = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Fund Withdrawal',
+            action: `[${this.props.contract.address}] Confirming`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_withdrawal_confirmed = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Fund Withdrawal',
+            action: `[${this.props.contract.address}] Confirmed`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_withdrawal_error = (tx_hash?: string): void => {
+        RGA.event({
+            category: 'Tx - Fund Withdrawal',
+            action: `[${this.props.contract.address}] Error`,
+            label: tx_hash || 'none'
         });
     }
 
@@ -76,6 +105,9 @@ class FundCard extends React.Component<MergedFundCardProps, FundCardState> {
                                 t={this.props.t}
                                 tx={this.props.getTx(this.state.tx_id)}
                                 end_call={this.clear}
+                                confirmation_in_progress_call={this.RGA_on_withdrawal_confirming}
+                                confirmed_call={this.RGA_on_withdrawal_confirmed}
+                                error_call={this.RGA_on_withdrawal_error}
                             />
                         </div>
 

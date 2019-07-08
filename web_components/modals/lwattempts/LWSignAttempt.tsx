@@ -4,6 +4,7 @@ import { List, message, Row, Statistic, Typography } from 'antd';
 import { I18NProps }                                 from '@utils/misc/i18n';
 import moment                                        from 'moment';
 import { theme }                                     from '../../../utils/theme';
+import { RGA }                                       from '../../../utils/misc/ga';
 
 const Countdown = Statistic.Countdown;
 
@@ -17,6 +18,10 @@ export interface LWSignAttemptProps {
 type MergedLWSignAttemptProps = LWSignAttemptProps & I18NProps;
 
 export default class ILWSignAttempt extends React.Component<MergedLWSignAttemptProps> {
+
+    componentDidMount(): void {
+        RGA.modalview('/t721w/sign');
+    }
 
     render_func = (item: TypedData, idx: number): React.ReactNode => {
         if (idx === this.props.attempt.sign.length - 1) {

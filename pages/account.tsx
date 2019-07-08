@@ -8,7 +8,6 @@ import { connect }                      from 'react-redux';
 import { device_type }                  from '../utils/misc/device_type';
 import { FullPageLoader }               from '../web_components/loaders/FullPageLoader';
 import { SupportComingSoon }            from '../web_views/message/support_coming_soon';
-import { NavBarProps }                  from '../web_components/navbar/NavBar';
 
 const AppGate: React.ComponentType = dynamic<any>(async () => import('@web_components/appgate/AppGate'), {
     loading: (): React.ReactElement => null,

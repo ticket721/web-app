@@ -4,6 +4,7 @@ import { I18N, I18NProps }                                  from '../../utils/mi
 import { theme }                                            from '../../utils/theme';
 import HomeEventListFetcher                                 from './HomeEventListFetcher';
 import HomeEventListDrawerContent, { HomeEventListFilters } from './HomeEventListDrawerContent';
+import { RGA }                                              from '../../utils/misc/ga';
 
 export interface HomeViewProps {
 
@@ -44,6 +45,10 @@ class HomeView extends React.Component<MergedHomeViewProps, HomeViewState> {
             }
         }
     };
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + window.location.search);
+    }
 
     apply_filters = (): void => {
         this.setState({

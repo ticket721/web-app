@@ -5,6 +5,7 @@ import BigNumber                                    from 'bignumber.js';
 import { Markdown }                                 from 'grommet';
 import { I18NProps }                                from '../../../utils/misc/i18n';
 import { theme }                                    from '../../../utils/theme';
+import { RGA }                                      from '../../../utils/misc/ga';
 
 // Props
 
@@ -15,6 +16,10 @@ export interface LWTxAttemptProps {
 type MergedLWTxAttemptProps = LWTxAttemptProps & I18NProps;
 
 export default class ILWTxAttempt extends React.Component<MergedLWTxAttemptProps> {
+
+    componentDidMount(): void {
+        RGA.modalview('/t721w/tx');
+    }
 
     render_func = (item: any): React.ReactNode => <List.Item>
         <List.Item.Meta

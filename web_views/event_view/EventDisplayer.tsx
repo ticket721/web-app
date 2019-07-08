@@ -25,6 +25,7 @@ import EventEditInformations from './EventEditInformations';
 import EventEditCancel       from './EventEditCancel';
 import { Divider }           from 'antd';
 import EventFundsGrid        from './EventFundsGrid';
+import { RGA }               from '../../utils/misc/ga';
 
 // Props
 
@@ -94,6 +95,9 @@ class EventDisplayer extends React.Component<MergedEventDisplayerProps, EventDis
     }
 
     edit = (): void => {
+        if (!this.state.edit) {
+            RGA.event({category: 'User', action: 'Open Edit Form'});
+        }
         this.setState({
             edit: !this.state.edit
         });

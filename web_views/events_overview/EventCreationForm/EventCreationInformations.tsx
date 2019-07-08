@@ -10,6 +10,7 @@ import EventCreationImage    from './EventCreationImage';
 import EventCreationLocation from './EventCreationLocation';
 import EventCreationDates    from './EventCreationDates';
 import { theme }             from '../../../utils/theme';
+import { RGA }               from '../../../utils/misc/ga';
 
 // Props
 
@@ -22,6 +23,11 @@ export type EventCreationInformationsProps = EventCreationInformationsOwnProps &
 type MergedEventCreationInformationsProps = EventCreationInformationsProps & I18NProps;
 
 class EventCreationInformations extends React.Component<MergedEventCreationInformationsProps> {
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + '/create/informations');
+    }
+
     render(): React.ReactNode {
         return <div>
             <ReactReduxContext.Consumer>

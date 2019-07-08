@@ -1,6 +1,7 @@
 import { EventDeployProps }     from '../EventDeployProps';
 import * as React               from 'react';
 import { Checkbox, Typography } from 'antd';
+import { RGA }                  from '../../../../../utils/misc/ga';
 
 export interface EventCreationExplicationsOwnProps {
 
@@ -10,6 +11,10 @@ export type EventCreationExplicationsProps = EventCreationExplicationsOwnProps &
 type MergedEventCreationExplicationsProps = EventCreationExplicationsProps;
 
 export default class EventCreationExplications extends React.Component<MergedEventCreationExplicationsProps> {
+
+    componentDidMount(): void {
+        RGA.modalview('/create/explications');
+    }
 
     agree = (arg: any): void => {
         this.props.set({

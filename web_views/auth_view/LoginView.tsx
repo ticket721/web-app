@@ -4,6 +4,7 @@ import t721_auth_logo    from '@static/assets/ticket721/light.svg';
 import dynamic           from 'next/dynamic';
 import { Card, Divider } from 'antd';
 import { theme }         from '../../utils/theme';
+import { RGA }           from '../../utils/misc/ga';
 
 // Dyanmic Components
 
@@ -21,6 +22,11 @@ export interface LoginViewProps {
  * Login Form
  */
 export default class LoginView extends React.Component<LoginViewProps> {
+
+    componentDidMount(): void {
+        RGA.pageview('/login');
+    }
+
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
             <Card
