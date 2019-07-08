@@ -4,6 +4,8 @@ const withTypescript = require('@zeit/next-typescript');
 const withCSS = require('@zeit/next-css');
 const withImages = require('next-images');
 const webpack = require('webpack');
+const withVideos = require('next-videos');
+
 
 const lessToJS = require('less-vars-to-js');
 const fs = require('fs');
@@ -25,11 +27,12 @@ module.exports = {
 
         return config
     },
-    ...withTypescript(withLess(withCSS(withImages({
+    ...withTypescript(withLess(withCSS(withImages(withVideos({
+        assetPrefix: '',
         lessLoaderOptions: {
             javascriptEnabled: true,
             modifyVars: themeVariables
         }
-    }))))
+    })))))
 };
 
