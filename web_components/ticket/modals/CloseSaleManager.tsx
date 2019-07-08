@@ -20,6 +20,7 @@ import { Tx }                          from 'ethvtx/lib/state/txs';
 import { getTransactionById }          from 'ethvtx/lib/txs/helpers/getters';
 import TxProgress                      from '@web_components/tx/TxProgress';
 import { theme }                       from '../../../utils/theme';
+import { RGA }                         from '../../../utils/misc/ga';
 
 export interface CloseSaleManagerProps {
     ticket: StrapiTicket;
@@ -52,12 +53,14 @@ type MergedCloseSaleManagerProps = CloseSaleManagerProps & CloseSaleManagerRStat
 
 interface CloseSaleManagerState {
     argument_page: number;
+    construction_id: number;
 }
 
 export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManagerProps, CloseSaleManagerState> {
 
     state: CloseSaleManagerState = {
-        argument_page: 0
+        argument_page: 0,
+        construction_id: null
     };
 
     constructor(props: MergedCloseSaleManagerProps) {
@@ -111,8 +114,15 @@ export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManage
 
     }
 
+    componentWillMount(): void {
+        this.setState({
+            construction_id: this.props.ticket.ticket_id
+        });
+    }
+
     componentDidMount(): void {
         this.load_contract(this.props);
+        RGA.modalview(`/ticket/${this.props.ticket.ticket_id}/close_sale`);
     }
 
     shouldComponentUpdate(nextProps: Readonly<CloseSaleManagerProps & CloseSaleManagerRState & CloseSaleManagerRDispatch>, nextState: Readonly<{}>, nextContext: any): boolean {
@@ -136,8 +146,12 @@ export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManage
                 message.error(this.props.t(result.error.message));
             }
 
-            this.props.set_tx(result.tx_id);
+            RGA.event({
+                category: 'Tx - Close Ticket Sale',
+                action: `[${this.state.construction_id}] Broadcast`,
+            });
 
+            this.props.set_tx(result.tx_id);
         }
     }
 
@@ -182,6 +196,30 @@ export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManage
                 </Button>
             ];
         }
+    }
+
+    RGA_on_close_sale_confirming = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Close Ticket Sale',
+            action: `[${this.state.construction_id}] Confirming`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_close_sale_confirmed = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Close Ticket Sale',
+            action: `[${this.state.construction_id}] Confirmed`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_close_sale_error = (tx_hash?: string): void => {
+        RGA.event({
+            category: 'Tx - Close Ticket Sale',
+            action: `[${this.state.construction_id}] Error`,
+            label: tx_hash || 'none'
+        });
     }
 
     render(): React.ReactNode {
@@ -242,6 +280,9 @@ export class CloseSaleManagerClass extends React.Component<MergedCloseSaleManage
                         tx={this.props.get_tx(this.props.args.tx_id)}
                         scope='close_sale_modal'
                         route={'account'}
+                        confirmation_in_progress_call={this.RGA_on_close_sale_confirming}
+                        confirmed_call={this.RGA_on_close_sale_confirmed}
+                        error_call={this.RGA_on_close_sale_error}
                     />
             }
         </div>;

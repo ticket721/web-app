@@ -8,6 +8,7 @@ import { compatible }               from '@web_contract_plugins/compatible';
 import { I18N }                     from '@utils/misc/i18n';
 import _                            from 'lodash-core';
 import { theme }                    from '../../../utils/theme';
+import { RGA }                      from '../../../utils/misc/ga';
 
 const {Option}: any = Select;
 
@@ -30,6 +31,10 @@ class ApproverSelectionForm extends React.Component<MergedApproverSelectionFormP
     state: ApproverSelectionFormState = {
         selected: null
     };
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + '/create/approver');
+    }
 
     constructor(props: MergedApproverSelectionFormProps) {
         super(props);

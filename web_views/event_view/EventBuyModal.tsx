@@ -12,6 +12,7 @@ import { AppState }           from '@utils/redux/app_state';
 import { getTransactionById } from 'ethvtx/lib/txs/helpers/getters';
 import { connect }            from 'react-redux';
 import { theme }              from '../../utils/theme';
+import { RGA }                from '../../utils/misc/ga';
 
 // Props
 
@@ -110,6 +111,11 @@ class EventBuyModal extends React.Component<MergedEventBuyModalProps, EventBuyMo
             if (MintingController[this.props.price_selection] && MintingController[this.props.price_selection][this.props.minter.name] && price) {
 
                 const tx_id = MintingController[this.props.price_selection][this.props.minter.name](this.props.contract, this.props.coinbase, price, this.props.categories[this.props.selection].name);
+
+                RGA.event({
+                    category: 'Tx - Ticket Purchase',
+                    action: `[${this.props.event.address.address}] Broadcast`,
+                });
 
                 this.setState({
                     tx_id

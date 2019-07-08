@@ -7,6 +7,7 @@ import { StrapiCallFn, StrapiHelper } from '@utils/StrapiHelper';
 import EventDisplayer                 from './EventDisplayer';
 import { StrapiAddress }              from '@utils/strapi/address';
 import { NotAnEvent }                 from '../message/not_an_event';
+import { RGA }                        from '../../utils/misc/ga';
 
 // Props
 
@@ -40,6 +41,10 @@ const filter_query_result = (qr: any[]): any[] => {
 };
 
 class EventView extends React.Component<MergedEventViewProps> {
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + window.location.search);
+    }
 
     render(): React.ReactNode {
 

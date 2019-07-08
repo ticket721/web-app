@@ -6,6 +6,7 @@ import { AppState, AuthStatus }                            from '@utils/redux/ap
 import { Register }                                        from '@utils/redux/app/actions';
 import { connect }                                         from 'react-redux';
 import { FormComponentProps }                              from 'antd/lib/form';
+import { RGA }                                             from '../../utils/misc/ga';
 
 // Props
 
@@ -28,6 +29,7 @@ class RegisterForm extends React.Component<MergedRegisterFormProps> {
         e.preventDefault();
         this.props.form.validateFields((err: Error, values: any) => {
             if (!err) {
+                RGA.event({category: 'Register', action: 'Submit Register Form'});
                 this.props.register(values.username, values.password, values.email);
             }
         });

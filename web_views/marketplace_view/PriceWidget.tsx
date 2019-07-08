@@ -32,9 +32,6 @@ class PriceWidget extends React.Component<MergedPriceWidgetProps> {
         const carousel_elements = this.gen_carousel_elements();
 
         return <div>
-            <div style={{position: 'absolute', marginTop: -50, marginLeft: 12, width: 150, textAlign: 'center'}}>
-                <Typography.Text style={{color: theme.dark2, fontSize: 36}}>💰</Typography.Text>
-            </div>
             <Card id={'info_card'} style={{marginLeft: 12, height: 194, width: 150, backgroundColor: theme.dark2, borderRadius: 6, borderColor: theme.dark2, boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'}}>
                 {left > 0
 

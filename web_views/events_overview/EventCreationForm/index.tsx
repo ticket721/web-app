@@ -8,6 +8,7 @@ import { StrapiMinter }           from '@utils/strapi/minter';
 import { StrapiMarketer }         from '@utils/strapi/marketer';
 import { StrapiApprover }         from '@utils/strapi/approver';
 import { StrapiEventContract }    from '@utils/strapi/eventcontract';
+import { RGA }                    from '../../../utils/misc/ga';
 
 // Dynamic Components
 

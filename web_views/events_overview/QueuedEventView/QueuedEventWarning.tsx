@@ -2,6 +2,7 @@ import * as React                 from 'react';
 import { Icon, Spin, Typography } from 'antd';
 import { I18N, I18NProps }        from '../../../utils/misc/i18n';
 import { theme }                  from '../../../utils/theme';
+import { RGA }                    from '../../../utils/misc/ga';
 
 export interface QueuedEventWarningProps {
     edit: () => void;
@@ -22,6 +23,10 @@ class QueuedEventWarning extends React.Component<MergedQueuedEventWarningProps, 
 
     on_start = (): void => {
         this.props.start();
+        RGA.event({
+            category: 'Tx - Event Start',
+            action: 'Broadcast'
+        });
         this.setState({
             started: true
         });

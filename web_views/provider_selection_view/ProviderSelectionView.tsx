@@ -5,6 +5,7 @@ import { InjectedProviderChoiceProps } from './InjectedProviderChoice';
 import { T721ProviderChoiceProps }     from './T721ProviderChoice';
 import dynamic                         from 'next-server/dynamic';
 import { I18NProps }                   from '../../utils/misc/i18n';
+import { RGA }                         from '../../utils/misc/ga';
 
 // Dyanmic Components
 
@@ -25,6 +26,11 @@ type MergedProviderSelectionViewProps = ProviderSelectionViewProps & I18NProps;
  * Provider selection buttons
  */
 export default class ProviderSelectionView extends React.Component<MergedProviderSelectionViewProps> {
+
+    componentDidMount(): void {
+        RGA.pageview('/provider');
+    }
+
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%'}}>
             <Grid

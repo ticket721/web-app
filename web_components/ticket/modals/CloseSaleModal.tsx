@@ -93,6 +93,7 @@ class CloseSaleModal extends React.Component<MergedCloseSaleModalProps, OpenSale
                 title={this.props.t('close_sale_modal_title')}
                 visible={this.props.visible}
                 onCancel={this.on_close}
+                destroyOnClose={true}
                 footer={[
                     <Button key='back' onClick={this.on_close}>
                         {this.props.t('close_sale_modal_cancel_button')}

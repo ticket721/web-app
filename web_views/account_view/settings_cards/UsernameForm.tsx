@@ -3,7 +3,7 @@ import { SyntheticEvent }                                 from 'react';
 import { StrapiAddress }                                  from '@utils/strapi/address';
 import { Button, Card, Input, message, Spin, Typography } from 'antd';
 import { I18N, I18NProps }                                from '@utils/misc/i18n';
-import { HandleGetter }                                   from '../misc/HandleGetter';
+import { HandleGetter }                 from '../misc/HandleGetter';
 import { AppState, WalletProviderType } from '@utils/redux/app_state';
 import { connect }                      from 'react-redux';
 import { sign }                         from '@utils/misc/Web3TypedSignature';
@@ -11,6 +11,7 @@ import Strapi                           from 'strapi-sdk-javascript';
 import { Dispatch }                     from 'redux';
 import { StrapiHelper }                 from '@utils/StrapiHelper';
 import { theme }                        from '../../../utils/theme';
+import { RGA }                          from '../../../utils/misc/ga';
 
 export interface UsernameFormProps {
     strapi_address: StrapiAddress;
@@ -79,6 +80,10 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
                 loading: true
             });
 
+            RGA.event({
+                category: 'User',
+                action: 'Username Edition Request'
+            });
             sign(this.props.web3, this.props.coinbase, [
                     {
                         type: 'string',
@@ -103,6 +108,10 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
                         maxCount: 3,
                     });
                     message.success(this.props.t('settings_username_upload_success'));
+                    RGA.event({
+                        category: 'User',
+                        action: 'Succesful Username Edition'
+                    });
 
                     this.props.resetCoinbase();
 
@@ -115,6 +124,11 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
                         duration: 2,
                         maxCount: 3,
                     });
+                    RGA.event({
+                        category: 'User',
+                        action: 'Username Edition Error',
+                        value: 5
+                    });
                     message.error(this.props.t('settings_username_upload_error'));
                 }
             }).catch((e: Error): void => {
@@ -125,6 +139,11 @@ class UsernameForm extends React.Component<MergedUsernameFormProps, UsernameForm
                     top: 10,
                     duration: 2,
                     maxCount: 3,
+                });
+                RGA.event({
+                    category: 'User',
+                    action: 'Username Edition Error',
+                    value: 5
                 });
                 message.error(this.props.t('settings_username_upload_error'));
             });
