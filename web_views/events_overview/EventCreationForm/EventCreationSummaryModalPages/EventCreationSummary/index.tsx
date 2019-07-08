@@ -8,6 +8,7 @@ import { DatePicker }               from 'antd';
 const RangePicker: any = DatePicker.RangePicker;
 import moment                       from 'moment';
 import { theme }                    from '../../../../../utils/theme';
+import { RGA }                      from '../../../../../utils/misc/ga';
 
 interface EventCreationSummaryOwnProps {
 
@@ -17,6 +18,11 @@ export type EventCreationSummaryProps = EventCreationSummaryOwnProps & EventDepl
 type MergedEventCreationSummaryProps = EventCreationSummaryProps;
 
 export default class IEventCreationSummary extends React.Component<MergedEventCreationSummaryProps> {
+
+    componentDidMount(): void {
+        RGA.modalview('/create/summary');
+    }
+
     render(): React.ReactNode {
         return <div>
 

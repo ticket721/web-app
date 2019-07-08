@@ -14,6 +14,7 @@ import { StrapiCoinbaseContext, StrapiCoinbaseConsumer } from '@components/conte
 import { routes }                                        from '@utils/routing';
 import { StrapiHelper }                                  from '../../../../../utils/StrapiHelper';
 import { theme }                                         from '../../../../../utils/theme';
+import { RGA }                                           from '../../../../../utils/misc/ga';
 
 // Props
 
@@ -43,14 +44,26 @@ interface EventCreationDeployState {
     deploy_tx_id: number;
     uploading: boolean;
     upload_result: any;
+    tx_confirming: boolean;
+    tx_confirmed: boolean;
+    tx_error: boolean;
+    upload_error: boolean;
 }
 
 class EventCreationDeploy extends React.Component<MergedEventCreationDeployProps, EventCreationDeployState> {
 
+    componentDidMount(): void {
+        RGA.modalview('/create/deploy');
+    }
+
     state: EventCreationDeployState = {
         deploy_tx_id: null,
         uploading: false,
-        upload_result: null
+        upload_result: null,
+        tx_confirming: false,
+        tx_confirmed: false,
+        tx_error: false,
+        upload_error: false
     };
 
     readonly on_deploy = (): void => {
@@ -69,6 +82,10 @@ class EventCreationDeploy extends React.Component<MergedEventCreationDeployProps
             .concat(this.props.marketers[this.props.form_data.minter].build_arguments.map((arg_name: any): any => this.props.form_data.minter_args[arg_name.name]))
             .concat(this.props.approvers[this.props.form_data.minter].build_arguments.map((arg_name: any): any => this.props.form_data.minter_args[arg_name.name]));
 
+        RGA.event({
+            category: 'Tx - Event Creation',
+            action: 'Broadcast'
+        });
         this.setState({
             deploy_tx_id: this.props.deploy(event_contract.name, {
                 from: this.props.coinbase
@@ -89,6 +106,67 @@ class EventCreationDeploy extends React.Component<MergedEventCreationDeployProps
             image: image_result[0].id
         };
 
+    }
+
+    componentWillUpdate(nextProps: Readonly<EventCreationDeployOwnProps & EventDeployProps & EventCreationDeployRState & EventCreationDeployRDispatch>, nextState: Readonly<EventCreationDeployState>, nextContext: any): void {
+        if (nextProps.get_tx && nextState.deploy_tx_id !== null) {
+            const tx = nextProps.get_tx(nextState.deploy_tx_id);
+            if (!tx) return ;
+
+            switch (tx.status) {
+                case 'Confirming': {
+                    if (nextState.tx_confirming === false) {
+                        RGA.event({
+                            category: 'Tx - Event Creation',
+                            action: 'Confirming',
+                            label: tx.hash
+                        });
+                        this.setState({
+                            tx_confirming: true
+                        });
+                    }
+                    break ;
+                }
+                case 'Confirmed': {
+                    if (nextState.tx_confirmed === false) {
+                        RGA.event({
+                            category: 'Tx - Event Creation',
+                            action: 'Confirmed',
+                            label: tx.hash
+                        });
+                        this.setState({
+                            tx_confirmed: true
+                        });
+                    }
+                    break ;
+                }
+                case 'Error': {
+                    if (nextState.tx_error === false) {
+                        RGA.event({
+                            category: 'Tx - Event Creation',
+                            action: 'Error',
+                            label: tx.hash || 'none',
+                            value: 5
+                        });
+                        this.setState({
+                            tx_error: true
+                        });
+                    }
+                    break ;
+                }
+            }
+
+            if (nextState.upload_result && nextState.upload_result.error && nextState.upload_error === false) {
+                this.setState({
+                    upload_error: true
+                });
+                RGA.event({
+                    category: 'Event',
+                    action: 'Event Creation Upload Error',
+                    value: 5
+                });
+            }
+        }
     }
 
     get_progress = (): { progress: number; text: string; type: string; } => {

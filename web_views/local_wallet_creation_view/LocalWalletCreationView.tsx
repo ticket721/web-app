@@ -8,6 +8,7 @@ import { I18NProps }               from '../../utils/misc/i18n';
 import { Typography }              from 'antd';
 import { HorizontalLockFormProps } from './HorizontalLockForm';
 import { theme }                   from '../../utils/theme';
+import { RGA }                     from '../../utils/misc/ga';
 
 // Dynamic Components
 
@@ -50,6 +51,10 @@ export default class LocalWalletCreationView extends React.Component<MergedLocal
                 address: wallet.getChecksumAddressString()
             }
         };
+    }
+
+    componentDidMount(): void {
+        RGA.pageview('/t721w/create');
     }
 
     onReloadWallet = (): void => {

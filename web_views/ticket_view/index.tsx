@@ -8,8 +8,8 @@ import { StrapiTicket }               from '../../utils/strapi/ticket';
 import TicketLayout                   from './TicketLayout';
 import { StrapiAddress }              from '../../utils/strapi/address';
 import { StrapiEvent }                from '../../utils/strapi/event';
-import { StrapiEventContract }        from '../../utils/strapi/eventcontract';
 import { NoTicketId }                 from '../message/no_ticket_id';
+import { RGA }                        from '../../utils/misc/ga';
 
 // Props
 
@@ -46,6 +46,10 @@ const filter_strapi = (entities: any[]): any[] => {
 };
 
 class TicketView extends React.Component<MergedTicketViewProps, TicketViewState> {
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + window.location.search);
+    }
 
     render(): React.ReactNode {
 

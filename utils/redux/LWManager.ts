@@ -7,6 +7,7 @@ import Web3                                     from 'web3';
 import { LWTXAddSignAttempt, LWTXAddTxAttempt } from './lwtransactions/actions';
 import { getAccount }                           from 'ethvtx/lib/accounts/helpers/getters';
 import { typed_signature }                      from '../misc/Web3TypedSignature';
+import { RGA }                                  from '../misc/ga';
 
 /**
  * This class manages the web3 instance used in the T721Provider Scenario
@@ -46,11 +47,20 @@ export class LWManager {
                 switch (new_state.app.t721_wallet.status) {
                     case LocalWalletStatus.Locked: {
                         end_sub_cb();
+                        RGA.event({
+                            category: 'T721 Wallet',
+                            action: 'Unlock Fail',
+                            value: 5
+                        });
                         ko();
                         break;
                     }
                     case LocalWalletStatus.Unlocked: {
                         end_sub_cb();
+                        RGA.event({
+                            category: 'T721 Wallet',
+                            action: 'Unlock Success'
+                        });
                         ok();
                         break;
                     }
@@ -159,7 +169,16 @@ export class LWManager {
                     ++LWManager.id;
                     try {
                         await LWManager.signAttempt(msgParams, LWManager.id - 1);
+                        RGA.event({
+                            category: 'T721 Wallet',
+                            action: 'Signature Success'
+                        });
                     } catch (e) {
+                        RGA.event({
+                            category: 'T721 Wallet',
+                            action: 'Signature Failed',
+                            value: 5
+                        });
                         return cb(new Error('Signature Cancelled or Timed Out'), null);
                     }
 
@@ -208,6 +227,11 @@ export class LWManager {
                     command.params = [
                         '0x' + tx.serialize().toString('hex')
                     ];
+
+                    RGA.event({
+                        category: 'T721 Wallet',
+                        action: 'Transaction Sent'
+                    });
 
                     break ;
             }

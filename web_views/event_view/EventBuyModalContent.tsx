@@ -8,6 +8,7 @@ import CurrencyConverter    from '@web_components/event/display/CurrencyConverte
 import TxProgress           from '@web_components/tx/TxProgress';
 import { Tx }               from 'ethvtx/lib/state/txs';
 import { theme }            from '../../utils/theme';
+import { RGA }              from '../../utils/misc/ga';
 
 // Props
 
@@ -51,6 +52,10 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
         return content;
     }
 
+    componentDidMount(): void {
+        RGA.modalview('buy_ticket');
+    }
+
     render_item = (item: any): React.ReactNode =>
         <List.Item>
             <List.Item.Meta
@@ -58,6 +63,31 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
                 description={item.content}
             />
         </List.Item>
+
+    RGA_on_ticket_purchase_confirming = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Ticket Purchase',
+            action: `[${this.props.event.address.address}] Confirming`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_ticket_purchase_confirmed = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Ticket Purchase',
+            action: `[${this.props.event.address.address}] Confirmed`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_ticket_purchase_error = (tx_hash?: string): void => {
+        RGA.event({
+            category: 'Tx - Ticket Purchase',
+            action: `[${this.props.event.address.address}] Error`,
+            label: tx_hash || 'none',
+            value: 5
+        });
+    }
 
     render(): React.ReactNode {
 
@@ -108,7 +138,15 @@ export default class EventBuyModalContent extends React.Component<EventBuyModalC
                             </div>
                         </div>
                     :
-                    <TxProgress t={this.props.t} tx={this.props.tx} scope='buy_modal' route='account'/>
+                    <TxProgress
+                        t={this.props.t}
+                        tx={this.props.tx}
+                        scope='buy_modal'
+                        route='account'
+                        error_call={this.RGA_on_ticket_purchase_error}
+                        confirmed_call={this.RGA_on_ticket_purchase_confirmed}
+                        confirmation_in_progress_call={this.RGA_on_ticket_purchase_confirming}
+                    />
             }
         </div>;
     }

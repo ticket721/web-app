@@ -10,6 +10,7 @@ import { I18N }                             from '@utils/misc/i18n';
 import _                                    from 'lodash-core';
 import { minterBuildArgumentsConfigurator } from '../minterBuildArgumentsConfigurator';
 import { theme }                            from '../../../utils/theme';
+import { RGA }                              from '../../../utils/misc/ga';
 
 const {Option}: any = Select;
 
@@ -32,6 +33,10 @@ class MinterSelectionForm extends React.Component<MergedMinterSelectionFormProps
     state: MinterSelectionFormState = {
         selected: null
     };
+
+    componentDidMount(): void {
+        RGA.pageview(window.location.pathname + '/create/minter');
+    }
 
     constructor(props: MergedMinterSelectionFormProps) {
         super(props);

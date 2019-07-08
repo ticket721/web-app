@@ -1,10 +1,10 @@
 import * as React        from 'react';
 import { FullDiv }       from '@components/html/FullDiv';
-import { Box, Grid }     from 'grommet';
 import t721_auth_logo    from '@static/assets/ticket721/dark.svg';
 import dynamic           from 'next/dynamic';
 import { Card, Divider } from 'antd';
 import { theme }         from '../../utils/theme';
+import { RGA }           from '../../utils/misc/ga';
 
 // Dynamic Components
 
@@ -22,6 +22,10 @@ export interface RegisterViewProps {
  * Register Form
  */
 export default class RegisterView extends React.Component<RegisterViewProps> {
+    componentDidMount(): void {
+        RGA.pageview('/register');
+    }
+
     render(): React.ReactNode {
         return <FullDiv style={{padding: '2%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div>

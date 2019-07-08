@@ -18,6 +18,7 @@ import { I18N, namespaces } from '@utils/misc/i18n';
 
 // Style imports
 import '@utils/styles/default_fonts.css';
+import { RGA }              from '../utils/misc/ga';
 
 // App
 class T721App extends App {
@@ -47,6 +48,7 @@ class T721App extends App {
             if (global.window.__T721_REDUX_STORE__ === undefined) {
                 global.window.__T721_REDUX_STORE__ = store;
                 onClient(setupApp)(store, pageProps.CONFIG);
+                onClient(RGA.initialize)(pageProps.CONFIG.google_analytics_token);
             } else {
                 store = global.window.__T721_REDUX_STORE__;
             }

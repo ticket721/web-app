@@ -1,6 +1,5 @@
 import React                                              from 'react';
 import dynamic                          from 'next/dynamic';
-import { AccountViewProps }             from '../web_views/account_view';
 import { isValidAddress }               from 'ethereumjs-util';
 import { InvalidAddress }               from '../web_views/message/invalid_address';
 import { MarketplaceViewProps }         from '../web_views/marketplace_view';

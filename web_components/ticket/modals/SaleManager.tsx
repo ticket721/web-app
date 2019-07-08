@@ -24,6 +24,7 @@ import { getTransactionById }                 from 'ethvtx/lib/txs/helpers/gette
 import TxProgress                             from '@web_components/tx/TxProgress';
 import { marketerBuildArgumentsConfigurator } from '../../../web_contract_plugins/marketer/marketerBuildArgumentsConfigurator';
 import { theme }                              from '../../../utils/theme';
+import { RGA }                                from '../../../utils/misc/ga';
 
 export interface SaleManagerProps {
     ticket: StrapiTicket;
@@ -56,18 +57,15 @@ type MergedSaleManagerProps = SaleManagerProps & SaleManagerRState & SaleManager
 
 interface SaleManagerState {
     argument_page: number;
+    construction_id: number;
 }
 
 export class SaleManagerClass extends React.Component<MergedSaleManagerProps, SaleManagerState> {
 
     state: SaleManagerState = {
-        argument_page: 0
+        argument_page: 0,
+        construction_id: null
     };
-
-    constructor(props: MergedSaleManagerProps) {
-        super(props);
-
-    }
 
     page_ready = (): boolean => {
         const args = this.props.contract_plugins.marketer.action_arguments.slice(this.state.argument_page * 2, (this.state.argument_page + 1) * 2);
@@ -111,8 +109,15 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
 
     }
 
+    componentWillMount(): void {
+        this.setState({
+            construction_id: this.props.ticket.ticket_id
+        });
+    }
+
     componentDidMount(): void {
         this.load_contract(this.props);
+        RGA.modalview(`/ticket/${this.props.ticket.ticket_id}/open_sale`);
     }
 
     shouldComponentUpdate(nextProps: Readonly<SaleManagerProps & SaleManagerRState & SaleManagerRDispatch>, nextState: Readonly<{}>, nextContext: any): boolean {
@@ -134,6 +139,11 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
                 });
                 message.error(this.props.t(result.error.message));
             }
+
+            RGA.event({
+                category: 'Tx - Open Ticket Sale',
+                action: `[${this.state.construction_id}] Broadcast`,
+            });
 
             this.props.set_tx(result.tx_id);
 
@@ -180,6 +190,30 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
                 </Button>
             ];
         }
+    }
+
+    RGA_on_sale_confirming = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Open Ticket Sale',
+            action: `[${this.state.construction_id}] Confirming`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_sale_confirmed = (tx_hash: string): void => {
+        RGA.event({
+            category: 'Tx - Open Ticket Sale',
+            action: `[${this.state.construction_id}] Confirmed`,
+            label: tx_hash
+        });
+    }
+
+    RGA_on_sale_error = (tx_hash?: string): void => {
+        RGA.event({
+            category: 'Tx - Open Ticket Sale',
+            action: `[${this.state.construction_id}] Error`,
+            label: tx_hash || 'none'
+        });
     }
 
     render(): React.ReactNode {
@@ -259,6 +293,9 @@ export class SaleManagerClass extends React.Component<MergedSaleManagerProps, Sa
                             tx={this.props.get_tx(this.props.args.tx_id)}
                             scope='sale_modal'
                             route='marketplace'
+                            confirmation_in_progress_call={this.RGA_on_sale_confirming}
+                            confirmed_call={this.RGA_on_sale_confirmed}
+                            error_call={this.RGA_on_sale_error}
                         />
                     </div>
             }

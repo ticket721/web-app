@@ -23,7 +23,7 @@ import {
 import { call, put, select, takeEvery }                                        from 'redux-saga/effects';
 import { AppModuleReady, AppState, AppStatus, AuthStatus, WalletProviderType } from '../app_state';
 import Strapi                                                                  from 'strapi-sdk-javascript';
-import { RxDatabase }                                                          from 'rxdb';
+import { RxDatabase }                   from 'rxdb';
 import { getRxDB }                      from '../../rxdb';
 import {
     VtxconfigReset,
@@ -36,6 +36,7 @@ import {
 }                                       from 'ethvtx/lib/actions';
 import { LWManager }                    from '../LWManager';
 import { VtxconfigAuthorizeAndSetWeb3 } from 'ethvtx/lib/vtxconfig/actions/actions';
+import { RGA }                          from '../../misc/ga';
 
 /**
  * Called when the app starts. Builds Strapi and sets it in the store.
@@ -127,6 +128,10 @@ export function* onSetWalletProvider(action: ISetWalletProvider): SagaIterator {
 
     switch (action.provider) {
         case WalletProviderType.InjectedProvider: {
+            RGA.event({
+                category: 'User',
+                action: 'Selected InjectedProvider'
+            });
             yield put(StartVortex());
             break ;
         }
@@ -273,11 +278,13 @@ function* onAuth(action: IAuth): SagaIterator {
         try {
             const token = yield call(strapi.login.bind(strapi), action.username, action.password);
 
+            RGA.event({category: 'Login', action: 'Succesful Login'});
             yield put(SetAuthStatus(AuthStatus.None));
             yield put(SetToken(token.jwt, action.remember));
             yield put(FetchLocalWallet());
 
         } catch (e) {
+            RGA.event({category: 'Login', action: 'Login Fail', value: 5});
             if (e.message.indexOf('Identifier or password invalid') !== -1) {
                 return yield put(SetAuthStatus(AuthStatus.AuthInvalidIdentifierOrPassword));
             }
@@ -304,11 +311,13 @@ function* onRegister(action: IRegister): SagaIterator {
 
             // TODO Validation link
 
+            RGA.event({category: 'Register', action: 'Succesful Register'});
             yield put(SetAuthStatus(AuthStatus.None));
             yield put(SetToken(token.jwt, true));
             yield put(FetchLocalWallet());
 
         } catch (e) {
+            RGA.event({category: 'Register', action: 'Register Fail', value: 5});
             if (e.message.indexOf('Email is already taken') !== -1) {
                 return yield put(SetAuthStatus(AuthStatus.RegisterEmailAlreadyInUse));
             }
@@ -389,7 +398,16 @@ function* onSubmitEncryptedWallet(action: ISubmitEncryptedWallet): SagaIterator 
                     encrypted_wallet: action.encrypted_wallet
                 }
             });
+            RGA.event({
+                category: 'User',
+                action: 'Succesful T721 wallet upload'
+            });
         } catch (e) {
+            RGA.event({
+                category: 'User',
+                action: 'T721 wallet upload error',
+                value: 5
+            });
             console.error(e);
         }
 

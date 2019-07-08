@@ -1,12 +1,13 @@
 import * as React                                          from 'react';
 import { Button, Checkbox, Form, Icon, Input, Typography } from 'antd';
-import { I18N, I18NProps }                                 from '@utils/misc/i18n';
-import { AppState, AuthStatus }                            from '@utils/redux/app_state';
-import { Dispatch }                                        from 'redux';
-import { Auth }                                            from '@utils/redux/app/actions';
-import { connect }                                         from 'react-redux';
-import { FormComponentProps }                              from 'antd/lib/form';
-import { theme }                                           from '../../utils/theme';
+import { I18N, I18NProps }      from '@utils/misc/i18n';
+import { AppState, AuthStatus } from '@utils/redux/app_state';
+import { Dispatch }             from 'redux';
+import { Auth }                 from '@utils/redux/app/actions';
+import { connect }              from 'react-redux';
+import { FormComponentProps }   from 'antd/lib/form';
+import { theme }                from '../../utils/theme';
+import { RGA }                  from '../../utils/misc/ga';
 
 // Props
 
@@ -29,6 +30,7 @@ class LoginForm extends React.Component<MergedLoginFormProps> {
         e.preventDefault();
         this.props.form.validateFields((err: Error, values: any) => {
             if (!err) {
+                RGA.event({category: 'Login', action: 'Submit Login Credentials'});
                 this.props.auth(values.username, values.password, values.remember);
             }
         });

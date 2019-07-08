@@ -13,6 +13,9 @@ export interface TxProgressProps {
     route?: string;
     params?: any;
     end_call?: () => void;
+    confirmation_in_progress_call?: (tx_hash: string) => void;
+    confirmed_call?: (tx_hash: string) => void;
+    error_call?: (tx_hash?: string) => void;
 }
 
 interface TxProgressRState {
@@ -22,7 +25,46 @@ interface TxProgressRState {
 
 type MergedTxProgressProps = TxProgressProps & TxProgressRState;
 
-class TxProgress extends React.Component<MergedTxProgressProps> {
+interface TxProgressState {
+    confirmation_in_progress_call: boolean;
+    confirmed_call: boolean;
+    error_call: boolean;
+}
+
+class TxProgress extends React.Component<MergedTxProgressProps, TxProgressState> {
+
+    state: TxProgressState = {
+        confirmation_in_progress_call: false,
+        confirmed_call: false,
+        error_call: false
+    };
+
+    componentWillUpdate(nextProps: Readonly<TxProgressProps & TxProgressRState>, nextState: Readonly<TxProgressState>, nextContext: any): void {
+        if (nextProps.tx) {
+
+            if (nextProps.tx.status === 'Confirming' && nextState.confirmation_in_progress_call === false && nextProps.confirmation_in_progress_call) {
+                nextProps.confirmation_in_progress_call(nextProps.tx.hash);
+                this.setState({
+                    confirmation_in_progress_call: true
+                });
+            }
+
+            if (nextProps.tx.status === 'Confirmed' && nextState.confirmed_call === false && nextProps.confirmed_call) {
+                nextProps.confirmed_call(nextProps.tx.hash);
+                this.setState({
+                    confirmed_call: true
+                });
+            }
+
+            if (nextProps.tx.status === 'Error' && nextState.error_call === false && nextProps.error_call) {
+                nextProps.error_call(nextProps.tx.hash);
+                this.setState({
+                    error_call: true
+                });
+            }
+
+        }
+    }
 
     status_builder = (): any => {
 

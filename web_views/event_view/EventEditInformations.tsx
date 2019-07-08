@@ -9,12 +9,13 @@ import { AppState }              from '../../utils/redux/app_state';
 import { connect }               from 'react-redux';
 import { sign }                  from '../../utils/misc/Web3TypedSignature';
 import { Dispatch }              from 'redux';
-import { StrapiHelper }          from '../../utils/StrapiHelper';
-import EditDescription           from '../../web_components/event/display/EditDescription';
-import EditDates                 from '../../web_components/event/display/EditDates';
-import EditLocation              from '../../web_components/event/display/EditLocation';
-import EditImageC, { EditImage } from '../../web_components/event/display/EditImage';
-import EditBannersC, { EditBanners }           from '../../web_components/event/display/EditBanners';
+import { StrapiHelper }              from '../../utils/StrapiHelper';
+import EditDescription               from '../../web_components/event/display/EditDescription';
+import EditDates                     from '../../web_components/event/display/EditDates';
+import EditLocation                  from '../../web_components/event/display/EditLocation';
+import EditImageC, { EditImage }     from '../../web_components/event/display/EditImage';
+import EditBannersC, { EditBanners } from '../../web_components/event/display/EditBanners';
+import { RGA }                       from '../../utils/misc/ga';
 
 export interface EventEditInformationsProps {
     event: StrapiEvent;
@@ -88,8 +89,10 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
         const image = await this.state.image_ref.get_image(message);
         const banners = await this.state.banners_ref.get_banners(message);
 
-        console.log(image, banners, location);
-
+        RGA.event({
+            category: 'Event',
+            action: 'Submit Event Modification'
+        });
         sign(this.props.web3, this.props.coinbase, [
                 {
                     type: 'string',
@@ -144,6 +147,10 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
                     maxCount: 3,
                 });
                 message.success(this.props.t('event_edit_informations_upload_success'));
+                RGA.event({
+                    category: 'Event',
+                    action: 'Event Modification Success',
+                });
 
                 this.props.resetEvent();
                 this.props.resetCoinbase(this.props.coinbase);
@@ -159,6 +166,11 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
                     maxCount: 3,
                 });
                 message.error(this.props.t('event_edit_informations_upload_error'));
+                RGA.event({
+                    category: 'Event',
+                    action: 'Event Modification Error',
+                    value: 5
+                });
             }
         }).catch((e: Error): void => {
             this.setState({
@@ -170,6 +182,11 @@ class EventEditInformations extends React.Component<MergedEventEditInformationsP
                 maxCount: 3,
             });
             message.error(this.props.t('event_edit_informations_upload_error'));
+            RGA.event({
+                category: 'Event',
+                action: 'Event Modification Error',
+                value: 5
+            });
         });
 
     }
