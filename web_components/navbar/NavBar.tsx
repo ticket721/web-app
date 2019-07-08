@@ -1,7 +1,7 @@
 import * as React                                                        from 'react';
 import { Layout, Menu, Icon, Popover, Skeleton, Typography, Breadcrumb } from 'antd';
 import Logo                                                              from '@static/assets/ticket721/light.svg';
-import VideoCover                                                        from 'react-video-cover';
+import bgink from './bgink.mp4';
 import { Account }            from 'ethvtx/lib/state/accounts';
 import * as GeoPattern        from 'geopattern';
 import Router                 from 'next/router';
@@ -167,13 +167,12 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                             zIndex: 0
                         }}
                     >
-                        <VideoCover
-                            videoOptions={{
-                                src: 'http://localhost:1337/uploads/5bbc7b75c2e44f5a89ebe9e282be65a6.mp4',
-                                autoPlay: true,
-                                loop: true,
-                                muted: true
-                            }}
+                        <video
+                            src={bgink}
+                            autoPlay={true}
+                            loop={true}
+                            muted={true}
+                            height={window.innerHeight}
                         />
                     </div>
 
