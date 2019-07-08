@@ -54,15 +54,15 @@
     "fund_withdrawal_waiting_button": "Withdrawal in progress ...",
     "fund_withdrawal_final_button": "Withdrawal succesful !",
 
-    "action_type_title_mint": "\uD83D\uDCB0 Ticket Purchase",
-    "action_type_title_sale": "\uD83C\uDFE6 Sale Open",
-    "action_type_title_sale_close": "⛔️ Sale Closed",
-    "action_type_title_buy": "\uD83D\uDCB0 Marketplace Ticket Purchase",
-    "action_type_title_transfer": "➡️ Transfer",
-    "action_type_title_approval": "✅ Approval",
-    "action_type_title_approval_for_all": "✅ Approval for All",
-    "action_type_title_event": "\uD83C\uDD95 Event Creation",
-    "action_type_title_new_admin": "\uD83C\uDD95 New Admin",
+    "action_type_title_mint": "Ticket Purchase",
+    "action_type_title_sale": "Sale Open",
+    "action_type_title_sale_close": "Sale Closed",
+    "action_type_title_buy": "Marketplace Ticket Purchase",
+    "action_type_title_transfer": "Transfer",
+    "action_type_title_approval": "Approval",
+    "action_type_title_approval_for_all": "Approval for All",
+    "action_type_title_event": "Event Creation",
+    "action_type_title_new_admin": "New Admin",
 
     "ticket_informations_title": "Tickets",
     "characs_title": "Characteristics",
@@ -93,5 +93,7 @@
     "edit_location_title": "Event Location",
     "event_edit_informations_save": "Save",
     "event_edit_informations_upload_error": "Uploading Error",
-    "event_edit_informations_upload_success": "Successful Upload"
+    "event_edit_informations_upload_success": "Successful Upload",
+
+    "create_event": "Create Event"
 }

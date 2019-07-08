@@ -6,6 +6,7 @@ import {
 import { theme }             from '../../utils/theme';
 import { StrapiQueuedEvent } from '../../utils/strapi/queuedevent';
 import { StrapiEvent }       from '../../utils/strapi/event';
+import { I18N, I18NProps }   from '../../utils/misc/i18n';
 
 const {
     Sider,
@@ -19,6 +20,8 @@ export interface EventsListSiderProps {
     updateSelection: (key: string) => void;
 }
 
+type MergedEventsListSiderProps = EventsListSiderProps & I18NProps;
+
 interface EventsListSiderState {
     total: number;
     total_qe: number;
@@ -26,7 +29,7 @@ interface EventsListSiderState {
     first_qe: string;
 }
 
-export default class EventsListSider extends React.Component<EventsListSiderProps, EventsListSiderState> {
+class EventsListSider extends React.Component<MergedEventsListSiderProps, EventsListSiderState> {
 
     state: EventsListSiderState = {
         total: null,
@@ -135,7 +138,7 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
 
         const create_event = <Menu.Item key='create' style={{backgroundColor: theme.dark2, color: theme.white, marginTop: 24, border: 'none'}}>
             <Icon type='plus' />
-            <span>Create event</span>
+            <span>{this.props.t('create_event')}</span>
         </Menu.Item>;
 
         const events = [];
@@ -182,3 +185,5 @@ export default class EventsListSider extends React.Component<EventsListSiderProp
     }
 
 }
+
+export default I18N.withNamespaces(['events'])(EventsListSider);
