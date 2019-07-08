@@ -82,7 +82,7 @@ class TicketActivity extends React.Component<MergedTicketActivityProps> {
                 }
                 
                 .sale_link {
-                    color: ${theme.green};
+                    color: ${theme.greendarker0};
                 }
                 
                 .sale_link:hover {

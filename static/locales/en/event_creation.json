@@ -1,11 +1,11 @@
 {
-    "sell_strategy_title": "\uD83D\uDCB0 Sell Strategy",
-    "marketplace_strategy_title": "\uD83C\uDFE6 Marketplace Strategy",
-    "transfer_strategy_title": "\uD83D\uDD01 Transfer Strategy",
-    "informations_title": "ℹ️ Informations",
+    "sell_strategy_title": "Sell Strategy",
+    "marketplace_strategy_title": "Marketplace Strategy",
+    "transfer_strategy_title": "Transfer Strategy",
+    "informations_title": "Informations",
 
     "namedesc_title": "Name & Description",
-    "name_title": "\uD83C\uDFF7 Name",
+    "name_title": "Name",
     "description_title": "\uD83D\uDCCB Description",
     "name_description": "This is the name you give to your event",
     "name_placeholder": "Input desired name",
@@ -15,15 +15,15 @@
     "description_length_limit": "Limit of 1000 characters reached",
 
     "location_dates_title": "Location & Dates",
-    "location_title": "\uD83D\uDEF0 Location",
+    "location_title": "Location",
     "location_description": "This is the physical address where your event will take place",
     "dates_title": "\uD83D\uDCC5 Dates",
     "dates_description": "The time range when your event is happening. Try behing consistent with your sale end.",
 
     "images_title": "Images & Banners",
-    "banners_title": "\uD83D\uDDBC Banners",
+    "banners_title": "Banners",
     "banners_description": "Banners are going to be shown in a carousel on the event page. You can add up to 10 banner images for one event. use 1200x400 images for best result !",
-    "image_title": "\uD83D\uDDBC Image",
+    "image_title": "Image",
     "image_description": "This image is your event's image, that will be used to identify the event and the tickets. Use a square image !",
 
     "button_next": "Next",

@@ -1,5 +1,12 @@
 {
-    "placeholder": "Placeholder",
-    "logout": "Deconnection",
-    "wallet": "Mon Wallet"
+    "manage_events": "Gestion des événements",
+    "marketplace": "Marketplace",
+    "logout": "Déconnexion",
+    "wallet": "Mon Wallet",
+    "event": "Événement",
+    "events": "Gestion des événements",
+    "account": "Compte",
+    "_error": "Erreur",
+    "ticket": "Ticket",
+    "home": "Accueil"
 }

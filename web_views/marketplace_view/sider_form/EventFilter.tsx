@@ -342,7 +342,7 @@ class EventFilter extends React.Component<MergedEventFilterProps, EventFilterSta
                                 <Input
                                     style={{width: '70%'}}
                                     value={this.state.event_name}
-                                    placeholder={'Event Name'}
+                                    placeholder={this.props.t('filter_event_name')}
                                     onChange={this.on_name_change}
                                     allowClear={true}
                                 />
