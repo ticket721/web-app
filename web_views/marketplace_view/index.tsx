@@ -107,7 +107,7 @@ class MarketplaceView extends React.Component<MergedMarketplaceViewProps, Market
 
         events = events.concat(this.state.events);
 
-        if (!this.props.coinbase) {
+        if (this.props.coinbase === undefined) {
             return <FullPageLoader message={this.props.t('marketplace_loading')}/>;
         }
 
