@@ -7,6 +7,8 @@ import Ticket                 from '../../web_components/ticket';
 import PriceWidget            from './PriceWidget';
 import { NoTicketsForFilter } from '../message/no_tickets_for_filter';
 import { theme }              from '../../utils/theme';
+import { AppState }           from '../../utils/redux/app_state';
+import { connect }            from 'react-redux';
 
 export interface SaleListProps {
     coinbase: StrapiAddress;
@@ -16,7 +18,13 @@ export interface SaleListProps {
     page_size: number;
 }
 
-export default class SaleList extends React.Component<SaleListProps> {
+export interface SaleListRState {
+    r_coinbase: string;
+}
+
+type MergedSaleListProps = SaleListProps & SaleListRState;
+
+class SaleList extends React.Component<MergedSaleListProps> {
 
     render_item = (ticket: any): React.ReactNode => {
         if (ticket.loader) {
@@ -35,7 +43,7 @@ export default class SaleList extends React.Component<SaleListProps> {
         return <List.Item style={{marginTop: 62, height: 250, width: 500 + 12 + 150}}>
             <div style={{height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <div style={{zIndex: 1}}>
-                <Ticket ticket={ticket.data} coinbase={this.props.coinbase.address} show_marketplace_link={false}/>
+                <Ticket ticket={ticket.data} coinbase={this.props.coinbase ? this.props.coinbase.address : this.props.r_coinbase} show_marketplace_link={false}/>
                 </div>
                 <style>{`
                     #info_card .ant-card-body {
@@ -92,3 +100,9 @@ export default class SaleList extends React.Component<SaleListProps> {
         />;
     }
 }
+
+const mapStateToProps = (state: AppState): SaleListRState => ({
+    r_coinbase: state.vtxconfig.coinbase
+});
+
+export default connect(mapStateToProps)(SaleList);
