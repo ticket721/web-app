@@ -33,6 +33,15 @@ class PriceWidget extends React.Component<MergedPriceWidgetProps> {
 
         return <div>
             <Card id={'info_card'} style={{marginLeft: 12, height: 194, width: 150, backgroundColor: theme.dark2, borderRadius: 6, borderColor: theme.dark2, boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'}}>
+                <style>{`
+                    #info_card .ant-statistic-title {
+                        color: ${theme.white};
+                    }
+                    
+                    #info_card .ant-statistic-content {
+                        color: ${theme.white};
+                    }
+                `}</style>
                 {left > 0
 
                     ?

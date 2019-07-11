@@ -104,9 +104,14 @@ class EventCardStatsCarousel extends React.Component<MergedEventCardStatsCarouse
                         background-color: ${theme.dark3};
                     }
                     
-                    #event_stats_carousel .ant-statistic {
+                    #event_stats_carousel .ant-statistic-title {
                         color: ${theme.white};
                     }
+                    
+                    #event_stats_carousel .ant-statistic-content {
+                        color: ${theme.white};
+                    }
+                    
                 `}</style>
                 <Divider
                     style={{
