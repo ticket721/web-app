@@ -37,6 +37,8 @@ import {
 import { LWManager }                    from '../LWManager';
 import { VtxconfigAuthorizeAndSetWeb3 } from 'ethvtx/lib/vtxconfig/actions/actions';
 import { RGA }                          from '../../misc/ga';
+import { fetch_height }                 from '../strapi_cache/polls';
+import { StrapiCacheSetHeight }         from '../strapi_cache/actions';
 
 /**
  * Called when the app starts. Builds Strapi and sets it in the store.
@@ -54,6 +56,8 @@ function* onAppStart(action: IStart): SagaIterator {
     let strapi;
     try {
         strapi = new Strapi(state.app.config.strapi_endpoint);
+        const server_height = yield call(fetch_height, strapi);
+        yield put(StrapiCacheSetHeight(server_height));
     } catch (e) {
         return yield put(Status(AppStatus.CannotReachServer));
     }
