@@ -41,7 +41,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
 
     state: NavBarState = {
         dropDownOpen: false,
-        collapseOpen: true
+        collapseOpen: false
     };
 
     constructor(props: MergedNavBarProps) {
@@ -148,9 +148,7 @@ export default class NavBar extends React.Component<MergedNavBarProps, NavBarSta
                 }
                 `}</style>
                 <Sider
-                    collapsible={true}
-                    collapsed={this.state.collapseOpen}
-                    onCollapse={this.toggleNavbar}
+                    collapsed={false}
                 >
                     <Link href='/'>
                         <div className='logo' style={{cursor: 'pointer'}}>

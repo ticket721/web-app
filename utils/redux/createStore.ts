@@ -36,7 +36,7 @@ export function configureStore(): Store<State> {
         uppy: ReduxStore.reducer
     });
     const sagaMiddleware = createSagaMiddleware();
-    const composer = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+    const composer = global.window && global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && process.env.NODE_ENV !== 'production' ? global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
     const store: Store<AppState> = createStore(
         reducers,
