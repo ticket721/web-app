@@ -16,7 +16,7 @@ const height_fetcher_poll: VtxPollCb = async (state: AppState, emit: Dispatch, n
 
     try {
 
-        const height = await fetch_height(state);
+        const height = await fetch_height(state.app.strapi);
 
         if (height > state.strapi_cache.height) {
             emit(StrapiCacheSetHeight(height));
