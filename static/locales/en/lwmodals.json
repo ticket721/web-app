@@ -2,10 +2,10 @@
     "lwunlock_title": "Unlock your wallet",
     "lwunlock_password": "Password",
     "lwunlock_password_placeholder": "Input Wallet Password",
-    "lwunlock_password_warning": "Please input the password to unlock your wallet !",
+    "lwunlock_password_warning": "Please input the password to unlock your wallet",
     "lwunlock_ok_button": "Unlock",
     "lwunlock_cancel_button": "Cancel",
-    "lwunlock_invalid_password": "Invalid Password !",
+    "lwunlock_invalid_password": "Invalid Password",
 
     "lwattempts_from": "from",
     "lwattempts_to": "to",

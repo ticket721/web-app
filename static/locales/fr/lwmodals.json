@@ -3,7 +3,7 @@
     "lwunlock_password": "Mot de passe",
     "lwunlock_password_placeholder": "Entrez le mot de passe",
     "lwunlock_password_warning": "Veuillez entrer le mot de passe pour dévérouiller votre Wallet",
-    "lwunlock_ok_button": "Dévérouiller",
+    "lwunlock_ok_button": "Déverrouiller",
     "lwunlock_cancel_button": "Annuler",
     "lwunlock_invalid_password": "Mot de passe non valide",
 

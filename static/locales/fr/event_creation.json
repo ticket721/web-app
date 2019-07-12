@@ -22,7 +22,7 @@
 
     "images_title": "Images & Bannières",
     "banners_title": "Bannières",
-    "banners_description": "Les bannières seront sur la page de votre événement. Utilisez une résolution de 1200x400 pour de meilleurs résultats !",
+    "banners_description": "Les bannières seront sur la page de votre événement. Utilisez une résolution de 1200x400 pour de meilleurs résultats",
     "image_title": "Image",
     "image_description": "L'image représentant votre événement. Utilisez une image carrée.",
 
@@ -34,7 +34,7 @@
 
     "explications_title": "Prochaine étapes",
     "explications_description": "Une transaction va avoir lieu sur la Blockchain Ethereum. Cettre transaction va contenir toutes les informations sur la vente et la revente de vos tickets. Veuillez attendre la validation finale pour quitter la page.",
-    "explications_agree": "J'ai bien compris !",
+    "explications_agree": "J'ai bien compris",
 
     "transaction_title": "Transaction - Déploiement sur Ξthereum",
     "start_deploy": "Cliquez pour déployer l'événement sur Ξthereum",
@@ -43,10 +43,10 @@
     "transaction_confirmed_waiting_upload": "Transaction confirmée, envoi des informations ...",
     "upload_done_waiting_response": "Envoi fini, attente de réponse ...",
     "upload_error": "Une erreur a eu lieu lors du déploiement",
-    "process_done": "Fini !",
-    "transaction_failed": "Transaction échouée !",
+    "process_done": "Fini",
+    "transaction_failed": "Transaction échouée",
     "waiting_transaction": "En attente de l'envoi de la transaction ...",
-    "deploy_success": "Vous avez réussi le déploiement !",
+    "deploy_success": "Vous avez réussi le déploiement",
     "see_event": "Voir votre événement",
     "waiting_for_fetch": "Événement en cours de récupération ...",
     "button_deploy": "Déployer"
