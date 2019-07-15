@@ -23,22 +23,15 @@ import {
 import { call, put, select, takeEvery }                                        from 'redux-saga/effects';
 import { AppModuleReady, AppState, AppStatus, AuthStatus, WalletProviderType } from '../app_state';
 import Strapi                                                                  from 'strapi-sdk-javascript';
-import { RxDatabase }                   from 'rxdb';
-import { getRxDB }                      from '../../rxdb';
-import {
-    VtxconfigReset,
-    VtxconfigSetWeb3
-}                                       from 'ethvtx/lib/actions';
-import Web3                             from 'web3';
-import {
-    ContractsAddSpec,
-    ContractsNew
-}                                       from 'ethvtx/lib/actions';
-import { LWManager }                    from '../LWManager';
-import { VtxconfigAuthorizeAndSetWeb3 } from 'ethvtx/lib/vtxconfig/actions/actions';
-import { RGA }                          from '../../misc/ga';
-import { fetch_height }                 from '../strapi_cache/polls';
-import { StrapiCacheSetHeight }         from '../strapi_cache/actions';
+import { RxDatabase }                                                          from 'rxdb';
+import { getRxDB }                                                             from '../../rxdb';
+import { ContractsAddSpec, ContractsNew, VtxconfigReset, VtxconfigSetWeb3 }    from 'ethvtx/lib/actions';
+import Web3                                                                    from 'web3';
+import { LWManager }                                                           from '../LWManager';
+import { VtxconfigAuthorizeAndSetWeb3 }                                        from 'ethvtx/lib/vtxconfig/actions/actions';
+import { RGA }                                                                 from '../../misc/ga';
+import { fetch_height }                                                        from '../strapi_cache/polls';
+import { StrapiCacheSetHeight }                                                from '../strapi_cache/actions';
 
 /**
  * Called when the app starts. Builds Strapi and sets it in the store.
@@ -59,11 +52,11 @@ function* onAppStart(action: IStart): SagaIterator {
         const server_height = yield call(fetch_height, strapi);
         yield put(StrapiCacheSetHeight(server_height));
     } catch (e) {
+        yield put(SetWalletProvider(WalletProviderType.None));
         return yield put(Status(AppStatus.CannotReachServer));
     }
 
     yield put(SetStrapi(strapi));
-
     yield put(Ready(AppModuleReady.App));
 
 }
@@ -109,26 +102,28 @@ export function* onSetWalletProvider(action: ISetWalletProvider): SagaIterator {
 
     const rxdb: RxDatabase = yield call(getRxDB);
 
-    let config = yield rxdb.collections.config.find().exec();
-
-    if (config.length === 0) {
-        yield rxdb.collections.config.insert({
-            wallet_provider: action.provider
-        });
+    let config;
+    try {
         config = yield rxdb.collections.config.find().exec();
-    }
-
-    if (config[0].wallet_provider !== action.provider) {
-
-        yield config[0].update({
-            $set: {
+        if (config.length === 0) {
+            yield rxdb.collections.config.insert({
                 wallet_provider: action.provider
-            }
-        });
+            });
+            config = yield rxdb.collections.config.find().exec();
+        }
 
+        if (config[0].wallet_provider !== action.provider) {
+
+            yield config[0].update({
+                $set: {
+                    wallet_provider: action.provider
+                }
+            });
+
+        }
+    } catch (e) {
+        console.error('Store not ready to store config');
     }
-
-    const state: AppState = yield select();
 
     switch (action.provider) {
         case WalletProviderType.InjectedProvider: {
@@ -154,7 +149,6 @@ export function* onSetWalletProvider(action: ISetWalletProvider): SagaIterator {
             yield put(SetAuthStatus(AuthStatus.None));
             yield put(SetToken(null, false));
             yield put(SetLocalWallet(undefined));
-            state.app.strapi.clearToken();
             yield put(VtxconfigSetWeb3(null));
             yield put(VtxconfigReset());
             break;
@@ -355,7 +349,7 @@ function* onSetToken(action: ISetToken): SagaIterator {
             });
         }
 
-        state.app.strapi.setToken(action.token);
+        state.app.strapi.setToken(action.token, true);
 
     } else if (action.token === null) {
 
