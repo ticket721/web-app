@@ -5,6 +5,7 @@ import { I18NProps }                                 from '@utils/misc/i18n';
 import moment                                        from 'moment';
 import { theme }                                     from '../../../utils/theme';
 import { RGA }                                       from '../../../utils/misc/ga';
+import { Markdown }                                  from 'grommet';
 
 const Countdown = Statistic.Countdown;
 
@@ -30,40 +31,39 @@ export default class ILWSignAttempt extends React.Component<MergedLWSignAttemptP
                     #sign_infos_modal .ant-list-split .ant-list-item {
                         border-bottom: 1px solid ${theme.lightergrey};
                     }
+                    #sign_info_modal ant-list-item-meta {
+                        border-top: none;
+                    }
                 `}
                 </style>
-                    <List.Item.Meta
-                        style={{
-                            border: null,
-                            padding: 12
-                        }}
-                        title={
-                            <Typography.Text
-                                style={{fontSize: 16, fontWeight: 400, color: theme.primary}}
-                            >
-                                {item.name}
-                            </Typography.Text>
-                        }
-                        description={
-                            <div
-                                style={{marginLeft: 48}}
-                            >
-                                <Typography.Text
-                                    style={{fontSize: 26, color: theme.dark2}}
-                                >
+                <List.Item.Meta
+                    style={{
+                        border: null,
+                        padding: 12
+                    }}
+                    title={
+                        <Typography.Text
+                            style={{fontSize: 16, fontWeight: 400, color: theme.primary}}
+                        >
+                            {item.name}
+                        </Typography.Text>
+                    }
+                    description={
+                        <div
+                            style={{marginLeft: 48}}
+                        >
+                                <Markdown style={{wordBreak: 'break-word'}}>
                                     {moment(item.value).format('MMMM Do YYYY, h:mm:ss a')}
-                                </Typography.Text>
-                            </div>
-                        }
-                    />
+                                </Markdown>
+                        </div>
+                    }
+                />
             </List.Item>;
         }
         return <List.Item>
             <List.Item.Meta
                 style={{
                     border: null,
-                    borderTop: `1px solid ${theme.lightergrey}`,
-                    borderBottom: null,
                     padding: 12
                 }}
                 title={
@@ -77,11 +77,7 @@ export default class ILWSignAttempt extends React.Component<MergedLWSignAttemptP
                     <div
                         style={{marginLeft: 48}}
                     >
-                        <Typography.Text
-                            style={{fontSize: 26, color: theme.dark2}}
-                        >
-                            {item.value}
-                        </Typography.Text>
+                        <Markdown style={{wordBreak: 'break-word'}}>{item.value}</Markdown>
                     </div>
                 }
             />

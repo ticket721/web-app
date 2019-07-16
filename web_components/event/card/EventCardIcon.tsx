@@ -61,14 +61,14 @@ class EventCardIcon extends React.Component<MergedEventCardProps> {
         return <div>
             <style>
                 {`
-                        #ticket_body_${this.props.event.address.address} .ant-card {
-                            background-image: ${GeoPattern.generate(this.props.event.address.address).toDataUrl()};
+                        #event_body_${this.props.event.address.address} .ant-card {
+                            background-image: ${GeoPattern.generate(this.props.event.address.address, {color: theme.primary}).toDataUrl()};
                             border: none;
                         }
                     `}
             </style>
             <div
-                id={`ticket_body_${this.props.event.address.address}`}
+                id={`event_body_${this.props.event.address.address}`}
                 style={{
                     float: 'left',
                     marginTop: -85,

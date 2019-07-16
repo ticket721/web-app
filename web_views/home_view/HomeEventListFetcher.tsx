@@ -56,7 +56,7 @@ class HomeEventListFetcher extends React.Component<MergedHomeEventListFetcherPro
     get_hash = (props: MergedHomeEventListFetcherProps): string =>
         keccak256(`${props.name}`).toString('hex')
 
-    shouldComponentUpdate(nextProps: Readonly<HomeEventListFetcherProps>, nextState: Readonly<HomeEventListFetcherState>, nextContext: any): boolean {
+    shouldComponentUpdate(nextProps: Readonly<MergedHomeEventListFetcherProps>, nextState: Readonly<HomeEventListFetcherState>, nextContext: any): boolean {
         if (this.get_hash(nextProps) !== nextState.search_hash) {
             this.setState({
                 search_hash: this.get_hash(nextProps),
@@ -210,7 +210,7 @@ class HomeEventListFetcher extends React.Component<MergedHomeEventListFetcherPro
                                 </div>;
                             } else {
                                 return <div style={{padding: 12}}>
-                                    <Typography.Text style={{color: theme.dark2, fontSize: 42, fontWeight: 100}}>{count[0]} Results Found</Typography.Text>
+                                    <Typography.Text style={{color: theme.dark2, fontSize: 42, fontWeight: 100}}>{count[0]} {this.props.t('homepage_results')}</Typography.Text>
                                 </div>;
                             }
                         }

@@ -23,7 +23,14 @@ if (typeof require !== 'undefined') {
 
 module.exports = {
     webpack(config) {
-        config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+
+        config.plugins.push(new webpack.EnvironmentPlugin({
+            strapi_endpoint: localEnv.strapi_endpoint,
+            google_api_token: localEnv.google_api_token,
+            google_analytics_token: localEnv.google_analytics_token,
+            tx_explorer: localEnv.tx_explorer,
+            NODE_ENV: localEnv.NODE_ENV
+        }));
 
         return config
     },

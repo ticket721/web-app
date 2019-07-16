@@ -38,17 +38,13 @@ class EventsListSider extends React.Component<MergedEventsListSiderProps, Events
         first_qe: null
     };
 
-    constructor(props: EventsListSiderProps) {
-        super(props);
-    }
-
     onSelect = ({key}: any): void => {
         this.props.updateSelection(key);
     }
 
     shouldComponentUpdate(nextProps: Readonly<EventsListSiderProps>, nextState: Readonly<EventsListSiderState>, nextContext: any): boolean {
 
-        if (nextProps.coinbase !== undefined) {
+        if (nextProps.coinbase) {
             const sorted_queuedevents = nextProps.coinbase.queuedevents.sort((l: StrapiQueuedEvent, r: StrapiQueuedEvent): number =>
                 new Date((r as any).updated_at).getTime() - new Date((l as any).updated_at).getTime());
             const sorted_events = nextProps.coinbase.events.sort((l: StrapiEvent, r: StrapiEvent): number =>
@@ -142,10 +138,10 @@ class EventsListSider extends React.Component<MergedEventsListSiderProps, Events
         </Menu.Item>;
 
         const events = [];
-        const sorted_queuedevents = this.props.coinbase.queuedevents.sort((l: StrapiQueuedEvent, r: StrapiQueuedEvent): number =>
-            new Date((r as any).updated_at).getTime() - new Date((l as any).updated_at).getTime());
-        const sorted_events = this.props.coinbase.events.sort((l: StrapiEvent, r: StrapiEvent): number =>
-            new Date((r as any).updated_at).getTime() - new Date((l as any).updated_at).getTime());
+        const sorted_queuedevents = this.props.coinbase ? this.props.coinbase.queuedevents.sort((l: StrapiQueuedEvent, r: StrapiQueuedEvent): number =>
+            new Date((r as any).updated_at).getTime() - new Date((l as any).updated_at).getTime()) : [];
+        const sorted_events = this.props.coinbase ? this.props.coinbase.events.sort((l: StrapiEvent, r: StrapiEvent): number =>
+            new Date((r as any).updated_at).getTime() - new Date((l as any).updated_at).getTime()) : [];
 
         events.push(create_event);
 

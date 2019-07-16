@@ -1,7 +1,8 @@
 import * as React       from 'react';
 import { Card }         from 'antd';
 import { StrapiUpload } from '../../../utils/strapi/strapiupload';
-import * as GeoPattern           from 'geopattern';
+import * as GeoPattern  from 'geopattern';
+import { theme }        from '../../../utils/theme';
 
 export interface SquaredEventIconProps {
     image: StrapiUpload;
@@ -12,7 +13,7 @@ export interface SquaredEventIconProps {
 export default class QuaredEventIcon extends React.Component<SquaredEventIconProps> {
     render(): React.ReactNode {
 
-        const pattern = GeoPattern.generate(this.props.address).toDataUrl();
+        const pattern = GeoPattern.generate(this.props.address, {color: theme.primary}).toDataUrl();
 
         return <div id={`squared_event_icon_${this.props.address}`}>
             <style>{`
