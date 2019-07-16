@@ -130,7 +130,7 @@ class Ticket extends React.Component<MergedTicketProps, TicketState> {
 
     render(): React.ReactNode {
 
-        const pattern = GeoPattern.generate(this.props.event.address.address).toDataUrl();
+        const pattern = GeoPattern.generate(this.props.event.address.address, {color: theme.primary}).toDataUrl();
 
         const tags = [<Tag style={{color: theme.dark2}} color={theme.bwhite} key={0}>🎫 {this.props.ticket.ticket_id}</Tag> as React.ReactNode].concat(
             this.props.ticket_infos
