@@ -62,7 +62,7 @@ export default class TicketPreview extends React.Component<MergedTicketPreviewPr
 
     render(): React.ReactNode {
 
-        const pattern = GeoPattern.generate(this.props.event_address).toDataUrl();
+        const pattern = GeoPattern.generate(this.props.event_address, {color: theme.primary}).toDataUrl();
         const date = this.props.event_begin ? moment(this.props.event_begin).format('DD MMM YYYY') : null;
         const tags = this.props.infos ?
             this.props.infos.map((info: string, idx: number): React.ReactNode =>
